@@ -11,6 +11,7 @@ The author asked for a smaller looping typed line, no exact results or grades on
 - Framing: identity, research statement, about, CV summary and the GitHub profile README now lead with computational design and mechanics; concrete shells are the current test case.
 - Projects menu: "Work" is renamed "Projects". It has a sub-menu listing every published project, built from the content collection, so a new `src/content/projects/*.mdx` appears on the next build (`draft: true` keeps it hidden). In the sidebar it starts open on project pages; on phones it drops down and closes on Escape or an outside click.
 - `docs/EDITING.md` and the README follow the new framing.
+- Sidebar labels end in a faint code-style closing tag (`Home />`), as the author asked; it lights up on hover and on the current page. It is decorative (`aria-hidden`) and hidden in the phone bar, where space is short. The ORCID, GitHub and LinkedIn links take the same mark.
 - Tests: the privacy check also looks for the withheld numbers; new tests cover the menu and the looping, pausable typed line.
 
 ### Checks

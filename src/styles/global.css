@@ -223,6 +223,8 @@
   .nav a:hover { color: var(--ink); background: var(--rule-soft); }
   .nav a[aria-current='page'] { color: var(--ink); background: var(--accent-wash); }
   .nav a[aria-current='page'] .i { color: var(--accent-ink); }
+  /* code-style closing tag after each label; sidebar only, decorative */
+  .site-header .ctag { display: none; }
   .actions { display: flex; align-items: center; gap: 0.5rem; }
   /* Projects sub-menu: drops below the top bar on small screens, nests in the sidebar on desktop */
   .navgroup { display: inline-flex; align-items: center; }
@@ -278,6 +280,10 @@
     .nav a { display: flex; align-items: center; gap: 0.75em; padding: 0.55rem 0.75rem; }
     .nav .ico { display: block; flex: none; width: 1.05rem; height: 1.05rem; opacity: 0.8; }
     .nav a .i { order: 3; margin-left: auto; }
+    .site-header .ctag { display: inline; margin-left: 0.3em; font-family: var(--mono); font-size: 0.78em; letter-spacing: -0.04em; color: var(--ink-3); opacity: 0.7; transition: color 0.15s, opacity 0.15s; }
+    .nav a .ctag { margin-left: -0.45em; }
+    .nav a:hover .ctag, .nav a[aria-current='page'] .ctag { color: var(--accent-ink); opacity: 1; }
+    .site-header .social .ctag { margin-left: 0.15em; font-size: 1em; }
     .nav a[aria-current='page']::before { content: ''; position: absolute; left: 0; top: 0.4rem; bottom: 0.4rem; width: 2px; background: var(--accent); }
     .nav a[aria-current='page'] .ico { color: var(--accent-ink); opacity: 1; }
     .navgroup { display: grid; grid-template-columns: 1fr auto; align-items: center; }
@@ -288,7 +294,7 @@
     .subnav a[aria-current='page']::before { display: none; }
     .actions { margin-top: auto; padding-top: 2rem; }
     .actions .pill { flex: 1; justify-content: center; }
-    .site-header .social { display: flex; flex-wrap: wrap; gap: 0.3rem 1rem; list-style: none; padding: 1rem 0 0; margin-top: 1rem; border-top: 1px solid var(--rule-soft); font-family: var(--mono); font-size: 0.72rem; }
+    .site-header .social { display: flex; flex-wrap: wrap; gap: 0.3rem 0.7rem; list-style: none; padding: 1rem 0 0; margin-top: 1rem; border-top: 1px solid var(--rule-soft); font-family: var(--mono); font-size: 0.72rem; }
     .site-header .social a { color: var(--ink-3); text-decoration: none; }
     .site-header .social a:hover { color: var(--accent-ink); }
   }
