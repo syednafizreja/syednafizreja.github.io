@@ -21,6 +21,7 @@ for (const path of pages) {
 const PRIVATE = ['RGVuY28=', 'Kzg2', 'c25yaGFzaWI='].map((b) => Buffer.from(b, 'base64').toString());
 
 test('no visible draft markers or private details', async ({ page }) => {
+  test.setTimeout(90_000);
   for (const path of pages) {
     await page.goto(path);
     const text = await page.locator('body').innerText();

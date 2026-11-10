@@ -9,37 +9,31 @@ import cell from '../assets/models/shellform-cell.json';
 const projects = (await getCollection('projects', (p) => !p.data.draft)).sort((a, b) => a.data.number.localeCompare(b.data.number));
 const pubs = await getCollection('publications');
 const featured = site.featured.map((id) => projects.find((p) => p.id === id)).filter((p) => p !== undefined);
+
+// Each phrase already describes the work elsewhere on the site (identity line, ShellForm, contact page).
+const words = ['efficient shells', 'seismic-aware forms', 'low-carbon structures'];
 ---
 
 <Base description={site.identity}>
-  <section class="hero">
-    <div class="wrap hero-grid">
-      <div>
-        <p class="chip"><span class="dot" aria-hidden="true"></span><span><strong>Now:</strong> {site.currently}</span></p>
-        <span class="eyebrow">{site.job_title} · {site.location}</span>
-        <h1><span class="grad">{site.name}</span></h1>
+  <section class="hero" aria-labelledby="hero-h">
+    <canvas class="mesh" data-mesh aria-hidden="true"></canvas>
+    <div class="wrap">
+      <div class="railed hero-in">
+        <p class="marker"><span class="n">00</span>Start</p>
+        <h1 id="hero-h" class="statement">
+          <span class="l">Hi, I am <span class="who">{site.name}</span>.</span>
+          <span class="l">I <em class="serif">design</em> and <span class="mono">analyse</span></span>
+          <span class="l rot-line"><span class="sr-only">{words[0]}.</span><span class="rot" aria-hidden="true" data-rotate={JSON.stringify(words)}>{words[0]}</span><span class="caret" aria-hidden="true"></span></span>
+        </h1>
         <p class="identity">{site.identity}</p>
+        <p class="chip"><span class="dot" aria-hidden="true"></span><span><strong>Now:</strong> {site.currently}</span></p>
         <div class="cta">
           <a class="btn primary" href="/work/">See the work <span class="arr" aria-hidden="true">→</span></a>
           <a class="btn" href="/research/">Research statement</a>
           <a class="btn" href={site.cv_pdf}>CV (PDF)</a>
         </div>
+        <a class="scroll-cue" href="#sig" aria-hidden="true" tabindex="-1"><span class="mouse"><span></span></span><span class="t">Scroll</span></a>
       </div>
-      <figure class="sheet" aria-label={`Wireframe of the ShellForm design cell: ${cell.span_m} m span, corner supports, rise to span ${cell.rise_ratio}.`}>
-        <span class="tick tl" aria-hidden="true"></span><span class="tick tr" aria-hidden="true"></span>
-        <span class="sheet-id" aria-hidden="true">S-00 · ShellForm design cell</span>
-        <canvas data-shell width="640" height="512" aria-hidden="true"></canvas>
-        <dl class="titleblock">
-          <div><dt>Span</dt><dd>{cell.span_m} m</dd></div>
-          <div><dt>Supports</dt><dd>{cell.supports}</dd></div>
-          <div><dt>Rise / span</dt><dd>{cell.rise_ratio.toFixed(2)}</dd></div>
-          <div><dt>S<sub>a</sub></dt><dd>{cell.sa_g} g</dd></div>
-          <div><dt>Thickness</dt><dd>{cell.thickness_mm.seismic} mm</dd></div>
-          <div><dt>Governs</dt><dd>{cell.governing.seismic}</dd></div>
-        </dl>
-      </figure>
-    </div>
-    <div class="wrap">
       <dl class="stats">
         <div><dt>concrete shells sized, gravity-only and seismic-aware</dt><dd>168</dd></div>
         <div><dt>pairs with less than 5 % carbon difference</dt><dd>79<small>/84</small></dd></div>
@@ -50,56 +44,73 @@ const featured = site.featured.map((id) => projects.find((p) => p.id === id)).fi
   </section>
 
   <section class="section wrap" aria-labelledby="sig">
-    <div class="section-head"><div><span class="idx">01 · Signature result</span><h2 id="sig">Does designing a shell for earthquakes cost carbon?</h2></div></div>
-    <div class="feature">
-      <div>
-        <ShellViewer />
-      </div>
-      <div class="prose">
-        <p>
-          For 168 sized concrete shells, I compared a gravity-only form with a form found under seismic load. In 79 of 84 pairs the
-          carbon differs by less than 5 %. Thickness is set by buckling or the minimum, not by the earthquake, so the shape changes
-          while the material barely does.
-        </p>
-        <dl class="callout">
-          <div><dt>gravity-only form</dt><dd>{cell.carbon_kgco2e_m2.gravity}</dd></div>
-          <div><dt>seismic-aware form</dt><dd>{cell.carbon_kgco2e_m2.seismic}</dd></div>
-        </dl>
-        <p class="muted small">kgCO₂e/m² for the cell shown, both {cell.thickness_mm.seismic} mm thick.</p>
-        <p><a class="btn" href="/work/shellform/">Read the ShellForm case study <span class="arr" aria-hidden="true">→</span></a></p>
+    <div class="railed">
+      <span class="ghost" aria-hidden="true">Shells</span>
+      <div class="section-head"><div><span class="idx">01 · Signature result</span><h2 id="sig">Does designing a shell for earthquakes cost carbon?</h2></div></div>
+      <div class="feature">
+        <div>
+          <ShellViewer />
+          <dl class="titleblock plate">
+            <div><dt>Span</dt><dd>{cell.span_m} m</dd></div>
+            <div><dt>Supports</dt><dd>{cell.supports}</dd></div>
+            <div><dt>Rise / span</dt><dd>{cell.rise_ratio.toFixed(2)}</dd></div>
+            <div><dt>S<sub>a</sub></dt><dd>{cell.sa_g} g</dd></div>
+            <div><dt>Thickness</dt><dd>{cell.thickness_mm.seismic} mm</dd></div>
+            <div><dt>Governs</dt><dd>{cell.governing.seismic}</dd></div>
+          </dl>
+        </div>
+        <div class="prose">
+          <p>
+            For 168 sized concrete shells, I compared a gravity-only form with a form found under seismic load. In 79 of 84 pairs the
+            carbon differs by less than 5 %. Thickness is set by buckling or the minimum, not by the earthquake, so the shape changes
+            while the material barely does.
+          </p>
+          <dl class="callout">
+            <div><dt>gravity-only form</dt><dd>{cell.carbon_kgco2e_m2.gravity}</dd></div>
+            <div><dt>seismic-aware form</dt><dd>{cell.carbon_kgco2e_m2.seismic}</dd></div>
+          </dl>
+          <p class="muted small">kgCO₂e/m² for the cell shown, both {cell.thickness_mm.seismic} mm thick.</p>
+          <p><a class="btn" href="/work/shellform/">Read the ShellForm case study <span class="arr" aria-hidden="true">→</span></a></p>
+        </div>
       </div>
     </div>
   </section>
 
   <section class="section wrap" aria-labelledby="sel">
-    <div class="section-head">
-      <div><span class="idx">02 · Projects</span><h2 id="sel">Selected work</h2></div>
-      <a href="/work/">All {projects.length} projects →</a>
+    <div class="railed">
+      <span class="ghost" aria-hidden="true">Work</span>
+      <div class="section-head">
+        <div><span class="idx">02 · Projects</span><h2 id="sel">Selected work</h2></div>
+        <a href="/work/">All {projects.length} projects →</a>
+      </div>
+      <ol class="index">
+        {featured.map((p) => <IndexRow project={p} />)}
+      </ol>
     </div>
-    <ol class="index">
-      {featured.map((p) => <IndexRow project={p} />)}
-    </ol>
   </section>
 
   <section class="section wrap" aria-labelledby="how">
-    <div class="section-head"><div><span class="idx">03 · Method</span><h2 id="how">How I work</h2></div></div>
-    <div class="now">
-      <div>
-        <span class="label">A · Check first</span>
-        <p>Every model is tested against a closed-form solution, a published benchmark or my own hand-designed thesis before it is used.</p>
-      </div>
-      <div>
-        <span class="label">B · State the limits</span>
-        <p>Each case study ends with what the work does not show: scope, assumptions and what is still pre-release.</p>
-      </div>
-      <div>
-        <span class="label">C · Open by default</span>
-        <p>Code, data and figures are public, tagged and archived, so every number on this site can be traced to a file.</p>
+    <div class="railed">
+      <span class="ghost" aria-hidden="true">Method</span>
+      <div class="section-head"><div><span class="idx">03 · Method</span><h2 id="how">How I work</h2></div></div>
+      <div class="now">
+        <div>
+          <span class="label">A · Check first</span>
+          <p>Every model is tested against a closed-form solution, a published benchmark or my own hand-designed thesis before it is used.</p>
+        </div>
+        <div>
+          <span class="label">B · State the limits</span>
+          <p>Each case study ends with what the work does not show: scope, assumptions and what is still pre-release.</p>
+        </div>
+        <div>
+          <span class="label">C · Open by default</span>
+          <p>Code, data and figures are public, tagged and archived, so every number on this site can be traced to a file.</p>
+        </div>
       </div>
     </div>
   </section>
 </Base>
 
 <script>
-  import '../scripts/hero';
+  import '../scripts/mesh';
 </script>

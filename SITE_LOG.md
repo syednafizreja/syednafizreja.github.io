@@ -1,5 +1,31 @@
 # Site log
 
+## 2026-11-10: hero and sidebar (v2)
+
+The author asked to combine the opening screen of yasio.dev with the layout of kabirmuzumdar.github.io. The composition and mechanics are borrowed; the logo, wording and look of both sites are not copied. Content is unchanged.
+
+### Decisions
+
+- Desktop (64rem and up): the header becomes a fixed left sidebar with the portrait, role, numbered navigation with icons, the Contact pill and theme toggle at the foot, then ORCID, GitHub and LinkedIn. Phones and tablets keep the top bar.
+- Home hero: a large three-line statement ("design" in Instrument Serif italic, "analyse" in Geist Mono), a "00 Start" marker on a left rail, a scroll cue, and the existing identity line, chip, buttons and four numbers.
+- Hero background: a seeded triangulated finite-element mesh on a 2D canvas (`src/scripts/mesh.ts`). It never moves by itself. Under a mouse or pen the nodes near the pointer deflect as under a point load and the elements around it take a stress-contour tint; it eases back when the pointer leaves. Touch and reduced motion get the still mesh. The loop runs only while something is moving and pauses off screen and in hidden tabs. It is decoration, not a result, and carries no numbers.
+- The rotating phrase types through its words once and stops on the first, so nothing keeps moving (WCAG 2.2.2). The status-dot ping runs four times and the scroll-cue wheel three times, then both stop.
+- The line holding the typed phrase has a fixed height and `contain: size layout`; without it every keystroke forced a page-wide layout (about 110 ms each on a throttled phone profile).
+- A thin ring trails the mouse and widens over links. The system cursor is never hidden; the ring is off for touch and reduced motion.
+- The ShellForm drawing title block moved from the hero to a plate under the 3D viewer. The turning wireframe (`src/scripts/hero.ts`) is removed.
+- Home sections 01 to 03 sit on the same rail with diamond nodes and a large outlined word behind each heading (hidden on phones).
+- Corners: radii cut to 3 to 4 px, and buttons, pills, cards, the numbers band and the portrait frame take two clipped corners. A clipped box would hide the focus ring, so the clip is dropped on keyboard focus.
+- New font: Instrument Serif italic, latin subset only, self-hosted (SIL OFL 1.1, see CREDITS.md).
+- The privacy test loops through ten pages; its time limit is raised to 90 s because the machine timed out at 30 s. The checks themselves are unchanged.
+
+### Checks
+
+- Build: 27 pages. Playwright and axe, 10 pages in both themes plus behaviour tests: 27 of 27 pass.
+- `dist` search for the private strings, TODO and DRAFT: nothing. No `parametric-canopy*` route.
+- Screenshots at 1280 and 390 px in both themes for home, ShellForm and about.
+- Lighthouse on the local preview stayed noisy (performance 65 to 87 on `/`; the live v1 site scored 67 and 71 on the same machine the same hour, against 95 earlier). Accessibility, best practices and SEO 100; CLS about 0.02. A Playwright trace at 412 px with 4x CPU throttle showed about 5 long tasks (about 1 s in total) for v2 against about 90 (about 20 s) for v1, whose wireframe ran continuously.
+- AI-generated art (Higgsfield): not added. The CLI is installed but has no login on this machine, so nothing was generated.
+
 ## 2026-11-10: redesign
 
 The author asked for a more modern, technical look (reference sites: yasio.dev, swkang73.github.io, the CodersRank list of developer sites, and the Bespoke Careers architecture-portfolio advice). Content is unchanged apart from two whitespace fixes.
@@ -8,7 +34,7 @@ The author asked for a more modern, technical look (reference sites: yasio.dev, 
 
 - Dark by default (near-black blue `#070a12`, cyan and violet accents). The OS colour scheme is ignored; a light theme stays one click away on the toggle and is remembered. Light is a cool grey-white, not cream.
 - Type: Geist and Geist Mono (variable, self-hosted through Fontsource). Newsreader, Inter and IBM Plex Mono are removed.
-- Home hero: the real ShellForm design cell (same JSON as the 3D viewer) drawn as a turning wireframe on a 2D canvas with a drawing title block (span, supports, rise/span, Sa, thickness, governing check). No three.js on load. The canvas is `aria-hidden`, capped at 1.5x pixel density, pauses off screen and in hidden tabs, starts 1.2 s after load, draws about 30 frames a second in six batched strokes, and shows one still frame under reduced motion. The heading stays the largest paint.
+- Home hero: the real ShellForm design cell (same JSON as the 3D viewer) drawn as a turning wireframe on a 2D canvas with a drawing title block (span, supports, rise/span, Sa, thickness, governing check). No three.js on load. The canvas is `aria-hidden`, capped at 1.5x pixel density, pauses off screen and in hidden tabs, starts 1.2 s after load, draws about 30 frames a second in six batched strokes, and shows one still frame under reduced motion. The heading stays the largest paint. (Replaced in v2: the title block now sits under the 3D viewer.)
 - Numbers on the home page are only those already on the site: 168 shells, 79 of 84 pairs, the project count and the publication count.
 - Header: sticky glass bar with numbered navigation (01 to 05) and a Contact pill; on phones the navigation becomes a second row and fits five items at 390 px.
 - Projects are cards with a thumbnail on a light plate (figures are never inverted), status, tags and a gradient edge on hover.
