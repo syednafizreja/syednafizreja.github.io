@@ -24,7 +24,8 @@ The author asked to combine the opening screen of yasio.dev with the layout of k
 - `dist` search for the private strings, TODO and DRAFT: nothing. No `parametric-canopy*` route.
 - Screenshots at 1280 and 390 px in both themes for home, ShellForm and about.
 - Lighthouse on the local preview stayed noisy (performance 65 to 87 on `/`; the live v1 site scored 67 and 71 on the same machine the same hour, against 95 earlier). Accessibility, best practices and SEO 100; CLS about 0.02. A Playwright trace at 412 px with 4x CPU throttle showed about 5 long tasks (about 1 s in total) for v2 against about 90 (about 20 s) for v1, whose wireframe ran continuously.
-- AI-generated art (Higgsfield): not added. The CLI is installed but has no login on this machine, so nothing was generated.
+- Lighthouse 12 (mobile, simulated), live site after deployment, 10 Nov 2026, three runs on `/`: performance 99, 100, 100; accessibility, best practices and SEO 100 on every run. LCP 1.3 to 1.5 s, total blocking time 0 to 10 ms, CLS 0 to 0.019.
+- AI-generated art (Higgsfield): not added. The CLI first answered "No workspace selected", then failed with "request failed (no response received)" on `workspace list`, and was later no longer installed. Both Higgsfield connectors in Claude report "Needs authentication". Nothing was generated.
 
 ## 2026-11-10: redesign
 
