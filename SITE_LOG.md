@@ -11,7 +11,7 @@ The author asked for a smaller looping typed line, no exact results or grades on
 - Framing: identity, research statement, about, CV summary and the GitHub profile README now lead with computational design and mechanics; concrete shells are the current test case.
 - Projects menu: "Work" is renamed "Projects". It has a sub-menu listing every published project, built from the content collection, so a new `src/content/projects/*.mdx` appears on the next build (`draft: true` keeps it hidden). In the sidebar it starts open on project pages; on phones it drops down and closes on Escape or an outside click.
 - `docs/EDITING.md` and the README follow the new framing.
-- Sidebar labels end in a faint code-style closing tag (`Home />`), as the author asked; it lights up on hover and on the current page. It is decorative (`aria-hidden`) and hidden in the phone bar, where space is short. The ORCID, GitHub and LinkedIn links take the same mark.
+- The code marks now follow one Python style, so they read as deliberate: `()` after each sidebar label, a `#` comment mark before the small mono labels (hero marker, section indexes, page eyebrows), a `>>>` prompt on the typed line and a Python traceback on the 404 page. The earlier `/>` tag was dropped because it mixed HTML syntax with the Python marks. All marks are decorative (`aria-hidden` or empty alt text), hidden in print and in the phone bar where space is short; the ORCID, GitHub and LinkedIn links carry no mark. The convention is in `docs/EDITING.md`.
 - Tests: the privacy check also looks for the withheld numbers; new tests cover the menu and the looping, pausable typed line.
 
 ### Checks

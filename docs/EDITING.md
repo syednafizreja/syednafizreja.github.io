@@ -53,6 +53,17 @@ npm run build
 
 Commit the new files in `public/`.
 
+## Code marks (Python style)
+
+The site uses a small set of Python marks so the code look reads as one deliberate style. Each mark is a decorative `aria-hidden` span or CSS prompt, so screen readers skip it, and all of them are hidden in print.
+
+- Sidebar menu: a faint `()` after each label (`.ctag` in `Header.astro`), as if each page were a function call. Desktop only.
+- Small mono labels (hero marker, section indexes such as `01 · Projects`, page eyebrows): a leading `#` comment, written as `<span class="cm" aria-hidden="true">#</span>` at the start of the label.
+- Hero typed line: the `>>>` interpreter prompt (CSS, `.rot-line::before`).
+- 404 page: a short traceback ending in `FileNotFoundError`.
+
+Keep headings, body text and the numbers band in plain English. Any full line of Python shown on the site must be valid Python.
+
 ## Portrait
 
 The About page photo is `src/assets/media/portrait.jpg` (4:5, 1200 × 1500 px). To change it, replace that file with a new 4:5 JPEG of the same name, with location data removed. The build makes the smaller AVIF and WebP copies.

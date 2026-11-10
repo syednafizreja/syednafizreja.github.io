@@ -36,7 +36,7 @@ const initials = site.name.split(' ').filter(Boolean).map((w) => w[0]).slice(0, 
               <a href={item.href} aria-current={isCurrent(item.href) ? 'page' : undefined}>
                 <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d={item.icon} /></svg>
                 <span class="i" aria-hidden="true">{String(i).padStart(2, '0')}</span>
-                {item.label}<span class="ctag" aria-hidden="true">{'/>'}</span>
+                {item.label}<span class="ctag" aria-hidden="true">()</span>
               </a>
               <button class="sub-toggle" type="button" aria-expanded="false" aria-controls="nav-projects" aria-label="Project list">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m7 10 5 5 5-5" /></svg>
@@ -57,7 +57,7 @@ const initials = site.name.split(' ').filter(Boolean).map((w) => w[0]).slice(0, 
             <a href={item.href} class={item.href === '/' ? 'home' : undefined} aria-current={isCurrent(item.href) ? 'page' : undefined}>
               <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d={item.icon} /></svg>
               <span class="i" aria-hidden="true">{String(i).padStart(2, '0')}</span>
-              {item.label}<span class="ctag" aria-hidden="true">{'/>'}</span>
+              {item.label}<span class="ctag" aria-hidden="true">()</span>
             </a>
           )
         ))
@@ -71,9 +71,9 @@ const initials = site.name.split(' ').filter(Boolean).map((w) => w[0]).slice(0, 
       </button>
     </div>
     <ul class="social">
-      <li><a href={links.orcid} rel="me">ORCID<span class="ctag" aria-hidden="true">{'/>'}</span></a></li>
-      <li><a href={links.github} rel="me">GitHub<span class="ctag" aria-hidden="true">{'/>'}</span></a></li>
-      <li><a href={links.linkedin} rel="me">LinkedIn<span class="ctag" aria-hidden="true">{'/>'}</span></a></li>
+      <li><a href={links.orcid} rel="me">ORCID</a></li>
+      <li><a href={links.github} rel="me">GitHub</a></li>
+      <li><a href={links.linkedin} rel="me">LinkedIn</a></li>
     </ul>
   </div>
 </header>
