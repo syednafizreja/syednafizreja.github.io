@@ -25,7 +25,7 @@ The author asked for a more modern, technical look (reference sites: yasio.dev, 
 - Playwright and axe (WCAG 2.1 A and AA), 10 pages in both themes, plus behaviour tests: all 27 pass. The axe tests now pick the theme through `localStorage`, the way a reader does.
 - Screenshots checked at 1280 and 390 px in both themes: full pages for home, work, ShellForm case study, about, publications and CV; first screen for home, research and contact after the performance changes.
 - CV PDF regenerated (3 pages); text search for the private strings returns nothing.
-- Lighthouse 12 (mobile, simulated), local preview, which is noisy on this machine: accessibility, best practices and SEO 100 on `/` and `/work/shellform/`. Performance on `/` after the raster fixes: 77, 98, 98, 95 (median 96; the first run is a cold start). `/work/shellform/`: 100 on most runs, one run 76. The previous design scored 96 to 99 on the live site. Live numbers for the redesign are in the next line.
+- Lighthouse 12 (mobile, simulated), local preview, which is noisy on this machine: accessibility, best practices and SEO 100 on `/` and `/work/shellform/`. Performance on `/` after the raster fixes: 77, 98, 98, 95 (median 96; the first run is a cold start). `/work/shellform/`: 100 on most runs, one run 76. The previous design scored 96 to 99 on the live site.
 - Lighthouse 12 (mobile, simulated), live site after deployment, 10 Nov 2026, three runs each: `/` performance 95, 84, 98 (median 95); `/work/shellform/` 88, 100, 100 (median 100). Accessibility, best practices and SEO 100 on every run. LCP 1.0 to 1.7 s; total blocking time varied from 12 to 650 ms between runs on this machine.
 
 ## 2026-11-10: first release
@@ -56,6 +56,7 @@ Built from the plan in `16_Personal_Website_Plan_and_Master_Prompt.md`.
 
 ### Checked by Claude, author to confirm
 
+- Hero title block (redesign): span 20 m, corner supports, rise/span 0.20, Sa 0.6 g, thickness 185 mm, governed by buckling. Every value is read from `src/assets/models/shellform-cell.json` (cell L20-corners-r0.20-seismic-sa0.6), which `tools/extract_shellform_cell.py` takes from ShellForm v0.1.0 explorer data, freeze tag freeze-2026-11-09, commit fd5cc85.
 - All CV facts on `/about/` and `/cv/` were copied from `CV_Syed_Nafiz_Reja_Hasib.pdf` (Nov 2026).
 - Publication [5] (PaveCarbon paper) is shown as "in preparation, submission planned November 2026", as in the CV. Confirmed by the author on 10 Nov 2026 ("approve all"). Update when submitted.
 - ShellBench test count: the CV says 114, the repository reported 238 passed on 10 Nov 2026. The CV page gives no count; the project page uses the repository figure.
