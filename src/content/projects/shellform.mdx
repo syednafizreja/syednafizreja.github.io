@@ -13,24 +13,18 @@ hero:
   alt: "Gallery of 10 metre shells: the gravity-only form, the height change of the seismic-aware form at spectral accelerations of 0.3 g and 0.6 g, and the mid-plan section."
   caption: "Fig. 1, 10 m gallery: gravity-only form, height change of the seismic-aware form at Sa 0.3 g and 0.6 g, and the mid-plan section. Freeze run, tag freeze-2026-11-09."
 gallery:
-  - src: ../../assets/media/shellform/fig02_mechanism.png
-    alt: "Demand over limit of each sizing check plotted against spectral acceleration, showing which check sets the shell thickness."
-    caption: "Fig. 2, what sets the thickness: demand over limit of each sizing check against Sa. Source: results/batch_all.csv."
-  - src: ../../assets/media/shellform/fig04_carbon_drivers.png
-    alt: "Range of the carbon ratio between strategies caused by each driver, from robustness and sensitivity runs."
-    caption: "Fig. 4, what moves carbon: range of the carbon ratio caused by each driver. Sources: results/batch_all.csv and sensitivity runs."
   - src: ../../assets/media/shellform/explorer_light.webp
-    alt: "The ShellForm design explorer with controls, a 3D view of the seismic-aware form coloured by height change, a comparison panel, carbon against Sa and the matrix of all 84 comparisons."
+    alt: "The ShellForm design explorer with controls, a 3D view of the seismic-aware form coloured by height change, a comparison panel, carbon against Sa and a matrix of every comparison."
     caption: "The design explorer: pick span, supports, rise and Sa to compare both strategies side by side. Runs offline in any browser."
 key_numbers:
   - label: "Sized designs"
     value: "168"
     unit: "shells"
     basis: "2 spans × 2 support cases × 3 rises × 2 strategies × 7 Sa levels"
-  - label: "No meaningful difference"
-    value: "79 of 84"
-    unit: "cells"
-    basis: "Strategies differ in carbon by less than the pre-registered 5 %"
+  - label: "Decision rule"
+    value: "5"
+    unit: "%"
+    basis: "Pre-registered: a strategy counts as cheaper only if it saves at least this much"
   - label: "Seismic demand range"
     value: "0–0.6"
     unit: "g"
@@ -66,15 +60,13 @@ ShellForm extends the seismic form-finding of Michiels and Adriaenssens (2017, 2
 
 ShellForm is built on ShellBench's validated, tagged modules, whose shell analysis reproduces the Scordelis–Lo roof and pinched hemisphere benchmarks within 0.4 %. The new seismic form-finding code has its own validation tests; the suite stood at 101 passing tests on 10 November 2026.
 
-## Results
+## Findings in brief
 
-In 79 of 84 cells the two strategies differ in carbon by less than 5 %: no meaningful difference. The other 5 cells (10 m, corner supports, rise 0.15, Sa 0.1–0.5 g) are one 5 mm thickness step next to the buckling limit, and they disappear under every robustness check.
-
-The reason is the mechanism: thickness is set by linear buckling (corner supports) or the 50 mm minimum (edge supports), and steel by the minimum ratio. None of these responds to Sa up to 0.6 g. The form moves; the carbon does not.
+Across the design space, adding seismic load to form-finding changes the shape of the shell much more than the amount of material in it. The reason lies in the sizing: thickness and steel are governed by checks that do not respond to the seismic demand studied. The full comparison, the mechanism and the robustness checks are in the manuscript in preparation.
 
 ## What this does not show
 
 - Shells are studied as isolated roofs on idealised supports, not as part of a building.
 - Seismic demand is applied through a code-independent spectral acceleration range; site-specific hazard is not modelled.
 - Carbon is cradle-to-gate (A1–A3); formwork and construction are excluded.
-- The manuscript is in preparation; the result is a pre-registered finding, not yet peer reviewed.
+- The manuscript is in preparation; the findings follow a pre-registered rule but are not yet peer reviewed.

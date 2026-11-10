@@ -1,6 +1,6 @@
 # syednafizreja.github.io
 
-Personal site of Syed Nafiz Reja Hasib: research on lightweight concrete shells, seismic design and embodied carbon.
+Personal site of Syed Nafiz Reja Hasib: computational design and mechanics of structures, with concrete shells as the current test case.
 
 Live: https://syednafizreja.github.io
 

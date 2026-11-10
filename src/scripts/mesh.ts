@@ -186,23 +186,43 @@ if (canvas && ctx && host) {
   window.addEventListener('themechange', () => { readColours(); draw(); });
   reduce.addEventListener('change', () => { goal = 0; amp = 0; X = R.slice(); G.fill(0); draw(); });
 
-  // Type the phrases once, then rest on the first one, so nothing keeps moving (WCAG 2.2.2).
+  // Type the phrases in a loop. It waits while the line is off screen or the tab is hidden, a visible button pauses it
+  // (WCAG 2.2.2), and under reduced motion the first phrase stays still.
   const rot = document.querySelector<HTMLElement>('[data-rotate]');
   const words: string[] = rot ? JSON.parse(rot.dataset.rotate || '[]') : [];
+  const pause = document.querySelector<HTMLButtonElement>('[data-rot-pause]');
   if (rot && words.length > 1 && !reduce.matches) {
     const line = rot.parentElement!;
-    const seq = [...words.slice(1), words[0]];
+    let held = false;
+    let seen = true;
+    new IntersectionObserver(([e]) => { seen = e.isIntersecting; }).observe(line);
     const wait = (ms: number) => new Promise((r) => setTimeout(r, ms));
+    const gate = async () => { while (held || !seen || document.hidden) await wait(250); };
     const run = async () => {
       line.classList.add('typing');
-      for (const next of seq) {
+      for (let k = 1; ; k = (k + 1) % words.length) {
         await wait(1900);
-        for (let t = rot.textContent!; t.length; t = t.slice(0, -1)) { rot.textContent = t.slice(0, -1); await wait(28); }
-        for (let i = 1; i <= next.length; i++) { rot.textContent = next.slice(0, i); await wait(55); }
+        await gate();
+        const next = words[k];
+        for (let t = rot.textContent!; t.length; t = t.slice(0, -1)) { await gate(); rot.textContent = t.slice(0, -1); await wait(28); }
+        for (let i = 1; i <= next.length; i++) { await gate(); rot.textContent = next.slice(0, i); await wait(55); }
       }
-      await wait(1200);
-      line.classList.remove('typing');
     };
+    if (pause) {
+      pause.hidden = false;
+      pause.addEventListener('click', () => {
+        held = !held;
+        pause.textContent = held ? 'Resume typing' : 'Pause typing';
+        line.classList.toggle('typing', !held);
+      });
+    }
+    reduce.addEventListener('change', () => {
+      if (!reduce.matches) return;
+      held = true;
+      rot.textContent = words[0];
+      line.classList.remove('typing');
+      if (pause) pause.hidden = true;
+    });
     const go = () => setTimeout(run, 600);
     if (document.readyState === 'complete') go(); else addEventListener('load', go, { once: true });
   }

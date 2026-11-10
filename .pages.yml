@@ -77,7 +77,7 @@ content:
           - { name: licence, label: Licence, type: string }
       - { name: related, label: "Related projects (file names without .mdx)", type: string, list: true }
       - { name: draft, label: Draft (hidden from the site), type: boolean, default: false }
-      - { name: body, label: "Case study (Question, Approach, Validation, Results, What this does not show)", type: rich-text }
+      - { name: body, label: "Case study (Question, Approach, Validation, Findings in brief, What this does not show)", type: rich-text }
 
   - name: publications
     label: Publications

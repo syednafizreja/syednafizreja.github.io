@@ -26,13 +26,16 @@ Images uploaded in the dashboard go to `src/assets/media/`. The site converts th
 
 Copy an existing `.mdx` file, set `number` to the next free number, and keep the five headings in this order:
 
-`## Question`, `## Approach`, `## Validation`, `## Results`, `## What this does not show`.
+`## Question`, `## Approach`, `## Validation`, `## Findings in brief`, `## What this does not show`.
+
+The new project appears by itself on `/work/`, in the Projects menu and in the tests on the next build.
 
 The build fails if a required field is missing, the summary is over 300 characters, alt text is shorter than ten characters, or a method is not in the list in `src/lib/methods.ts`. That check is deliberate.
 
 ### Rules the content follows
 
 - Every number comes from a repository, a report or a paper, and its source is named in `basis` or in the text.
+- Findings stay general: no exact study results and no grades, GPA or averages on the site (the CV sent to professors carries them). The privacy test in `tests/site.spec.ts` checks for withheld numbers by hash; the comment there shows how to add one.
 - No phone numbers or street addresses anywhere. Email stays split into `email_user` and `email_domain`; the page assembles it in the browser.
 - The former employer is described only as "precision manufacturing".
 - Set `draft: true` to keep a project off the site while you work on it.

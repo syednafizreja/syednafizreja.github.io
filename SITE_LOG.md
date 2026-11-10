@@ -1,5 +1,24 @@
 # Site log
 
+## 2026-11-11: framing, privacy of results, projects menu
+
+The author asked for a smaller looping typed line, no exact results or grades on public pages (the CV sent to professors carries them), research framed around computational design and mechanics with shells as the test case, and a projects menu that grows as projects are added.
+
+### Decisions
+
+- Typed hero line: smaller mono type on its own line, and it now loops through four phrases. A "Pause typing" button stops and restarts it (WCAG 2.2.2); it pauses off screen and in hidden tabs and is off under reduced motion.
+- Results and grades: exact study results, the weighted average, GPA and thesis grade are removed from every page, the case studies and the CV PDF. Findings are described in general terms. Home-page numbers are now counts of projects with tests and DOI releases. Figures that showed results were dropped from galleries.
+- Framing: identity, research statement, about, CV summary and the GitHub profile README now lead with computational design and mechanics; concrete shells are the current test case.
+- Projects menu: "Work" is renamed "Projects". It has a sub-menu listing every published project, built from the content collection, so a new `src/content/projects/*.mdx` appears on the next build (`draft: true` keeps it hidden). In the sidebar it starts open on project pages; on phones it drops down and closes on Escape or an outside click.
+- `docs/EDITING.md` and the README follow the new framing.
+- Tests: the privacy check also looks for the withheld numbers; new tests cover the menu and the looping, pausable typed line.
+
+### Checks
+
+- `astro check`: 0 errors, 0 warnings, 0 hints. Build: 27 pages. Playwright and axe: 29 of 29 pass.
+- `dist` search for the withheld numbers and grades: nothing. CV PDF regenerated (3 pages); text search finds none of them.
+- Screenshots at 1280 and 390 px: home hero, ShellForm page with the menu open in the sidebar, and the phone drop-down.
+
 ## 2026-11-10: hero and sidebar (v2)
 
 The author asked to combine the opening screen of yasio.dev with the layout of kabirmuzumdar.github.io. The composition and mechanics are borrowed; the logo, wording and look of both sites are not copied. Content is unchanged.
@@ -9,7 +28,7 @@ The author asked to combine the opening screen of yasio.dev with the layout of k
 - Desktop (64rem and up): the header becomes a fixed left sidebar with the portrait, role, numbered navigation with icons, the Contact pill and theme toggle at the foot, then ORCID, GitHub and LinkedIn. Phones and tablets keep the top bar.
 - Home hero: a large three-line statement ("design" in Instrument Serif italic, "analyse" in Geist Mono), a "00 Start" marker on a left rail, a scroll cue, and the existing identity line, chip, buttons and four numbers.
 - Hero background: a seeded triangulated finite-element mesh on a 2D canvas (`src/scripts/mesh.ts`). It never moves by itself. Under a mouse or pen the nodes near the pointer deflect as under a point load and the elements around it take a stress-contour tint; it eases back when the pointer leaves. Touch and reduced motion get the still mesh. The loop runs only while something is moving and pauses off screen and in hidden tabs. It is decoration, not a result, and carries no numbers.
-- The rotating phrase types through its words once and stops on the first, so nothing keeps moving (WCAG 2.2.2). The status-dot ping runs four times and the scroll-cue wheel three times, then both stop.
+- The rotating phrase types through its words once and stops on the first, so nothing keeps moving (WCAG 2.2.2). (Changed 11 Nov 2026: it loops, with a pause button.) The status-dot ping runs four times and the scroll-cue wheel three times, then both stop.
 - The line holding the typed phrase has a fixed height and `contain: size layout`; without it every keystroke forced a page-wide layout (about 110 ms each on a throttled phone profile).
 - A thin ring trails the mouse and widens over links. The system cursor is never hidden; the ring is off for touch and reduced motion.
 - The ShellForm drawing title block moved from the hero to a plate under the 3D viewer. The turning wireframe (`src/scripts/hero.ts`) is removed.
@@ -25,7 +44,7 @@ The author asked to combine the opening screen of yasio.dev with the layout of k
 - Screenshots at 1280 and 390 px in both themes for home, ShellForm and about.
 - Lighthouse on the local preview stayed noisy (performance 65 to 87 on `/`; the live v1 site scored 67 and 71 on the same machine the same hour, against 95 earlier). Accessibility, best practices and SEO 100; CLS about 0.02. A Playwright trace at 412 px with 4x CPU throttle showed about 5 long tasks (about 1 s in total) for v2 against about 90 (about 20 s) for v1, whose wireframe ran continuously.
 - Lighthouse 12 (mobile, simulated), live site after deployment, 10 Nov 2026, three runs on `/`: performance 99, 100, 100; accessibility, best practices and SEO 100 on every run. LCP 1.3 to 1.5 s, total blocking time 0 to 10 ms, CLS 0 to 0.019.
-- AI-generated art (Higgsfield): not added. The CLI first answered "No workspace selected", then failed with "request failed (no response received)" on `workspace list`, and was later no longer installed. Both Higgsfield connectors in Claude report "Needs authentication". Nothing was generated.
+- AI-generated art (Higgsfield): not added. The CLI first answered "No workspace selected", then failed with "request failed (no response received)" on `workspace list`, and was later no longer installed. Both Higgsfield connectors report "Needs authentication". Nothing was generated.
 
 ## 2026-11-10: redesign
 
@@ -36,7 +55,7 @@ The author asked for a more modern, technical look (reference sites: yasio.dev, 
 - Dark by default (near-black blue `#070a12`, cyan and violet accents). The OS colour scheme is ignored; a light theme stays one click away on the toggle and is remembered. Light is a cool grey-white, not cream.
 - Type: Geist and Geist Mono (variable, self-hosted through Fontsource). Newsreader, Inter and IBM Plex Mono are removed.
 - Home hero: the real ShellForm design cell (same JSON as the 3D viewer) drawn as a turning wireframe on a 2D canvas with a drawing title block (span, supports, rise/span, Sa, thickness, governing check). No three.js on load. The canvas is `aria-hidden`, capped at 1.5x pixel density, pauses off screen and in hidden tabs, starts 1.2 s after load, draws about 30 frames a second in six batched strokes, and shows one still frame under reduced motion. The heading stays the largest paint. (Replaced in v2: the title block now sits under the 3D viewer.)
-- Numbers on the home page are only those already on the site: 168 shells, 79 of 84 pairs, the project count and the publication count.
+- Numbers on the home page are only those already on the site at the time. (Replaced 11 Nov 2026 by project counts.)
 - Header: sticky glass bar with numbered navigation (01 to 05) and a Contact pill; on phones the navigation becomes a second row and fits five items at 390 px.
 - Projects are cards with a thumbnail on a light plate (figures are never inverted), status, tags and a gradient edge on hover.
 - Every page except Contact ends with a "Get in touch" band (email, CV, contact page).
@@ -81,9 +100,9 @@ Built from the plan in `16_Personal_Website_Plan_and_Master_Prompt.md`.
 - Lighthouse 12 (mobile, simulated throttling), live site, 10 Nov 2026: performance 100 on `/`, `/work/shellform/` and `/cv/`, 95 on `/publications/`. Accessibility, best practices and SEO scored 100 on the pages checked before the viewer change.
 - External links: both Zenodo DOIs return 403 to link checkers (Zenodo blocks bots); the DOI handle API confirms both are registered.
 
-### Checked by Claude, author to confirm
+### For the author to confirm
 
-- Hero title block (redesign): span 20 m, corner supports, rise/span 0.20, Sa 0.6 g, thickness 185 mm, governed by buckling. Every value is read from `src/assets/models/shellform-cell.json` (cell L20-corners-r0.20-seismic-sa0.6), which `tools/extract_shellform_cell.py` takes from ShellForm v0.1.0 explorer data, freeze tag freeze-2026-11-09, commit fd5cc85.
+- Hero title block (redesign): span, supports, rise/span and Sa of one design cell. Every value is read from `src/assets/models/shellform-cell.json` (cell L20-corners-r0.20-seismic-sa0.6), which `tools/extract_shellform_cell.py` takes from ShellForm v0.1.0 explorer data, freeze tag freeze-2026-11-09, commit fd5cc85.
 - All CV facts on `/about/` and `/cv/` were copied from `CV_Syed_Nafiz_Reja_Hasib.pdf` (Nov 2026).
 - Publication [5] (PaveCarbon paper) is shown as "in preparation, submission planned November 2026", as in the CV. Confirmed by the author on 10 Nov 2026 ("approve all"). Update when submitted.
 - ShellBench test count: the CV says 114, the repository reported 238 passed on 10 Nov 2026. The CV page gives no count; the project page uses the repository figure.

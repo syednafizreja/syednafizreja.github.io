@@ -1,12 +1,13 @@
 ---
 import { Image } from 'astro:assets';
+import { getCollection } from 'astro:content';
 import { site, links } from '../lib/site';
 import portrait from '../assets/media/portrait.jpg';
 
 // Icon paths are drawn on a 24 px grid with a 1.6 stroke.
 const nav = [
   { href: '/', label: 'Home', icon: 'M3.5 11 12 4l8.5 7M6 9.5V20h12V9.5' },
-  { href: '/work/', label: 'Work', icon: 'M4 7.5h16v11H4zM9 7.5V5h6v2.5M4 12.5h16' },
+  { href: '/work/', label: 'Projects', icon: 'M4 7.5h16v11H4zM9 7.5V5h6v2.5M4 12.5h16' },
   { href: '/research/', label: 'Research', icon: 'M9.5 3.5h5M10.5 3.5v5.2L5 18.4A1.4 1.4 0 0 0 6.2 20.5h11.6a1.4 1.4 0 0 0 1.2-2.1l-5.5-9.7V3.5M7.6 14h8.8' },
   { href: '/publications/', label: 'Publications', icon: 'M5 4.5h10l4 4v11H5zM15 4.5v4h4M8.5 12.5h7M8.5 16h7' },
   { href: '/about/', label: 'About', icon: 'M12 12a3.8 3.8 0 1 0 0-7.6 3.8 3.8 0 0 0 0 7.6ZM4.5 20.5c.9-3.8 3.9-6 7.5-6s6.6 2.2 7.5 6' },
@@ -14,6 +15,8 @@ const nav = [
 ];
 const path = Astro.url.pathname.replace(/\/?$/, '/');
 const isCurrent = (href: string) => (href === '/' ? path === '/' : href === '/work/' ? path.startsWith('/work/') : path === href);
+// every published project, newest number first; a new .mdx in src/content/projects appears here on the next build
+const projects = (await getCollection('projects', (p) => !p.data.draft)).sort((a, b) => b.data.number.localeCompare(a.data.number));
 const initials = site.name.split(' ').filter(Boolean).map((w) => w[0]).slice(0, 2).join('');
 ---
 
@@ -28,11 +31,35 @@ const initials = site.name.split(' ').filter(Boolean).map((w) => w[0]).slice(0, 
     <nav class="nav" aria-label="Main">
       {
         nav.map((item, i) => (
-          <a href={item.href} class={item.href === '/' ? 'home' : undefined} aria-current={isCurrent(item.href) ? 'page' : undefined}>
-            <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d={item.icon} /></svg>
-            <span class="i" aria-hidden="true">{String(i).padStart(2, '0')}</span>
-            {item.label}
-          </a>
+          item.href === '/work/' ? (
+            <div class="navgroup" data-subnav>
+              <a href={item.href} aria-current={isCurrent(item.href) ? 'page' : undefined}>
+                <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d={item.icon} /></svg>
+                <span class="i" aria-hidden="true">{String(i).padStart(2, '0')}</span>
+                {item.label}
+              </a>
+              <button class="sub-toggle" type="button" aria-expanded="false" aria-controls="nav-projects" aria-label="Project list">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m7 10 5 5 5-5" /></svg>
+              </button>
+              <ul class="subnav" id="nav-projects" hidden>
+                {projects.map((p) => (
+                  <li>
+                    <a href={`/work/${p.id}/`} aria-current={path === `/work/${p.id}/` ? 'page' : undefined}>
+                      <span class="pn" aria-hidden="true">{p.data.number}</span>
+                      {p.data.short_title}
+                    </a>
+                  </li>
+                ))}
+                <li class="all"><a href="/work/">All projects</a></li>
+              </ul>
+            </div>
+          ) : (
+            <a href={item.href} class={item.href === '/' ? 'home' : undefined} aria-current={isCurrent(item.href) ? 'page' : undefined}>
+              <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d={item.icon} /></svg>
+              <span class="i" aria-hidden="true">{String(i).padStart(2, '0')}</span>
+              {item.label}
+            </a>
+          )
         ))
       }
     </nav>
@@ -50,3 +77,19 @@ const initials = site.name.split(' ').filter(Boolean).map((w) => w[0]).slice(0, 
     </ul>
   </div>
 </header>
+
+<script>
+  // Projects sub-menu: a disclosure button. In the sidebar (64rem and up) it opens in place and starts open on project pages;
+  // in the top bar it drops down and closes on Escape, outside click or link choice.
+  const group = document.querySelector<HTMLElement>('[data-subnav]');
+  const btn = group?.querySelector<HTMLButtonElement>('.sub-toggle');
+  const list = group?.querySelector<HTMLUListElement>('.subnav');
+  if (group && btn && list) {
+    const wide = matchMedia('(min-width: 64rem)');
+    const set = (open: boolean) => { btn.setAttribute('aria-expanded', String(open)); list.hidden = !open; };
+    if (wide.matches && location.pathname.startsWith('/work/')) set(true);
+    btn.addEventListener('click', () => set(list.hidden));
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && !list.hidden && !wide.matches) { set(false); btn.focus(); } });
+    document.addEventListener('click', (e) => { if (!wide.matches && !list.hidden && !group.contains(e.target as Node)) set(false); });
+  }
+</script>

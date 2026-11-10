@@ -10,8 +10,8 @@ const projects = (await getCollection('projects', (p) => !p.data.draft)).sort((a
 const pubs = await getCollection('publications');
 const featured = site.featured.map((id) => projects.find((p) => p.id === id)).filter((p) => p !== undefined);
 
-// Each phrase already describes the work elsewhere on the site (identity line, ShellForm, contact page).
-const words = ['efficient shells', 'seismic-aware forms', 'low-carbon structures'];
+// Short phrases for the core skills; the typewriter in mesh.ts loops through them.
+const words = ['structural forms', 'shells under earthquakes', 'finite-element models', 'low-carbon structures'];
 ---
 
 <Base description={site.identity}>
@@ -25,6 +25,7 @@ const words = ['efficient shells', 'seismic-aware forms', 'low-carbon structures
           <span class="l">I <em class="serif">design</em> and <span class="mono">analyse</span></span>
           <span class="l rot-line"><span class="sr-only">{words[0]}.</span><span class="rot" aria-hidden="true" data-rotate={JSON.stringify(words)}>{words[0]}</span><span class="caret" aria-hidden="true"></span></span>
         </h1>
+        <button class="rot-pause" type="button" data-rot-pause hidden>Pause typing</button>
         <p class="identity">{site.identity}</p>
         <p class="chip"><span class="dot" aria-hidden="true"></span><span><strong>Now:</strong> {site.currently}</span></p>
         <div class="cta">
@@ -35,8 +36,8 @@ const words = ['efficient shells', 'seismic-aware forms', 'low-carbon structures
         <a class="scroll-cue" href="#sig" aria-hidden="true" tabindex="-1"><span class="mouse"><span></span></span><span class="t">Scroll</span></a>
       </div>
       <dl class="stats">
-        <div><dt>concrete shells sized, gravity-only and seismic-aware</dt><dd>168</dd></div>
-        <div><dt>pairs with less than 5 % carbon difference</dt><dd>79<small>/84</small></dd></div>
+        <div><dt>projects with automated tests</dt><dd>{projects.filter((p) => p.data.evidence.tests).length}</dd></div>
+        <div><dt>releases archived with a DOI</dt><dd>{projects.filter((p) => p.data.evidence.doi).length}</dd></div>
         <div><dt>project case studies</dt><dd>{projects.length}</dd></div>
         <div><dt>papers, manuscripts and reports</dt><dd>{pubs.length}</dd></div>
       </dl>
@@ -45,8 +46,8 @@ const words = ['efficient shells', 'seismic-aware forms', 'low-carbon structures
 
   <section class="section wrap" aria-labelledby="sig">
     <div class="railed">
-      <span class="ghost" aria-hidden="true">Shells</span>
-      <div class="section-head"><div><span class="idx">01 · Signature result</span><h2 id="sig">Does designing a shell for earthquakes cost carbon?</h2></div></div>
+      <span class="ghost" aria-hidden="true">Method</span>
+      <div class="section-head"><div><span class="idx">01 · Method in focus</span><h2 id="sig">Finding a shell's form under earthquake load</h2></div></div>
       <div class="feature">
         <div>
           <ShellViewer />
@@ -55,21 +56,20 @@ const words = ['efficient shells', 'seismic-aware forms', 'low-carbon structures
             <div><dt>Supports</dt><dd>{cell.supports}</dd></div>
             <div><dt>Rise / span</dt><dd>{cell.rise_ratio.toFixed(2)}</dd></div>
             <div><dt>S<sub>a</sub></dt><dd>{cell.sa_g} g</dd></div>
-            <div><dt>Thickness</dt><dd>{cell.thickness_mm.seismic} mm</dd></div>
-            <div><dt>Governs</dt><dd>{cell.governing.seismic}</dd></div>
+            <div><dt>Mesh</dt><dd>{cell.n} × {cell.n} nodes</dd></div>
+            <div><dt>Loads</dt><dd>gravity + seismic</dd></div>
           </dl>
         </div>
         <div class="prose">
           <p>
-            For 168 sized concrete shells, I compared a gravity-only form with a form found under seismic load. In 79 of 84 pairs the
-            carbon differs by less than 5 %. Thickness is set by buckling or the minimum, not by the earthquake, so the shape changes
-            while the material barely does.
+            ShellForm finds the shape of a thin concrete shell twice: once under gravity alone, and once with an earthquake load
+            included. Each form is then sized by finite-element analysis against its design checks, buckling among them, and its embodied
+            carbon is counted. The study sweeps span, supports, rise and seismic demand.
           </p>
-          <dl class="callout">
-            <div><dt>gravity-only form</dt><dd>{cell.carbon_kgco2e_m2.gravity}</dd></div>
-            <div><dt>seismic-aware form</dt><dd>{cell.carbon_kgco2e_m2.seismic}</dd></div>
-          </dl>
-          <p class="muted small">kgCO₂e/m² for the cell shown, both {cell.thickness_mm.seismic} mm thick.</p>
+          <p>
+            The model on the left is one design cell. Its colours show where the earthquake-aware form departs from the
+            gravity-only one. Finite-element mechanics and carbon accounting run through most of the other projects too.
+          </p>
           <p><a class="btn" href="/work/shellform/">Read the ShellForm case study <span class="arr" aria-hidden="true">→</span></a></p>
         </div>
       </div>

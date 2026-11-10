@@ -9,29 +9,22 @@ summary: "How much do thin-shell floors cut the A1–A3 embodied carbon of GB 50
 methods: [seismic-analysis, embodied-carbon, form-finding, finite-element, validation, machine-learning]
 tools: [Python, OpenSeesPy, CalculiX, Gmsh, pytest, GitHub Actions]
 hero:
-  src: ../../assets/media/shellbench/anchor_waterfall.png
-  alt: "Waterfall chart of A1–A3 embodied carbon per square metre of floor for the anchor building, stepping from the slab floor to the shell floor element by element, with the whole-building saving."
-  caption: "Anchor building (4 storeys, 0.10 g): each step of A1–A3 carbon from slab floor to shell floor, kgCO₂e per m² of floor. Pre-release, screening-level; footings out of scope. Source: results/anchor_waterfall.csv."
+  src: ../../assets/media/shellbench/benchmarks_convergence.png
+  alt: "Convergence plot of computed over reference displacement against mesh density for the Scordelis–Lo roof and pinched hemisphere benchmarks, with a 2 per cent band."
+  caption: "Shell benchmarks in CalculiX (S8R): computed over reference displacement against mesh density, with the 2 % band. Source: results/benchmarks_convergence.csv."
 gallery:
-  - src: ../../assets/media/shellbench/benchmarks_convergence.png
-    alt: "Convergence plot of computed over reference displacement against mesh density for the Scordelis–Lo roof and pinched hemisphere benchmarks, with a 2 per cent band."
-    caption: "Shell benchmarks in CalculiX (S8R): computed over reference displacement against mesh density, with the 2 % band. Source: results/benchmarks_convergence.csv."
   - src: ../../assets/media/shellbench/anchor_seismic_compare.png
     alt: "Two panels by storey: storey shear and inter-storey drift from the base-shear method, response spectrum analysis and the thesis table."
     caption: "(a) Storey shear and (b) inter-storey drift by storey: base-shear method, response spectrum (3 modes, SRSS) and thesis Table 8-12. Source: results/anchor_rsa.csv."
 key_numbers:
-  - label: "Floor carbon, slab → shell"
-    value: "57.6 → 47.4"
-    unit: "kgCO₂e/m²"
-    basis: "Anchor building; floor saving S_f = 17.8 %"
-  - label: "Whole building, slab → shell"
-    value: "102.1 → 95.7"
-    unit: "kgCO₂e/m²"
-    basis: "Anchor building; whole-building saving S_b = 6.2 %"
+  - label: "Building family"
+    value: "36"
+    unit: "frames"
+    basis: "3–8 storeys × six peak ground accelerations, 0.05–0.40 g"
   - label: "Shell family"
     value: "5,184"
     unit: "designs"
-    basis: "36 buildings × 36 floor variants × 4 toppings; 4,856 ok, 288 outside the code, 40 failed"
+    basis: "36 buildings × 36 floor variants × 4 toppings"
   - label: "Automated tests"
     value: "238"
     unit: "passed"
@@ -71,15 +64,15 @@ The study is checked against one real, fully documented building: my own bachelo
 
 The shell solver reproduces two standard benchmarks within 0.4 %: the Scordelis–Lo roof (0.9984 of the reference displacement) and the pinched hemisphere (0.9965). The anchor frame reproduces the thesis storey shears and drifts; each difference above 10 % is explained in the anchor report.
 
-## Results
+## Findings in brief
 
-For the anchor building (4 storeys, 0.10 g), floor carbon falls from 57.6 to 47.4 kgCO₂e/m² (17.8 %), and whole-building carbon from 102.1 to 95.7 kgCO₂e/m² (6.2 %). In the shell family run, every successful design passes the diaphragm test with no topping needed (worst ratio 0.0113).
+In the anchor building, shell floors lower both the floor and the whole-building embodied carbon; the whole-building saving is smaller, because the floor is only part of the structure. In the family run, every successful design passes the diaphragm test without a topping.
 
-The surrogate, tested on unseen storey counts, reached conformal coverage of 0.733 against a target of 0.88–0.92, and its decision agreement (93.9 %) was below the 97.0 % of simply always choosing the shell. These are reported as found.
+The surrogate, tested on unseen storey counts, fell short of its pre-registered coverage target and did not beat the simple rule of always choosing the shell. This is reported as found. Exact figures will be given in the papers.
 
 ## What this does not show
 
-- All family and surrogate numbers are **pre-release**; the hypothesis verdicts are run once on the published dataset.
+- All family and surrogate results are **pre-release**; the hypothesis verdicts are run once on the published dataset.
 - Carbon is cradle-to-gate (A1–A3) only, and footings are outside the scope of the anchor comparison.
 - The design rules follow the Chinese codes (GB 50010, GB 50011); other codes would change member sizes.
 - Floors are compared at screening level; construction, formwork and long-term behaviour are not modelled.

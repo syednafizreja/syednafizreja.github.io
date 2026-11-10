@@ -26,9 +26,7 @@ const lim = Math.round(cell.dz_limit_mm);
   <figcaption>
     <span class="label">ShellForm · {cell.id.replace('-seismic-sa0.6', '')}</span>
     Seismic-aware form at S<sub>a</sub> = {cell.sa_g} g, coloured by height change from the gravity-only form (blue lower,
-    red higher; scale ±{lim} mm; in this cell no node drops). {cell.span_m} m span, corner supports, rise/span {cell.rise_ratio}. Both forms size to the
-    same {cell.thickness_mm.seismic} mm thickness, set by buckling; carbon {cell.carbon_kgco2e_m2.gravity} vs {cell.carbon_kgco2e_m2.seismic} kgCO₂e/m².
-    The form moves; the carbon barely does. Data: ShellForm v0.1.0, tag {cell.freeze_tag}, on ShellBench {cell.shellbench_tag}.
+    red higher; scale ±{lim} mm; in this cell no node drops). {cell.span_m} m span, corner supports, rise/span {cell.rise_ratio}. Data: ShellForm v0.1.0, tag {cell.freeze_tag}, on ShellBench {cell.shellbench_tag}.
   </figcaption>
 </figure>
 
