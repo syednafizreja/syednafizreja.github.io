@@ -17,7 +17,7 @@ const path = Astro.url.pathname.replace(/\/?$/, '/');
           </div>
           <div class="cta">
             <Email label="Email me" />
-            <a class="btn" href={site.cv_pdf}>CV (PDF)</a>
+            <a class="btn" href={site.cv_pdf}>Resume (PDF)</a>
             <a class="btn" href="/contact/">All contact details</a>
           </div>
         </section>
@@ -31,6 +31,7 @@ const path = Astro.url.pathname.replace(/\/?$/, '/');
       <div>
         <ul>
           <li><Email /></li>
+          <li><a href="/publications/">Publications</a></li>
           <li><a href={links.orcid} rel="me">ORCID</a></li>
           <li><a href={links.github} rel="me">GitHub</a></li>
           <li><a href={links.linkedin} rel="me">LinkedIn</a></li>

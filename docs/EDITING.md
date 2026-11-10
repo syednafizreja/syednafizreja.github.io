@@ -20,7 +20,9 @@ Images uploaded in the dashboard go to `src/assets/media/`. The site converts th
 | A publication | `src/content/publications/NN-short-name.yaml` |
 | About and research text | `src/content/pages/about.mdx`, `research.mdx` |
 | Figures | `src/assets/media/<project>/` |
-| CV page | `src/pages/cv.astro` |
+| Resume (CV) page | `src/pages/cv.astro` |
+| Degrees, courses, languages, scholarship (shared by the Education and Resume pages) | `src/data/education.json` |
+| Menu order (Home, Education, Projects, Research, About, Resume) | `src/components/Header.astro` |
 
 ### Adding a project
 
@@ -57,12 +59,15 @@ Commit the new files in `public/`.
 
 The site uses a small set of Python marks so the code look reads as one deliberate style. Each mark is a decorative `aria-hidden` span or CSS prompt, so screen readers skip it, and all of them are hidden in print.
 
-- Sidebar menu: a faint `()` after each label (`.ctag` in `Header.astro`), as if each page were a function call. Desktop only.
 - Small mono labels (hero marker, section indexes such as `01 · Projects`, page eyebrows): a leading `#` comment, written as `<span class="cm" aria-hidden="true">#</span>` at the start of the label.
 - Hero typed line: the `>>>` interpreter prompt (CSS, `.rot-line::before`).
 - 404 page: a short traceback ending in `FileNotFoundError`.
 
-Keep headings, body text and the numbers band in plain English. Any full line of Python shown on the site must be valid Python.
+Keep headings, body text, the menu and the numbers band in plain English, with no brackets or other marks in the menu. Any full line of Python shown on the site must be valid Python.
+
+## Colour
+
+One hue: cyan in two depths (`--accent`, `--accent-ink`, `--accent-2` at the top of `global.css`), plus the neutral inks. Do not add a second hue or multi-colour gradients. The only exceptions are the green status dot and the blue-to-red colour scale of the 3D viewer, which is a data scale. Text must reach 4.5:1 against its background in both themes (3:1 for large text); borders of buttons and icons must reach 3:1 (`--rule-strong`). Check both themes after any colour change.
 
 ## Portrait
 

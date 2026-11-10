@@ -1,0 +1,30 @@
+{
+  "degrees": [
+    {
+      "title": "BEng Civil Engineering (four-year programme)",
+      "when": "2019–2023",
+      "where": "Southwest Petroleum University, School of Civil Engineering and Geomatics, Chengdu",
+      "points": [
+        "Full Chinese Government Scholarship.",
+        "Thesis: structural design of a four-storey RC frame office building in Panzhihua, Sichuan (intensity 7, 0.10 g; GB 50009, 50010, 50011). Member sizing, yield-line slab design, moment distribution, D-value lateral analysis, drift checks and capacity design.",
+        "Selected courses: Structure Mechanics I, University Physics, Design Principles of Concrete Structures, Probability and Statistics."
+      ],
+      "link": {
+        "href": "/work/thesis-rc-frame/",
+        "label": "Thesis project page"
+      }
+    },
+    {
+      "title": "English and Chinese language programme",
+      "when": "2018–2019",
+      "where": "Institute of Language, BRAC University, Dhaka",
+      "points": []
+    }
+  ],
+  "courses": [
+    "Bayesian Statistics: From Concept to Data Analysis, UC Santa Cruz (Coursera), 2023.",
+    "AutoCAD for Design and Drafting, Autodesk certification preparation course (Coursera), 2023."
+  ],
+  "languages": "Bengali (native); English (full professional; degree taught in English); Chinese (intermediate, about B1); Hindi (conversational); French (beginner).",
+  "awards": "Chinese Government Scholarship, full scholarship for the four-year bachelor's degree (2019–2023)."
+}

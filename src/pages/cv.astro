@@ -3,6 +3,7 @@ import { getCollection } from 'astro:content';
 import Base from '../layouts/Base.astro';
 import Email from '../components/Email.astro';
 import { site, links, PUB_STATUS_LABEL } from '../lib/site';
+import edu from '../data/education.json';
 
 const pubs = (await getCollection('publications')).sort((a, b) => a.data.order - b.data.order);
 const cite = (d: (typeof pubs)[number]['data']) => {
@@ -12,9 +13,9 @@ const cite = (d: (typeof pubs)[number]['data']) => {
 };
 ---
 
-<Base title="CV" description={`Curriculum vitae of ${site.name}: education, research projects, publications, experience and skills.`} og="cv">
+<Base title="Resume" description={`Resume (curriculum vitae) of ${site.name}: education, research projects, publications, experience and skills.`} og="cv">
   <header class="page-head wrap">
-    <span class="eyebrow no-print">Curriculum vitae</span>
+    <span class="eyebrow no-print"><span class="cm" aria-hidden="true">#</span>Resume</span>
     <h1>{site.name}</h1>
     <p class="lede">Civil engineer · computational structural design · low-carbon shell structures · seismic engineering. {site.location}.</p>
     <p class="lede"><Email /> · ORCID <a href={links.orcid}>{site.orcid}</a> · <a href={links.github}>github.com/{site.github}</a></p>
@@ -44,23 +45,18 @@ const cite = (d: (typeof pubs)[number]['data']) => {
     <section>
       <h2>Education</h2>
       <div>
-        <div class="entry">
-          <div class="entry-head"><h3>BEng Civil Engineering (four-year programme)</h3><span class="when">2019–2023</span></div>
-          <p class="where">Southwest Petroleum University, School of Civil Engineering and Geomatics, Chengdu</p>
-          <ul>
-            <li>Full Chinese Government Scholarship.</li>
-            <li>
-              Thesis: structural design of a four-storey RC frame office building in Panzhihua, Sichuan (intensity 7, 0.10 g; GB 50009, 50010, 50011).
-              Member sizing, yield-line slab design, moment distribution, D-value lateral analysis, drift checks and capacity design.{" "}
-              <a href="/work/thesis-rc-frame/">Project page</a>.
-            </li>
-            <li>Selected courses: Structure Mechanics I (94), University Physics (94), Design Principles of Concrete Structures (89), Probability and Statistics (88).</li>
-          </ul>
-        </div>
-        <div class="entry">
-          <div class="entry-head"><h3>English and Chinese language programme</h3><span class="when">2018–2019</span></div>
-          <p class="where">Institute of Language, BRAC University, Dhaka</p>
-        </div>
+        {edu.degrees.map((d) => (
+          <div class="entry">
+            <div class="entry-head"><h3>{d.title}</h3><span class="when">{d.when}</span></div>
+            <p class="where">{d.where}</p>
+            {d.points.length > 0 && (
+              <ul>
+                {d.points.map((t) => <li>{t}</li>)}
+                {d.link && <li><a href={d.link.href}>{d.link.label}</a>.</li>}
+              </ul>
+            )}
+          </div>
+        ))}
       </div>
     </section>
 
@@ -163,16 +159,13 @@ const cite = (d: (typeof pubs)[number]['data']) => {
     <section>
       <h2>Courses</h2>
       <div>
-        <ul>
-          <li>Bayesian Statistics: From Concept to Data Analysis, UC Santa Cruz (Coursera), 2023.</li>
-          <li>AutoCAD for Design and Drafting, Autodesk certification preparation course (Coursera), 2023.</li>
-        </ul>
+        <ul>{edu.courses.map((c) => <li>{c}</li>)}</ul>
       </div>
     </section>
 
     <section>
       <h2>Languages</h2>
-      <p>Bengali (native); English (full professional; degree taught in English); Chinese (intermediate, about B1); Hindi (conversational); French (beginner).</p>
+      <p>{edu.languages}</p>
     </section>
 
     <section>
@@ -190,7 +183,7 @@ const cite = (d: (typeof pubs)[number]['data']) => {
 
     <section>
       <h2>Awards</h2>
-      <p>Chinese Government Scholarship, full scholarship for the four-year bachelor's degree (2019–2023).</p>
+      <p>{edu.awards}</p>
     </section>
 
     <section>

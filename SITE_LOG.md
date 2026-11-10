@@ -1,5 +1,18 @@
 # Site log
 
+## 2026-11-11: menu order, Education page, one accent colour, contrast check
+
+The author found the `()` marks in the menu unclear, asked for a menu of Home, Education, Projects, Research, About and Resume, asked to remove the mixed-colour gradients, and asked for every colour to be checked in both themes.
+
+### Decisions
+
+- Menu: the `()` marks are removed. The order is Home, Education, Projects, Research, About, Resume. "CV" is renamed "Resume" (the address stays `/cv/`). Publications leaves the menu; it is linked from the Research page, the Resume page and the footer.
+- Education page (`/education/`): degrees, scholarship, further courses and languages. Its data lives in `src/data/education.json`, which the Resume page also reads, so the two cannot drift apart.
+- Privacy: the course marks that were still on the public Resume page are removed, and the Resume PDF is regenerated without them.
+- Colour: the violet second accent is replaced by a deeper cyan, so every gradient (name, rails, borders, card edges, favicon, social cards) is one hue. The green status dot and the blue-to-red scale of the 3D viewer stay; the second is a data scale, not decoration.
+- Contrast: every page was checked in both themes at desktop and phone widths, for text (4.5:1, 3:1 when large) and for borders, icons and dots (3:1). Fixes: secondary buttons, filter chips and viewer controls get a stronger border (`--rule-strong`); list bullets use the deeper accent; the viewer's load button follows the theme (it was dark on dark); the light-theme highlight behind the current menu item is fainter so its number reads at 4.5:1. The faint outline words behind section headings are decorative and hidden from screen readers.
+- For the author to confirm: the menu order and the wording of the Education page lede.
+
 ## 2026-11-11: framing, privacy of results, projects menu
 
 The author asked for a smaller looping typed line, no exact results or grades on public pages (the CV sent to professors carries them), research framed around computational design and mechanics with shells as the test case, and a projects menu that grows as projects are added.

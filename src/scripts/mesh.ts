@@ -17,7 +17,7 @@ if (canvas && ctx && host) {
   let tris = new Uint32Array(0);
   let shade = new Uint8Array(0);
 
-  let ink = '#e8eef8', c1 = '#22d3ee', c2 = '#a78bfa';
+  let ink = '#e8eef8', c1 = '#22d3ee', c2 = '#0ea5c9';
   const readColours = () => {
     const cs = getComputedStyle(document.documentElement);
     ink = cs.getPropertyValue('--ink').trim() || ink;
