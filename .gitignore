@@ -7,3 +7,6 @@ playwright-report/
 .DS_Store
 _inbox/
 *.log
+
+# internal work log (kept locally)
+SITE_LOG.md
