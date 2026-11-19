@@ -2,9 +2,9 @@
 number: "001"
 title: "ShellBench: whole-building embodied carbon of thin-shell floors in seismic RC frames"
 short_title: "ShellBench"
-year: "2026–"
+year: "2026"
 sort_date: 2026-10-01
-status: in-progress
+status: complete
 summary: "How much do thin-shell floors cut the A1–A3 embodied carbon of GB 50010 / GB 50011 reinforced concrete frames across 3–8 storeys, and how does the saving change with storey count and seismic intensity once diaphragm, tie and topping needs are met?"
 methods: [seismic-analysis, embodied-carbon, form-finding, finite-element, validation, machine-learning]
 tools: [Python, OpenSeesPy, CalculiX, Gmsh, pytest, GitHub Actions]
@@ -26,21 +26,21 @@ key_numbers:
     unit: "designs"
     basis: "36 buildings × 36 floor variants × 4 toppings"
   - label: "Automated tests"
-    value: "238"
+    value: "287"
     unit: "passed"
-    basis: "pytest, 10 Nov 2026, on every change via GitHub Actions"
-numbers_note: "Pre-release numbers as of 10 November 2026. Hypotheses H1–H4 are judged once, on the published dataset."
+    basis: "pytest, run in CI on every push"
+numbers_note: "Software v1.0.0. In 32 of 33 buildings the shell floor lowers whole-building carbon, by a median of 5.7%, against 14.3% for the floor alone. Base case, results/verdicts_buildings.csv. Dataset 10.5281/zenodo.24194144."
 validation:
   benchmark: "Scordelis–Lo roof and pinched hemisphere (CalculiX S8R); the author's own thesis frame as validation case 0"
   metric: "Computed / reference displacement"
   value: "0.9984 and 0.9965 (within 0.4 %)"
 evidence:
   repo: https://github.com/syednafizreja/ShellBench
-  tag: v0.3.0
+  tag: v1.0.0
   doi: 10.5281/zenodo.23851675
-  tests: "238 passed (pytest, 10 Nov 2026)"
+  tests: "287 passed (pytest, on every push)"
   licence: MIT
-related: [shellform, thesis-rc-frame]
+related: [shellform, thesis-rc-frame, stress-line-ribs]
 ---
 
 ## Question
@@ -66,13 +66,13 @@ The shell solver reproduces two standard benchmarks within 0.4 %: the Scordelis�
 
 ## Findings in brief
 
-In the anchor building, shell floors lower both the floor and the whole-building embodied carbon; the whole-building saving is smaller, because the floor is only part of the structure. In the family run, every successful design passes the diaphragm test without a topping.
+In 32 of 33 buildings the thin-shell floor lowers whole-building A1–A3 carbon, by a median of 5.7%, against 14.3% for the floor alone. The saving is smaller than the floor-only saving because the frame and the footings remain. It does not grow with seismic intensity or with storey count, and no building needs a topping to act as a rigid diaphragm.
 
-The surrogate, tested on unseen storey counts, fell short of its pre-registered coverage target and did not beat the simple rule of always choosing the shell. This is reported as found. Exact figures will be given in the papers.
+The surrogate, tested on unseen storey counts, fell short of its pre-registered coverage target and did not beat the simple rule of always choosing the shell. The verdicts are frozen in the repository. The papers are still in preparation.
 
 ## What this does not show
 
-- All family and surrogate results are **pre-release**; the hypothesis verdicts are run once on the published dataset.
+- The analysis is elastic and at screening level. It is not a claim of seismic safety. The baseline is one code-checked conventional floor per building, not a search over every flat or ribbed slab.
 - Carbon is cradle-to-gate (A1–A3) only, and footings are outside the scope of the anchor comparison.
 - The design rules follow the Chinese codes (GB 50010, GB 50011); other codes would change member sizes.
-- Floors are compared at screening level; construction, formwork and long-term behaviour are not modelled.
+- Construction, formwork and long-term behaviour are not modelled.

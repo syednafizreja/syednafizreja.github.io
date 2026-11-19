@@ -32,7 +32,7 @@ const cite = (d: (typeof pubs)[number]['data']) => {
         <p>
           I work on computational design and mechanics of structures: form-finding and optimisation, finite-element analysis and seismic design,
           with concrete shells as my current test case and embodied carbon as a design variable. My code is open and tested. My bachelor thesis was the full hand design of a four-storey reinforced concrete frame for a seismic site in Sichuan, to the Chinese
-          codes. I now run two open research projects that build on it: ShellBench and ShellForm. Before this I spent two and a half years as a project
+          codes. The open records that build on it are ShellBench, ShellForm, and a buckling comparison of stress-line ribs with an optimised thickness. Before this I spent two and a half years as a project
           engineer in precision manufacturing, running durability testing and root-cause analysis.
         </p>
         <p class="mt-2 muted">
@@ -69,7 +69,7 @@ const cite = (d: (typeof pubs)[number]['data']) => {
           <ul>
             <li>Audited my thesis as the validation case: 16 input inconsistencies and 21 doubtful printed values logged, each with a recorded decision.</li>
             <li>Rebuilt the thesis frame in OpenSeesPy under gravity, wind and earthquake, with GB 50010 member checks and automated tests on every change.</li>
-            <li>In progress: a design generator swept over storeys and ground acceleration, a shell-floor module checked against standard benchmarks, pre-registered hypotheses and an open dataset.</li>
+            <li>Released as v1.0.0, with the dataset archived. In 32 of 33 buildings the shell floor lowers whole-building carbon, by a median of 5.7%, against 14.3% for the floor alone.</li>
           </ul>
         </div>
         <div class="entry">
@@ -77,7 +77,15 @@ const cite = (d: (typeof pubs)[number]['data']) => {
           <p class="where">Lead researcher and developer · Python, CalculiX, three.js · MIT licence</p>
           <ul>
             <li>Design study of 168 sized shells (two spans, two support types, three rise ratios, two strategies) over 0–0.6 g, with carbon under GB/T 51366 and ICE factors.</li>
-            <li>Pre-registered analysis plan, validation tests for the seismic form-finding code, and an interactive design explorer.</li>
+            <li>Released as v0.2.0. Under the pre-registered 5% rule the two form-finding strategies are not meaningfully different in most of the design space. The exceptions are one thickness step, and the robustness checks remove them.</li>
+          </ul>
+        </div>
+        <div class="entry">
+          <div class="entry-head"><h3><a href="/work/stress-line-ribs/">Stress-line ribs vs optimised thickness</a></h3><span class="when">2026</span></div>
+          <p class="where">Lead researcher and developer · Python, CalculiX, Gmsh · MIT licence</p>
+          <ul>
+            <li>Seven designs of one 12 × 12 m form-found shell, equal concrete volume, linear buckling under self-weight plus 0.2 g sway, then a geometric imperfection.</li>
+            <li>Stress-line ribs fall 31.10% below the plain shell. An orthogonal grid gains 16.05%. An optimised thickness gains 25.74%, and 15.03% once the imperfection governs. The hypothesis is not supported.</li>
           </ul>
         </div>
         <div class="entry">
