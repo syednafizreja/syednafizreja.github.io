@@ -45,13 +45,36 @@ A thin concrete shell can be stiffened against buckling in two ways: with ribs, 
 
 ## Findings in brief
 
-The hypothesis is not supported. Stress-line ribs fall below the plain shell. The orthogonal grid recovers part of the optimised thickness's gain, and an imperfection shrinks that lead.
+The hypothesis is not supported. Stress-line ribs fall below the plain shell. The orthogonal grid recovers part of the optimised thickness's gain, and an imperfection shrinks that lead. From 1.1 to 1.5 times this volume the stress-line ribs stay below the plain shell. The order of the seven designs is the same at 0.15 g and at 0.30 g.
 
 <More label="See the full comparison, the method and the checks">
 
 The hypothesis is not supported. D is 31.10% below the plain shell, so it recovers none of E's gain. B is 16.05% above the plain shell and recovers 62.36% of that gain, which is more than D, not less. The rib layout matters, and the seismic-envelope tracing is not the layout that recovers the capacity. C is also below the plain shell. E, the symmetric thickness optimum, is 25.74% above the plain shell. A free search with 25 zones did not beat it.
 
 With a geometric imperfection the governing value is the weaker sign, and for A, C, D and E that value is a limit point. E's lead over A shrinks from 25.74% to 15.03%. D remains below A.
+
+The same seven designs were built again at 1.1 to 1.5 times the registered volume. E was optimised again at each volume. C, D, Dd and Dx stay below A in every row. B stays above A. From 1.1 to 1.3 times the volume, B is above the recorded thickness optimum. Printed rows of `results/sweep_h0.4.txt`.
+
+| V/V60 | A | B | C | D | Dd | Dx | E | B's recovery |
+|---:|---:|---:|---:|---:|---:|---:|---:|---:|
+| 1.0 | 341.2 | 396.0 | 249.1 | 235.1 | 269.0 | 193.1 | 429.0 | 0.624 |
+| 1.1 | 389.3 | 549.8 | 241.3 | 213.8 | 249.7 | 159.8 | 488.7 | 1.615 |
+| 1.2 | 439.0 | 684.7 | 235.0 | 196.1 | 216.5 | 135.5 | 546.9 | 2.277 |
+| 1.3 | 490.5 | 676.4 | 228.9 | 181.9 | 188.9 | 117.4 | 606.9 | 1.596 |
+| 1.4 | 543.5 | 662.9 | 222.6 | 170.0 | 165.9 | 103.5 | 669.1 | 0.951 |
+| 1.5 | 597.9 | 649.0 | 216.1 | 159.8 | 145.7 | 92.4 | 733.4 | 0.377 |
+
+At 0.15 g and at 0.30 g the recorded designs were analysed again. E was not optimised again. The order is E, B, A, Dd, C, D, Dx at both accelerations, as at 0.20 g. Printed rows of `results/ah_h0.4.txt`. The 0.20 g column there is rounded. The unrounded factors are the ones in the comparison above.
+
+| Design | 0.15 g | 0.20 g | 0.30 g |
+|---|---:|---:|---:|
+| A | 348.65 | 341.21 | 327.04 |
+| B | 404.37 | 395.97 | 379.94 |
+| C | 254.48 | 249.13 | 238.85 |
+| D | 240.92 | 235.09 | 224.20 |
+| Dd | 275.15 | 268.96 | 257.02 |
+| Dx | 197.48 | 193.10 | 184.85 |
+| E | 439.43 | 429.02 | 408.83 |
 
 ![Mode 1 in plan for the uniform shell, the gravity-line ribs, the seismic-envelope ribs and the optimised thickness](../../assets/media/ribs/fig5_modes.png)
 
@@ -81,6 +104,6 @@ The checks ran before the study results were used. Each has a script in the repo
 ## What this does not show
 
 - The concrete is linear elastic and uncracked. Cracking, creep and reinforcement are not modelled. The nonlinear check is a geometric imperfection on that elastic model.
-- One shell, one support case, and one lateral acceleration. The comparison here is a single volume, that of a uniform 60 mm shell.
+- One shell and one support case. The volume runs from 1.0 to 1.5 times a uniform 60 mm shell, and the same designs were reanalysed at 0.15 g and 0.30 g. Corner support, cracked concrete and a second geometry are not in the record.
 - The edge-clearance rule drops ribs that lie along the pinned edge. That choice matters, because the governing mode uses the panel it leaves.
-- Carbon is A1–A3 concrete only, so it is the same for every design by construction.
+- Carbon is A1–A3 concrete only. Within one volume it is the same for every design. It changes when the volume changes. Reinforcement is not counted.
