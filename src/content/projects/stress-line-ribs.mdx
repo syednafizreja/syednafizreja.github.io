@@ -16,16 +16,16 @@ key_numbers:
   - label: "Optimised thickness E vs uniform shell"
     value: "+25.74"
     unit: "%"
-    basis: "Linear factor, worst of eight directions, equal volume. Source: results/E_best_d4_h0.4.json and figures/table_variants_V60.csv"
+    basis: "Worst of eight directions, equal volume"
   - label: "Orthogonal rib grid B vs uniform shell"
     value: "+16.05"
     unit: "%"
-    basis: "Recovers 62.36% of E's gain. The hypothesis asked this of D, at 70% or more"
+    basis: "62.36% of E's gain over A"
   - label: "Stress-line ribs D vs uniform shell"
     value: "−31.10"
     unit: "%"
-    basis: "Below the plain shell. The 50 mm panels between the ribs buckle first"
-numbers_note: "With a mode-1 imperfection the governing values put E 15.03% above A, down from 25.74%. Source: results/gnia_h0.4.txt. Percentages are the file values to two decimal places."
+    basis: "The 50 mm panels between the ribs buckle first"
+numbers_note: "Linear factors from results/E_best_d4_h0.4.json and figures/table_variants_V60.csv. With a mode-1 imperfection, E is 15.03% above A, down from 25.74% (results/gnia_h0.4.txt)."
 validation:
   benchmark: "Scordelis-Lo roof (S8R shells)"
   metric: "Error in the reference displacement, finest mesh"
@@ -37,9 +37,23 @@ evidence:
 related: [shellform, shellbench, shelllab]
 ---
 
+import More from '../../components/More.astro'
+
 ## Question
 
 A thin concrete shell can be stiffened against buckling in two ways: with ribs, or with thicker concrete where it is needed. Ribs traced along stress lines are a common proposal. Do they recover the buckling capacity of an optimised thickness field when both use the same concrete, and so the same carbon?
+
+## Findings in brief
+
+The hypothesis is not supported. Stress-line ribs fall below the plain shell. The orthogonal grid recovers part of the optimised thickness's gain, and an imperfection shrinks that lead.
+
+<More label="See the full comparison, the method and the checks">
+
+The hypothesis is not supported. D is 31.10% below the plain shell, so it recovers none of E's gain. B is 16.05% above the plain shell and recovers 62.36% of that gain, which is more than D, not less. The rib layout matters, and the seismic-envelope tracing is not the layout that recovers the capacity. C is also below the plain shell. E, the symmetric thickness optimum, is 25.74% above the plain shell. A free search with 25 zones did not beat it.
+
+With a geometric imperfection the governing value is the weaker sign, and for A, C, D and E that value is a limit point. E's lead over A shrinks from 25.74% to 15.03%. D remains below A.
+
+![Mode 1 in plan for the uniform shell, the gravity-line ribs, the seismic-envelope ribs and the optimised thickness](../../assets/media/ribs/fig5_modes.png)
 
 ## Approach
 
@@ -50,15 +64,7 @@ A thin concrete shell can be stiffened against buckling in two ways: with ribs, 
 
 ![Four rib layouts in plan: an orthogonal grid, gravity membrane-force lines, seismic-envelope moment lines, and the plus-x case](../../assets/media/ribs/layouts.png)
 
-## Findings in brief
-
-The hypothesis is not supported. D is 31.10% below the plain shell, so it recovers none of E's gain. B is 16.05% above the plain shell and recovers 62.36% of that gain, which is more than D, not less. The rib layout matters, and the seismic-envelope tracing is not the layout that recovers the capacity. C is also below the plain shell. E, the symmetric thickness optimum, is 25.74% above the plain shell. A free search with 25 zones did not beat it.
-
 The linear factors are in [the repository](https://github.com/syednafizreja/stress-line-ribs-shell-buckling). This page uses the comparisons, not a second copy of the table.
-
-With a geometric imperfection the governing value is the weaker sign, and for A, C, D and E that value is a limit point. E's lead over A shrinks from 25.74% to 15.03%. D remains below A.
-
-![Mode 1 in plan for the uniform shell, the gravity-line ribs, the seismic-envelope ribs and the optimised thickness](../../assets/media/ribs/fig5_modes.png)
 
 ## Validation
 
@@ -69,6 +75,8 @@ The checks ran before the study results were used. Each has a script in the repo
 - a ribbed slab against T-beam stiffness: thickened shell strips 0.999 of the reference, and the beam-rib model used in the study 0.976;
 - mesh refinement from h = 0.4 m to 0.2 m: the uniform shell moves from 341.21 to 341.16 at 0°, and design D from 235.11 to 234.69;
 - IFC4 round trip, six files, 0 schema errors, largest volume differences −0.11% and +0.10%.
+
+</More>
 
 ## What this does not show
 

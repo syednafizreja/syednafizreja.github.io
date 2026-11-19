@@ -37,9 +37,13 @@ evidence:
 related: [shellform, shellbench]
 ---
 
+import More from '../../components/More.astro'
+
 ## Question
 
 What shape carries a shell's own weight in pure compression, and what does that shape ask of its supports? ShellForm answers this for a fixed set of designs. ShellLab makes the same solver something a designer can push around live.
+
+<More label="See the method and the checks">
 
 ## Approach
 
@@ -51,6 +55,8 @@ What shape carries a shell's own weight in pure compression, and what does that 
 ## Validation
 
 The solver is a port of ShellForm's `formfind.py`. A script runs ShellForm itself on six cases (edge- and corner-supported, with and without lateral load, and the free-edge inset search) and stores the results as test fixtures. The browser solver matches their coordinates to 9.4 × 10⁻¹⁴ m and their reactions to 10⁻⁸, and every form is in equilibrium to a relative residual below 10⁻⁹. The tests run on every push.
+
+</More>
 
 ## What this does not show
 

@@ -11,6 +11,7 @@ for (const path of pages) {
       await page.addInitScript((t) => localStorage.setItem('theme', t), scheme);
       await page.goto(path);
       expect(await page.evaluate(() => document.documentElement.dataset.theme)).toBe(scheme);
+      await page.evaluate(() => document.querySelectorAll('details').forEach((d) => { if (d instanceof HTMLDetailsElement) d.open = true; }));
       const r = await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa']).analyze();
       expect(r.violations.map((v) => `${v.id}: ${v.nodes.map((n) => n.target.join(' ')).join(', ')}`)).toEqual([]);
     });
@@ -35,6 +36,7 @@ test('no visible draft markers or private details', async ({ page }) => {
   test.setTimeout(90_000);
   for (const path of pages) {
     await page.goto(path);
+    await page.evaluate(() => document.querySelectorAll('details').forEach((d) => { if (d instanceof HTMLDetailsElement) d.open = true; }));
     const text = await page.locator('body').innerText();
     expect(text, path).not.toMatch(/\bTODO\b|\bDRAFT\b|lorem ipsum/);
 
@@ -111,6 +113,18 @@ test('back-to-top control appears after scrolling and returns to the top', async
   await expect(btn).toBeVisible();
   await btn.click();
   await expect.poll(() => page.evaluate(() => window.scrollY)).toBeLessThan(5);
+});
+
+test('method text stays closed until see more is opened', async ({ page }) => {
+  await page.setViewportSize({ width: 1440, height: 900 });
+  await page.goto('/work/stress-line-ribs/');
+  const more = page.locator('details.more');
+  await expect(more).toHaveCount(1);
+  await expect(more).not.toHaveAttribute('open', '');
+  await expect(page.getByRole('heading', { name: 'Approach' })).toBeHidden();
+  await page.locator('.case-aside a[href="#approach"]').click();
+  await expect(more).toHaveAttribute('open', '');
+  await expect(page.getByRole('heading', { name: 'Approach' })).toBeVisible();
 });
 
 test('3D view loads only on request', async ({ page }) => {

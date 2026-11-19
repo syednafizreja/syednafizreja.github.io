@@ -1,0 +1,13 @@
+---
+interface Props {
+  label?: string;
+}
+const { label = 'See more' } = Astro.props;
+---
+
+<details class="more">
+  <summary>{label}</summary>
+  <div class="more-body">
+    <slot />
+  </div>
+</details>

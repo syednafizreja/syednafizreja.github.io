@@ -40,9 +40,17 @@ evidence:
 related: [shellbench]
 ---
 
+import More from '../../components/More.astro'
+
 ## Question
 
 Can a complete reinforced concrete frame for a seismic site be designed, checked and drawn by hand, to the Chinese codes, in a way that someone else can follow line by line?
+
+## Results
+
+A complete, documented design with drawings, released openly with a DOI.
+
+<More label="See the method and the checks">
 
 ## Approach
 
@@ -60,9 +68,7 @@ Inter-storey drifts were checked against the GB 50011 limit of 1/550; the larges
 
 Three years later, the thesis became the validation case for ShellBench. Rebuilding it in OpenSeesPy, I logged 16 input inconsistencies and 21 doubtful printed values, each with a recorded decision. That audit is what taught me to trust a result only after it has been checked against something independent.
 
-## Results
-
-A complete, documented design with drawings, released openly with a DOI.
+</More>
 
 ## What this does not show
 

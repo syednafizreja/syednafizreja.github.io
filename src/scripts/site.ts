@@ -86,3 +86,20 @@ if (!matchMedia('(prefers-reduced-motion: reduce)').matches && 'IntersectionObse
     io.observe(el);
   });
 }
+
+// A "see more" block starts closed. A link to a heading inside it opens the block first.
+const openDetailsFor = (id: string) => {
+  const el = document.getElementById(id);
+  const box = el?.closest('details');
+  if (box instanceof HTMLDetailsElement) box.open = true;
+};
+const openFromHash = () => {
+  if (location.hash.length > 1) openDetailsFor(decodeURIComponent(location.hash.slice(1)));
+};
+document.addEventListener('click', (event) => {
+  const link = (event.target as Element | null)?.closest?.('a[href^="#"]');
+  const href = link?.getAttribute('href');
+  if (href && href.length > 1) openDetailsFor(decodeURIComponent(href.slice(1)));
+});
+openFromHash();
+window.addEventListener('hashchange', openFromHash);

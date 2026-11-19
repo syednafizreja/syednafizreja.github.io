@@ -42,11 +42,21 @@ evidence:
 related: [shellbench, shelllab, stress-line-ribs]
 ---
 
+import More from '../../components/More.astro'
+
 ## Question
 
 How much embodied carbon does seismic resilience cost in a form-found concrete shell, and does form-finding that includes seismic loads deliver it more cheaply than thickening a gravity-only shape?
 
 ShellForm extends the seismic form-finding of Michiels and Adriaenssens (2017, 2018) by sizing each form to pass code checks and counting its A1–A3 embodied carbon.
+
+## Findings in brief
+
+Across the design space, the two strategies differ by less than the pre-registered 5% rule in most paired cells. That rule counts the difference as not meaningful.
+
+<More label="See why, and see the method and the checks">
+
+The cells that do differ are one 5 mm thickness step from the buckling limit, and they disappear under every robustness check. Thickness is set by linear buckling on corner supports, or by the 50 mm minimum on edge supports, and the steel by the minimum ratio. None of these responds to spectral acceleration up to 0.6 g. The mechanism and the checks are in the repository. The manuscript is still in preparation.
 
 ## Approach
 
@@ -60,9 +70,7 @@ ShellForm extends the seismic form-finding of Michiels and Adriaenssens (2017, 2
 
 ShellForm is built on ShellBench's validated, tagged modules, whose shell analysis reproduces the Scordelis–Lo roof and pinched hemisphere benchmarks within 0.4 %. The seismic form-finding code has its own validation tests. The suite is 125 tests and runs on every push. The software release is v0.2.0.
 
-## Findings in brief
-
-Across the design space, the two strategies differ by less than the pre-registered 5% rule in most paired cells. That rule counts the difference as not meaningful. The cells that do differ are one 5 mm thickness step from the buckling limit, and they disappear under every robustness check. Thickness is set by linear buckling on corner supports, or by the 50 mm minimum on edge supports, and the steel by the minimum ratio. None of these responds to spectral acceleration up to 0.6 g. The mechanism and the checks are in the repository. The manuscript is still in preparation.
+</More>
 
 ## What this does not show
 

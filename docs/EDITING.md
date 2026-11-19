@@ -28,7 +28,9 @@ Images uploaded in the dashboard go to `src/assets/media/`. The site converts th
 
 Copy an existing `.mdx` file, set `number` to the next free number, and keep the five headings in this order:
 
-`## Question`, `## Approach`, `## Validation`, `## Findings in brief`, `## What this does not show`.
+`## Question`, `## Findings in brief`, `## Approach`, `## Validation`, `## What this does not show`.
+
+Question, the findings and the limits stay open. Approach and Validation go inside `<More label="See the method and the checks">`, so the long method is one control rather than a wall of text. A link to a heading inside that control opens it.
 
 The new project appears by itself on `/work/`, in the Projects menu and in the tests on the next build.
 

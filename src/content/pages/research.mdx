@@ -3,19 +3,31 @@ title: "Research"
 description: "Research statement: computational design and mechanics of structures, with concrete shells under seismic loading as the test case and embodied carbon as a design variable."
 ---
 
+import More from '../../components/More.astro'
+
 ## The direction
 
 My field is computational design and mechanics of structures: finding efficient forms through form-finding and optimisation, and checking them with finite-element analysis, buckling and seismic design. Embodied carbon is the measure I use to judge the outcome.
 
+<More label="See why a lighter floor is not the whole answer">
+
 Concrete shells are my current test case. They carry load through their shape rather than their thickness, so the link between form, mechanics and material is direct. In the frame I designed for my thesis, the floors hold more than half of the cradle-to-gate carbon of the building, so a lighter floor matters. In a seismic region, though, mass and stiffness decide the earthquake forces, and the design codes add minimum thicknesses, ties and diaphragm checks. I want to know when the material saving of a shell survives all of that, and when it does not.
 
+</More>
+
 ## Three threads
+
+[ShellBench](/work/shellbench) carries a shell floor through a whole seismic frame. [ShellForm](/work/shellform) asks whether seismic form-finding saves carbon. [The ribs study](/work/stress-line-ribs) holds the concrete volume fixed. Two further threads cover durability, and whether a result can be checked.
+
+<More label="See the three threads">
 
 **Form and mechanics under seismic loading.** [ShellBench](/work/shellbench) follows thin-shell floors through the whole design of GB 50010 / GB 50011 reinforced concrete frames, from floor to beams, columns and lateral system, and counts the A1–A3 carbon of the whole building. In 32 of 33 buildings the shell floor lowers whole-building carbon, by a median of 5.7%, against 14.3% for the floor alone. [ShellForm](/work/shellform) asks the same question of form-found shell roofs: does including seismic loads in form-finding save carbon over thickening a gravity-only shape? Under its pre-registered 5% rule, the two strategies are not meaningfully different in most of the design space, because buckling and minimum thickness govern, not the earthquake. [Ribs against an optimised thickness](/work/stress-line-ribs) holds the concrete volume fixed on one shell: stress-line ribs fall below the plain shell, and an optimised thickness field does not. A geometric imperfection shrinks that lead.
 
 **Durability as a carbon variable.** In pavements, the larger part of the carbon benefit of a better material can come from a longer service life rather than lower production emissions. [PaveCarbon](/work/pavecarbon) carries a laboratory durability gain through a finite-element model to an annualised carbon figure, and the [moisture-damage model](/work/moisture-model) does the same for moisture exposure over time.
 
 **Results that can be checked.** Each project is open code with automated tests, benchmarks against closed-form or published solutions, tagged releases and, where the work is a study, a pre-registered analysis plan. My own [bachelor thesis](/work/thesis-rc-frame) is the first validation case, and its errors are logged rather than hidden.
+
+</More>
 
 ## What I want to do next
 

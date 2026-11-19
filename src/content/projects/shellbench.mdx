@@ -29,7 +29,7 @@ key_numbers:
     value: "287"
     unit: "passed"
     basis: "pytest, run in CI on every push"
-numbers_note: "Software v1.0.0. In 32 of 33 buildings the shell floor lowers whole-building carbon, by a median of 5.7%, against 14.3% for the floor alone. Base case, results/verdicts_buildings.csv. Dataset 10.5281/zenodo.24194144."
+numbers_note: "Software v1.0.0. Base case, results/verdicts_buildings.csv. Dataset 10.5281/zenodo.24194144."
 validation:
   benchmark: "Scordelis–Lo roof and pinched hemisphere (CalculiX S8R); the author's own thesis frame as validation case 0"
   metric: "Computed / reference displacement"
@@ -43,11 +43,21 @@ evidence:
 related: [shellform, thesis-rc-frame, stress-line-ribs]
 ---
 
+import More from '../../components/More.astro'
+
 ## Question
 
 A thinner floor weighs less. Less weight means smaller seismic forces, which can mean smaller beams, columns and footings. ShellBench follows that chain through the whole building, using real design codes, rather than comparing floors on their own.
 
 The question: how much do thin-shell floors cut the whole-building A1–A3 embodied carbon of a GB 50010 / GB 50011 reinforced concrete frame across 3–8 storeys, and how does the saving change with storey count and seismic intensity once diaphragm, tie and topping needs are met?
+
+## Findings in brief
+
+In 32 of 33 buildings the thin-shell floor lowers whole-building A1–A3 carbon, by a median of 5.7%, against 14.3% for the floor alone. The saving is smaller than the floor-only saving because the frame and the footings remain. It does not grow with seismic intensity or with storey count, and no building needs a topping to act as a rigid diaphragm.
+
+The surrogate, tested on unseen storey counts, fell short of its pre-registered coverage target and did not beat the simple rule of always choosing the shell. The verdicts are frozen in the repository. The papers are still in preparation.
+
+<More label="See the method and the checks">
 
 ## Approach
 
@@ -64,11 +74,7 @@ The study is checked against one real, fully documented building: my own bachelo
 
 The shell solver reproduces two standard benchmarks within 0.4 %: the Scordelis–Lo roof (0.9984 of the reference displacement) and the pinched hemisphere (0.9965). The anchor frame reproduces the thesis storey shears and drifts; each difference above 10 % is explained in the anchor report.
 
-## Findings in brief
-
-In 32 of 33 buildings the thin-shell floor lowers whole-building A1–A3 carbon, by a median of 5.7%, against 14.3% for the floor alone. The saving is smaller than the floor-only saving because the frame and the footings remain. It does not grow with seismic intensity or with storey count, and no building needs a topping to act as a rigid diaphragm.
-
-The surrogate, tested on unseen storey counts, fell short of its pre-registered coverage target and did not beat the simple rule of always choosing the shell. The verdicts are frozen in the repository. The papers are still in preparation.
+</More>
 
 ## What this does not show
 
