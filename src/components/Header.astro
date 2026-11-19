@@ -15,8 +15,8 @@ const nav = [
 ];
 const path = Astro.url.pathname.replace(/\/?$/, '/');
 const isCurrent = (href: string) => (href === '/' ? path === '/' : href === '/work/' ? path.startsWith('/work/') : path === href);
-// every published project, newest number first; a new .mdx in src/content/projects appears here on the next build
-const projects = (await getCollection('projects', (p) => !p.data.draft)).sort((a, b) => b.data.number.localeCompare(a.data.number));
+// the serial order, 001 first; a new .mdx in src/content/projects appears here on the next build
+const projects = (await getCollection('projects', (p) => !p.data.draft)).sort((a, b) => a.data.number.localeCompare(b.data.number));
 const initials = site.name.split(' ').filter(Boolean).map((w) => w[0]).slice(0, 2).join('');
 ---
 

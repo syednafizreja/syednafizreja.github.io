@@ -1,0 +1,46 @@
+---
+number: "005"
+title: "Seismic shell floors: stiffness, diaphragm action and whole-building carbon"
+short_title: "Seismic shell floors"
+year: "2026"
+sort_date: 2026-11-19
+status: in-progress
+summary: "How light can a shell floor be before it stops acting as a rigid diaphragm, and what that does to the carbon of the whole frame. The design study has not been run."
+methods: [finite-element, form-finding, seismic-analysis, embodied-carbon, optimisation, validation]
+tools: [Python]
+hero:
+  src: ../../assets/media/seismic-floors/question.png
+  alt: "A line drawing of one bay: a square plan with a column at each corner, and a section of two columns carrying a shallow arch."
+  caption: "A sketch of the question: one bay in plan and section. Not a calculated result."
+evidence:
+  licence: "Not released"
+related: [shellbench, stress-line-ribs, shellform]
+---
+
+import More from '../../components/More.astro'
+
+## Question
+
+A lighter floor cuts the seismic mass, so the beams, columns and foundations can get smaller. The same floor has less in-plane stiffness, and past some point it stops acting as a rigid diaphragm. Topping and ties then put carbon back. Where is that trade-off, and which floor geometry reaches it?
+
+## Findings in brief
+
+There is no design result yet. The question is fixed. The floor geometries have not been optimised, and this page states no carbon comparison.
+
+<More label="See the method and the checks">
+
+## Approach
+
+The study is a shell floor inside a whole reinforced-concrete frame. The floor has to carry its own gravity and the in-plane shear of the earthquake. The pieces are a mechanics model of the floor, a check that it still works as a diaphragm, and a search over rise, thickness and ribs. ShellBench supplies the frame, the carbon count and the diaphragm test. It is imported, not edited.
+
+## Validation
+
+The validation ladder is fixed before the design runs. The first two mechanics checks have passed. The remaining rungs, and the search over geometries, have not been run.
+
+</More>
+
+## What this does not show
+
+- No optimum shape, and no saving in whole-building carbon. Those are the result the study is for, and they do not exist yet.
+- The code is not released. The checks stay in the working repository until the study is finished.
+- A passed mechanics check is not a statement about a building.
