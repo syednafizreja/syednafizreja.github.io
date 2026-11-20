@@ -5,11 +5,19 @@ description: "Syed Nafiz Reja Hasib is a civil and structural engineer working o
 
 import More from '../../components/More.astro'
 
-I work on computational design and mechanics of structures: finding efficient forms and checking them with finite-element analysis and seismic design. Concrete shells are my current test case, and embodied carbon is one of the design variables. My code is open and tested.
+I work on computational design and mechanics of structures. Concrete shells are the test case, and embodied carbon is one of the design variables. Released code is open and tested.
 
-<More label="See the thesis and the three records">
+<More label="See the thesis and the studies">
 
-My bachelor thesis at Southwest Petroleum University in Chengdu was the full hand design of a four-storey reinforced concrete frame for a seismic site in Sichuan, to the Chinese codes. Three open records build on it. ShellBench follows thin-shell floors through the seismic design and embodied carbon of whole RC buildings, and is released with its dataset. ShellForm measures the carbon cost of making form-found concrete shells earthquake-resistant. A third study compares stress-line ribs with an optimised thickness on one shell, at the same concrete volume, and across 1.1 to 1.5 times that volume. A floor study, not yet released, has a first vault-bay result and no carbon optimum.
+My bachelor thesis at Southwest Petroleum University in Chengdu was the full hand design of a four-storey reinforced concrete frame for a seismic site in Sichuan, to the Chinese codes. The studies below start from that frame.
+
+ShellBench carries a shell floor through the seismic design and the A1–A3 carbon of a whole reinforced-concrete building. In 32 of 33 buildings the shell floor lowers that carbon, by a median of 5.7%.
+
+ShellForm asks whether putting the earthquake into the form-finding saves carbon. In 79 of 84 paired cells the two strategies differ by less than 5%. Thickness is set by buckling or by a minimum, and the difference disappears under the robustness checks.
+
+The ribs study holds the concrete volume fixed on one 12 × 12 m shell. An orthogonal grid gains 16.05%. An optimised thickness gains 25.74%. Stress-line ribs fall below the plain shell. With an imperfection the thickness lead is 15.03%.
+
+A floor study, not yet released, has one 3 m vault bay and no carbon optimum. At a rise of 0.60 m the smooth shell keeps 0.40763 of the flat extensional stiffness, and one rib cross keeps 0.38984. Those cells do not share one diaphragm ratio.
 
 </More>
 

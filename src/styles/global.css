@@ -507,6 +507,14 @@
 
   /* key numbers */
   .numbers { display: grid; grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr)); gap: 1px; margin-block: var(--s4) var(--s2); border: 1px solid var(--rule-soft); border-radius: var(--radius-lg); overflow: hidden; background: var(--rule-soft); }
+  @media (prefers-reduced-motion: no-preference) {
+    .numbers > div { animation: rise 0.55s cubic-bezier(.2,.7,.2,1) both; }
+    .numbers > div:nth-child(2) { animation-delay: 0.08s; }
+    .numbers > div:nth-child(3) { animation-delay: 0.16s; }
+    .section-head h2::after { transform-origin: left center; animation: rule 0.7s cubic-bezier(.2,.7,.2,1) both; }
+  }
+  @keyframes rise { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+  @keyframes rule { from { transform: scaleX(0); } to { transform: scaleX(1); } }
   .numbers > div { padding: var(--s2) var(--s2) var(--s3); background: var(--card); }
   .numbers dt { font-family: var(--mono); font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.07em; color: var(--ink-3); }
   .numbers .v { font-family: var(--mono); font-size: var(--step-2); font-weight: 500; color: var(--ink); letter-spacing: -0.04em; margin-top: var(--s1); font-variant-numeric: tabular-nums; line-height: 1.15; }
