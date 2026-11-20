@@ -51,13 +51,14 @@ There is no carbon optimum, and no whole-building result. The record is one bay:
 | Smooth, rise 0.30 m | 0.46875 | 0.65578 |
 | Cross, rise 0.30 m | 0.43480 | 0.60185 |
 | Diagonals, rise 0.30 m | 0.44408 | 0.65435 |
+| Stress lines, rise 0.30 m, 0.375 m | 0.46328 | 0.64944 |
 | Smooth, rise 0.60 m | 0.40763 | 0.46892 |
 | Cross, rise 0.60 m | 0.38984 | 0.45189 |
 | Diagonals, rise 0.60 m | 0.39834 | 0.47168 |
 | Stress lines, 0.375 m | 0.40744 | 0.46840 |
 | Stress lines, 0.75 m | 0.41394 | 0.46365 |
 
-Two diagonals use the same volume, a 50 mm shell and a rib of 104.77 mm. Extension stays under the smooth shell. Shear, 0.47168, is above the smooth shell's 0.46892. At rise 0.30 m the same diagonals, rib 143.33 mm, give 0.44408 and 0.65435. Those are 0.02467 and 0.00143 below the smooth shell at that rise. Both rises stay under the flat plate. Stress-line ribs at 0.375 m give 0.40744 and 0.46840, with a rib of 59.16 mm on 236 of 441 elements. At 0.75 m they give 0.41394 and 0.46365, with a rib of 66.65 mm on 128 elements. Extension there is 0.00631 above the smooth shell, and shear is 0.00527 below it. Hypothesis H1 stays open.
+Two diagonals use the same volume, a 50 mm shell and a rib of 104.77 mm. Extension stays under the smooth shell. Shear, 0.47168, is above the smooth shell's 0.46892. At rise 0.30 m the same diagonals, rib 143.33 mm, give 0.44408 and 0.65435. Those are 0.02467 and 0.00143 below the smooth shell at that rise. Stress lines at that rise, spacing 0.375 m, give 0.46328 and 0.64944, with a rib of 66.29 mm on 232 of 441 elements. Those are 0.00547 and 0.00634 below the smooth shell. Both rises stay under the flat plate. Stress-line ribs at 0.375 m give 0.40744 and 0.46840, with a rib of 59.16 mm on 236 of 441 elements. At 0.75 m they give 0.41394 and 0.46365, with a rib of 66.65 mm on 128 elements. Extension there is 0.00631 above the smooth shell, and shear is 0.00527 below it. Hypothesis H1 stays open.
 
 The cells do not share one diaphragm ratio. alpha* is the ratio at which the flexible displacement exceeds the rigid one by 10%. On seven equal bays it moves with L/D.
 
@@ -91,10 +92,11 @@ Gravity is self-weight on the same 3 m bay. Boundary translations are fixed and 
 | Cross, rise 0.60 m | −0.0024 | 0.0046 | 5210.6 |
 | Diagonals, rise 0.60 m | −0.0028 | 0.0045 | 4272.83 |
 | Diagonals, rise 0.30 m | −0.0093 | 0.0125 | 1856.27 |
+| Stress lines, rise 0.30 m, 0.375 m | −0.0067 | 0.0115 | 2405.68 |
 | Stress lines, 0.375 m | −0.0022 | 0.0046 | 5012.74 |
 | Stress lines, 0.75 m | −0.0022 | 0.0047 | 5383.24 |
 
-The flat crown bends, with face stresses +5.701984e5 Pa and −5.701984e5 Pa. The recorded vault crowns are in compression. On the smooth rise of 0.60 m, 24 of 441 elements have one tensile membrane principal, all at the four corners. The largest is 6.950346e3 Pa. The smooth crown is −1.941393e4 Pa and −1.684599e4 Pa. The cross is −1.867630e4 Pa and −1.325382e4 Pa. The rise 0.60 m diagonals are −1.478991e4 Pa and −1.460445e4 Pa. The rise 0.30 m diagonals are −3.709125e4 Pa and −2.155468e4 Pa. The 0.375 m stress-line crown is −2.022574e4 Pa and −1.691824e4 Pa. The 0.75 m crown is −1.962041e4 Pa and −1.705144e4 Pa. The cross lifts the factor from 4933.37 to 5210.6. The rise 0.60 m diagonals lower it to 4272.83. At rise 0.30 m their factor is 1856.27. The stress-line factors are 5012.74 and 5383.24. None of these ribs cuts the crown deflection.
+The flat crown bends, with face stresses +5.701984e5 Pa and −5.701984e5 Pa. The recorded vault crowns are in compression. On the smooth rise of 0.60 m, 24 of 441 elements have one tensile membrane principal, all at the four corners. The largest is 6.950346e3 Pa. The smooth crown is −1.941393e4 Pa and −1.684599e4 Pa. The cross is −1.867630e4 Pa and −1.325382e4 Pa. The rise 0.60 m diagonals are −1.478991e4 Pa and −1.460445e4 Pa. The rise 0.30 m diagonals are −3.709125e4 Pa and −2.155468e4 Pa. The 0.375 m stress-line crown is −2.022574e4 Pa and −1.691824e4 Pa. The 0.75 m crown is −1.962041e4 Pa and −1.705144e4 Pa. The cross lifts the factor from 4933.37 to 5210.6. The rise 0.60 m diagonals lower it to 4272.83. At rise 0.30 m their factor is 1856.27. The stress lines at that rise have factor 2405.68 and crown −0.0067 mm. The smooth crown in the same print is −0.006964 mm. The stress-line factors are 5012.74 and 5383.24. None of these ribs cuts the crown deflection.
 
 <More label="See the method and the checks">
 
