@@ -133,7 +133,7 @@ Rungs 1 and 2 have a pass mark. The curved stiffness rows are the record, and th
 - Rung 2, a deep beam against Timoshenko: worst error 0.21%, limit 2%. Shear carries 3.5% to 36.5% of the deflection.
 - Rise zero on the smooth bay matches the flat cell within 0.1%: Et 1.684e-06% and Gt 1.155e-12%.
 - Rise zero on the rib mesh is 1.00000 and 1.00000 against E T and G T.
-- Rung 4, a 3 m deep beam against Timoshenko using Et and Gt from the same mesh: flat −2.93%, inside 5%. Smooth rise 0.60 m +15.80%, outside 5%. The cross and the full floor are not in this check.
+- Rung 4, a 3 m deep beam against Timoshenko using Et and Gt from the same mesh: flat −2.93%, inside 5%. Smooth rise 0.60 m +15.80%, outside 5%, on the 12×12 mesh. On the recorded 21×21 mesh the smooth shell is +15.33% and the cross is +31.53%. Both are outside 5%. The full floor is not in this check.
 - An X-strut grid, calibrated on Et and Gt and then checked on the flat deep beam: +9.83% at a 1 m panel and +12.74% at 0.5 m. Both outside 5%. That 5% is the brief's limit, not a code clause.
 - Two-frame alpha*: 19.9956 against 20 from the definition. The beam element matches the closed deflection to −0.003%.
 
@@ -144,6 +144,6 @@ Rungs 1 and 2 have a pass mark. The curved stiffness rows are the record, and th
 - No optimum shape, and no saving in whole-building carbon. The search over geometries has not been run.
 - One cross, diagonals at two rises and two stress-line spacings are not the ribbed floor. Hypothesis H1, that a flat plate is an upper bound for a curved ribbed floor of equal volume, stays open.
 - Hypothesis H2 is not supported on this reduced model. alpha* is 54.651 at L/D 0.3 and 495.420 at L/D 2.
-- The rise 0.60 m shell is 15.80% off the Timoshenko beam that uses its own Et and Gt. The homogenised stiffness is not a 5% substitute for that vault.
+- The rise 0.60 m shell is 15.80% off the Timoshenko beam that uses its own Et and Gt. On the recorded 21×21 mesh that shell is 15.33% off, and the cross is 31.53% off. The homogenised stiffness is not a 5% substitute for that vault.
 - Gravity factors of several thousand are for self-weight on this bay. No knockdown is applied. They are not a design check of a building.
 - The code is not released. A passed mechanics check is not a statement about a building.
