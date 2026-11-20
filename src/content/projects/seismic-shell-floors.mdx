@@ -52,6 +52,9 @@ There is no carbon optimum, and no whole-building result. The record is one bay:
 | Cross, rise 0.30 m | 0.43480 | 0.60185 |
 | Smooth, rise 0.60 m | 0.40763 | 0.46892 |
 | Cross, rise 0.60 m | 0.38984 | 0.45189 |
+| Diagonals, rise 0.60 m | 0.39834 | 0.47168 |
+
+Two diagonals use the same volume, a 50 mm shell and a rib of 104.77 mm. Extension stays under the smooth shell. Shear, 0.47168, is above the smooth shell's 0.46892. Both are under the flat plate. Hypothesis H1 stays open.
 
 The cells do not share one diaphragm ratio. alpha* is the ratio at which the flexible displacement exceeds the rigid one by 10%. On seven equal bays it moves with L/D.
 
@@ -83,8 +86,9 @@ Gravity is self-weight on the same 3 m bay. Boundary translations are fixed and 
 | Flat, 60 mm | −0.7956 | 0.7956 | 25122.1 |
 | Smooth, rise 0.60 m | −0.0022 | 0.0047 | 4933.37 |
 | Cross, rise 0.60 m | −0.0024 | 0.0046 | 5210.6 |
+| Diagonals, rise 0.60 m | −0.0028 | 0.0045 | 4272.83 |
 
-The flat crown bends, with face stresses +5.701984e5 Pa and −5.701984e5 Pa. Both vault faces are in compression. The smooth crown is −1.941393e4 Pa and −1.684599e4 Pa. The cross is −1.867630e4 Pa and −1.325382e4 Pa. The cross does not cut the crown deflection, and it lifts the factor from 4933.37 to 5210.6.
+The flat crown bends, with face stresses +5.701984e5 Pa and −5.701984e5 Pa. Both vault faces are in compression. The smooth crown is −1.941393e4 Pa and −1.684599e4 Pa. The cross is −1.867630e4 Pa and −1.325382e4 Pa. The diagonals are −1.478991e4 Pa and −1.460445e4 Pa. The cross lifts the factor from 4933.37 to 5210.6. The diagonals lower it to 4272.83, and they do not cut the crown deflection.
 
 <More label="See the method and the checks">
 
@@ -128,7 +132,7 @@ Rungs 1 and 2 have a pass mark. The curved stiffness rows are the record, and th
 ## What this does not show
 
 - No optimum shape, and no saving in whole-building carbon. The search over geometries has not been run.
-- One cross is not the ribbed floor. Hypothesis H1, that a flat plate is an upper bound for a curved ribbed floor of equal volume, stays open.
+- One cross is not the ribbed floor, and neither is one pair of diagonals. Hypothesis H1, that a flat plate is an upper bound for a curved ribbed floor of equal volume, stays open.
 - Hypothesis H2 is not supported on this reduced model. alpha* is 54.651 at L/D 0.3 and 495.420 at L/D 2.
 - The rise 0.60 m shell is 15.80% off the Timoshenko beam that uses its own Et and Gt. The homogenised stiffness is not a 5% substitute for that vault.
 - Gravity factors of several thousand are for self-weight on this bay. No knockdown is applied. They are not a design check of a building.
