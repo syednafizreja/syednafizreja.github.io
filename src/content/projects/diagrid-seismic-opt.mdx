@@ -1,0 +1,81 @@
+---
+number: "006"
+title: "Diagrid seismic optimisation: superelastic NiTi fuses against yielding steel"
+short_title: "Diagrid seismic opt"
+year: "2026"
+sort_date: 2026-11-22
+status: complete
+summary: "Multi-hazard seismic design and whole-life carbon optimisation of a glulam–timber diagrid canopy, comparing superelastic NiTi self-centring fuses with yielding steel. A surrogate recovers a certified zero-false-safe Pareto front, shown in an interactive browser workbench."
+methods: [finite-element, seismic-analysis, embodied-carbon, optimisation, machine-learning, validation, interactive-tools]
+tools: [Python, OpenSeesPy, scikit-learn, PyTorch, three.js]
+hero:
+  src: ../../assets/media/diagrid/diagrid_3d.png
+  alt: "A curved glulam diagrid canopy over four branching steel tree columns with spherical hub nodes."
+  caption: "The parametric diagrid canopy: a curved glulam lattice over steel tree columns, shown in Arctic mode."
+gallery:
+  - src: ../../assets/media/diagrid/steel_vs_niti_seismic.png
+    alt: "Steel and NiTi lead-fuse stress-strain hysteresis loops under the recorded ground motion."
+    caption: "Lead-fuse hysteresis under the recorded 0.40 g record: yielding steel against self-centring NiTi."
+  - src: ../../assets/media/diagrid/gp_and_pareto.png
+    alt: "Pareto front of lifecycle carbon against clear span with the certified steel and NiTi designs."
+    caption: "Certified Pareto front: lifecycle carbon against clear span, four steel and four NiTi designs."
+key_numbers:
+  - label: "Algorithmic tangent"
+    value: "< 1.9 × 10⁻¹⁰"
+    unit: "relative"
+    basis: "Against central finite differences; the gate is 1e-7"
+  - label: "False-safe rate"
+    value: "0"
+    unit: "%"
+    basis: "95% UCB peak drift over 160 held-out designs"
+  - label: "Certified designs"
+    value: "8"
+    unit: "canopies"
+    basis: "Four steel, four NiTi, re-run exactly in OpenSeesPy"
+  - label: "Inverse-ID max error"
+    value: "7.28"
+    unit: "%"
+    basis: "PyTorch recovery of six NiTi parameters from 3% noise"
+validation:
+  benchmark: "Central finite differences"
+  metric: "Relative algorithmic tangent error"
+  value: "< 1.9 × 10⁻¹⁰"
+evidence:
+  repo: https://github.com/syednafizreja/diagrid-seismic-opt
+  live: https://syednafizreja.github.io/diagrid-seismic-opt/
+  tests: "28 passed (pytest)"
+  licence: MIT
+draft: false
+---
+
+import More from '../../components/More.astro'
+
+## Question
+
+Can a parametric glulam&#8209;timber diagrid canopy fitted with superelastic NiTi self&#8209;centring fuses hold lower residual drift and whole&#8209;life carbon than one with equal&#8209;strength yielding steel fuses — and can a learnable surrogate recover that answer with zero false&#8209;safe designs?
+
+## Findings in brief
+
+A single pipeline runs the whole loop: an exact NiTi constitutive model, parametric geometry, nonlinear OpenSeesPy time&#8209;history analysis, whole&#8209;life carbon, a Matérn&#8209;5/2 Gaussian&#8209;process surrogate, NSGA&#8209;II optimisation and a differentiable PyTorch inverse identifier. The surrogate's Pareto front is re&#8209;run exactly in OpenSeesPy, and none of the certified designs is false&#8209;safe. The workbench exposes the model, the replay and the charts in the browser.
+
+<More label="See the method and the checks">
+
+## Approach
+
+- **Constitutive.** A one&#8209;dimensional Auricchio&#8209;Sacco NiTi model with an analytic tangent and Clausius&#8209;Duhem dissipation monitoring.
+- **Multi&#8209;hazard.** Synthetic spectrum&#8209;compatible records, static gravity and wind&#8209;uplift equilibrium, and nonlinear 0.40&#8202;g time&#8209;history integration.
+- **Geometry and carbon.** A parametric diagrid generator with four branching tree columns, and whole&#8209;life carbon as A1&#8211;A3 plus a design&#8209;earthquake repair term, sampled over an 80&#8209;design Latin hypercube.
+- **Learning.** A Gaussian&#8209;process surrogate returns a mean and uncertainty for every KPI; NSGA&#8209;II draws the Pareto front; a differentiable PyTorch model recovers the NiTi parameters from noisy cyclic data with bootstrap confidence intervals.
+
+## Validation
+
+Every quantitative claim is a pytest gate. The algorithmic tangent matches central differences to under 1.9 × 10&#8315;&#185;&#8304; relative, dissipation stays within the Clausius&#8209;Duhem bound, nonlinear time&#8209;history converges on every record, the surrogate's false&#8209;safe rate falls to zero at the 95% upper confidence bound, and the identifier recovers all six NiTi parameters to within 7.28% worst case.
+
+</More>
+
+## What this does not show
+
+- The surrogate is trustworthy only inside the sampled design envelope; the 95% UCB is a safety margin, not a guarantee.
+- Ground motions are deterministic synthetic records, not site&#8209;specific hazard.
+- Carbon covers A1&#8211;A3 and one repair term; construction, transport and end&#8209;of&#8209;life are excluded.
+- The seismic replay amplifies nodal displacements for legibility, so it is not to scale.
