@@ -1,12 +1,12 @@
 ---
-number: "008"
+number: "001"
 title: "Diagrid seismic optimisation: superelastic NiTi fuses against yielding steel"
 short_title: "Diagrid seismic opt"
 year: "2026"
-sort_date: 2026-11-22
+sort_date: 2026-11-23
 status: complete
-summary: "Multi-hazard seismic design and whole-life carbon optimisation of a glulam–timber diagrid canopy, comparing superelastic NiTi self-centring fuses with yielding steel. A surrogate recovers a certified zero-false-safe Pareto front, shown in an interactive browser workbench."
-methods: [finite-element, seismic-analysis, embodied-carbon, optimisation, machine-learning, validation, interactive-tools]
+summary: "1D Auricchio–Sacco superelastic NiTi fuse (exact tangent, Clausius–Duhem ≥ 0) versus yielding steel, in OpenSeesPy 0.40 g time-history of a glulam–timber diagrid canopy; a grouped-CV Gaussian-process surrogate and NSGA-II return a certified zero-false-safe Pareto front on lifecycle carbon."
+methods: [constitutive-mechanics, finite-element, seismic-analysis, optimisation, sciml-uq, embodied-carbon, validation, interactive-tools]
 tools: [Python, OpenSeesPy, scikit-learn, PyTorch, three.js]
 hero:
   src: ../../assets/media/diagrid/diagrid_3d.png
@@ -56,26 +56,27 @@ Can a parametric glulam&#8209;timber diagrid canopy fitted with superelastic NiT
 
 ## Findings in brief
 
-A single pipeline runs the whole loop: an exact NiTi constitutive model, parametric geometry, nonlinear OpenSeesPy time&#8209;history analysis, whole&#8209;life carbon, a Matérn&#8209;5/2 Gaussian&#8209;process surrogate, NSGA&#8209;II optimisation and a differentiable PyTorch inverse identifier. The surrogate's Pareto front is re&#8209;run exactly in OpenSeesPy, and none of the certified designs is false&#8209;safe. The workbench exposes the model, the replay and the charts in the browser.
+A single pipeline runs the whole loop: an exact NiTi constitutive model, parametric geometry, nonlinear OpenSeesPy time&#8209;history analysis, whole&#8209;life carbon, a grouped&#8209;cross&#8209;validation Matérn&#8209;5/2 Gaussian&#8209;process surrogate, NSGA&#8209;II optimisation and a differentiable PyTorch inverse identifier. The surrogate's Pareto front is re&#8209;run exactly in OpenSeesPy, and none of the certified designs is false&#8209;safe. The study surfaces a real trade&#8209;off: an equal&#8209;strength NiTi substitution lowers residual drift, but its 40 GPa modulus against steel's 200 GPa makes the system more flexible, so peak drift rises to 3.40% against steel's 1.79% and lifecycle carbon rises with it — self&#8209;centring therefore pays only as the output of the constrained, uncertainty&#8209;aware (95% UCB) optimisation, not as a drop&#8209;in part. The workbench exposes the model, the replay and the charts in the browser.
 
 <More label="See the method and the checks">
 
 ## Approach
 
 - **Constitutive.** A one&#8209;dimensional Auricchio&#8209;Sacco NiTi model with an analytic tangent and Clausius&#8209;Duhem dissipation monitoring.
-- **Multi&#8209;hazard.** Synthetic spectrum&#8209;compatible records, static gravity and wind&#8209;uplift equilibrium, and nonlinear 0.40&#8202;g time&#8209;history integration.
+- **Structure and loading.** The glulam&#8209;timber lattice and steel tree columns are elastic beam&#8209;column elements with P&#8209;Delta geometric transforms; nonlinearity is concentrated in the corotational truss fuses, a self&#8209;centring NiTi element (SelfCentering) against a yielding steel element (Steel02). Loading is synthetic spectrum&#8209;compatible ground motions, static gravity and wind&#8209;uplift equilibrium, run in nonlinear 0.40&#8202;g time&#8209;history.
 - **Geometry and carbon.** A parametric diagrid generator with four branching tree columns, and whole&#8209;life carbon as A1&#8211;A3 plus a design&#8209;earthquake repair term, sampled over an 80&#8209;design Latin hypercube.
-- **Learning.** A Gaussian&#8209;process surrogate returns a mean and uncertainty for every KPI; NSGA&#8209;II draws the Pareto front; a differentiable PyTorch model recovers the NiTi parameters from noisy cyclic data with bootstrap confidence intervals.
+- **Learning.** A grouped&#8209;cross&#8209;validation Gaussian&#8209;process surrogate returns a mean and uncertainty for every KPI; NSGA&#8209;II draws the Pareto front; a differentiable PyTorch model recovers the NiTi parameters from noisy cyclic data with bootstrap confidence intervals.
 
 ## Validation
 
-Every quantitative claim is a pytest gate. The algorithmic tangent matches central differences to under 1.9 × 10&#8315;&#185;&#8304; relative, dissipation stays within the Clausius&#8209;Duhem bound, nonlinear time&#8209;history converges on every record, the surrogate's false&#8209;safe rate falls to zero at the 95% upper confidence bound, and the identifier recovers all six NiTi parameters to within 7.28% worst case.
+Every quantitative claim is a pytest gate. The algorithmic tangent matches central differences to under 1.9 × 10&#8315;&#185;&#8304; relative, dissipation stays within the Clausius&#8209;Duhem bound, nonlinear time&#8209;history converges on every record, the grouped&#8209;cross&#8209;validation surrogate's false&#8209;safe rate falls to zero at the 95% upper confidence bound, and the identifier recovers all six NiTi parameters to within 7.28% worst case.
 
 </More>
 
 ## What this does not show
 
 - The surrogate is trustworthy only inside the sampled design envelope; the 95% UCB is a safety margin, not a guarantee.
+- The frame members are elastic beam&#8209;column elements, so member yielding, local buckling and connection damage are not modelled; frame nonlinearity is concentrated in the truss fuses through return&#8209;mapping, not distributed plasticity.
 - Ground motions are deterministic synthetic records, not site&#8209;specific hazard.
 - Carbon covers A1&#8211;A3 and one repair term; construction, transport and end&#8209;of&#8209;life are excluded.
 - The seismic replay amplifies nodal displacements for legibility, so it is not to scale.

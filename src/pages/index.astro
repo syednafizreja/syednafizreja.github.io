@@ -8,10 +8,11 @@ import cell from '../assets/models/shellform-cell.json';
 
 const projects = (await getCollection('projects', (p) => !p.data.draft)).sort((a, b) => a.data.number.localeCompare(b.data.number));
 const pubs = await getCollection('publications');
+const peerReviewed = pubs.filter((p) => p.data.type === 'journal' && p.data.status === 'published').length;
 const featured = site.featured.map((id) => projects.find((p) => p.id === id)).filter((p) => p !== undefined);
 
 // Short phrases for the core skills; the typewriter in mesh.ts loops through them.
-const words = ['structural forms', 'shells under earthquakes', 'finite-element models', 'low-carbon structures'];
+const words = ['structural forms', 'constitutive models', 'finite-element models', 'low-carbon structures'];
 ---
 
 <Base description={site.identity}>
@@ -39,7 +40,7 @@ const words = ['structural forms', 'shells under earthquakes', 'finite-element m
         <div><dt>projects with automated tests</dt><dd>{projects.filter((p) => p.data.evidence.tests).length}</dd></div>
         <div><dt>releases archived with a DOI</dt><dd>{projects.filter((p) => p.data.evidence.doi).length}</dd></div>
         <div><dt>project case studies</dt><dd>{projects.length}</dd></div>
-        <div><dt>papers, manuscripts and reports</dt><dd>{pubs.length}</dd></div>
+        <div><dt>peer-reviewed journal articles</dt><dd>{peerReviewed}</dd></div>
       </dl>
     </div>
   </section>
@@ -67,7 +68,9 @@ const words = ['structural forms', 'shells under earthquakes', 'finite-element m
           </p>
           <p>
             The model on the left is one design cell. Its colours show where the earthquake-aware form departs from the
-            gravity-only one. Finite-element mechanics and carbon accounting run through most of the other projects too.
+            gravity-only one. The same verification-first finite-element mechanics and carbon-accounting discipline extends
+            beyond shells: to nonlinear seismic fuse systems in <a href="/work/diagrid-seismic-opt/">Diagrid seismic opt</a>
+            and imperfection-sensitive buckling in <a href="/work/stress-line-ribs/">Ribs vs thickness</a>.
           </p>
           <p><a class="btn" href="/work/shellform/">Read the ShellForm case study <span class="arr" aria-hidden="true">→</span></a></p>
         </div>

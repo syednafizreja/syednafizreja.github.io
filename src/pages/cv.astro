@@ -17,7 +17,7 @@ const cite = (d: (typeof pubs)[number]['data']) => {
   <header class="page-head wrap">
     <span class="eyebrow no-print"><span class="cm" aria-hidden="true">#</span>Resume</span>
     <h1>{site.name}</h1>
-    <p class="lede">Civil engineer · computational structural design · low-carbon shell structures · seismic engineering. {site.location}.</p>
+    <p class="lede">Civil engineer · computational mechanics of materials and structures · constitutive modelling · seismic design · embodied carbon. {site.location}.</p>
     <p class="lede"><Email /> · ORCID <a href={links.orcid}>{site.orcid}</a> · <a href={links.github}>github.com/{site.github}</a></p>
     <div class="cv-actions">
       <a class="btn primary" href={site.cv_pdf} download>Download PDF</a>
@@ -30,14 +30,17 @@ const cite = (d: (typeof pubs)[number]['data']) => {
       <h2>Profile</h2>
       <div>
         <p>
-          I work on computational design and mechanics of structures: form-finding and optimisation, finite-element analysis and seismic design,
-          with concrete shells as my current test case and embodied carbon as a design variable. My code is open and tested. My bachelor thesis was the full hand design of a four-storey reinforced concrete frame for a seismic site in Sichuan, to the Chinese
-          codes. The open records that build on it are ShellBench, ShellForm, and a buckling comparison of stress-line ribs with an optimised thickness. Before this I spent two and a half years as a project
-          engineer in precision manufacturing, running durability testing and root-cause analysis.
+          I work on computational mechanics of materials and structures: constitutive modelling, finite-element analysis, form-finding and seismic design,
+          with embodied carbon as a coupled design variable. My code is open and tested. The flagship study models a superelastic NiTi self-centring fuse
+          as a constitutive problem, optimises it against yielding steel in a nonlinear seismic time-history, and certifies the Pareto front with zero
+          false-safe designs. The same verification-first discipline runs through thin-shell buckling and carbon studies, and an axisymmetric pavement
+          LCA. Before this I spent two and a half years as a project and quality-control engineer in precision medical-device manufacturing, working
+          on nickel-titanium alloy components — durability testing, fatigue analysis and root-cause failure investigation — which is where I learned
+          the alloy before I modelled it. My bachelor thesis was the full hand design of a four-storey seismic RC frame to the Chinese codes.
         </p>
         <p class="mt-2 muted">
-          Interests: computational form-finding and structural optimisation of shells; seismic design and its embodied-carbon consequences; validated,
-          reproducible structural software; machine-learning surrogates for structural design; lightweight structures for extreme environments.
+          Interests: constitutive models for shape-memory and structural alloys with uncertainty-quantified surrogates; form-finding and optimisation
+          that treat seismic demand and embodied carbon together; validated, reproducible structural software; lightweight structures for extreme environments.
         </p>
       </div>
     </section>
@@ -64,7 +67,33 @@ const cite = (d: (typeof pubs)[number]['data']) => {
       <h2>Research projects</h2>
       <div>
         <div class="entry">
-          <div class="entry-head"><h3><a href="/work/shellbench/">ShellBench</a>: embodied carbon of thin-shell floors in seismic RC frames</h3><span class="when">2026–</span></div>
+          <div class="entry-head"><h3><a href="/work/diagrid-seismic-opt/">Diagrid seismic opt</a>: superelastic NiTi fuses against yielding steel</h3><span class="when">2026</span></div>
+          <p class="where">Lead researcher and developer · Python, OpenSeesPy, scikit-learn, PyTorch · MIT licence</p>
+          <ul>
+            <li>1D Auricchio–Sacco NiTi constitutive driver with exact consistent tangent (&lt; 1e-7) and Clausius–Duhem dissipation monitoring.</li>
+            <li>3D OpenSeesPy 0.40 g nonlinear time-history with P-Delta beam-column frames and corotational truss fuses (SelfCentering NiTi vs Steel02).</li>
+            <li>80-design LHS, grouped-CV Matérn-5/2 GP (0% held-out false-safe rate at 95% UCB), 8 NSGA-II certified Pareto designs, PyTorch inverse ID.</li>
+            <li>Honest trade-off: naive equal-strength NiTi cuts residual drift but raises peak drift (3.40% vs 1.79%) and lifecycle carbon.</li>
+          </ul>
+        </div>
+        <div class="entry">
+          <div class="entry-head"><h3><a href="/work/stress-line-ribs/">Stress-line ribs vs optimised thickness</a></h3><span class="when">2026</span></div>
+          <p class="where">Lead researcher and developer · Python, CalculiX, Gmsh · MIT licence</p>
+          <ul>
+            <li>Seven designs of one 12 × 12 m form-found shell, equal concrete volume, linear buckling under self-weight plus 0.2 g sway, then a geometric imperfection.</li>
+            <li>Pre-registered hypothesis not supported: stress-line ribs fall 31.10% below the plain shell. Orthogonal grid gains 16.05%, optimised thickness 25.74% (15.03% with imperfection).</li>
+          </ul>
+        </div>
+        <div class="entry">
+          <div class="entry-head"><h3><a href="/work/shellform/">ShellForm</a>: the carbon cost of seismic resilience in form-found concrete shells</h3><span class="when">2026</span></div>
+          <p class="where">Lead researcher and developer · Python, CalculiX, three.js · MIT licence</p>
+          <ul>
+            <li>Design study of 168 sized shells (two spans, two support types, three rise ratios, two strategies) over 0–0.6 g, with carbon under GB/T 51366 and ICE factors.</li>
+            <li>Released as v0.2.0. Under the pre-registered 5% rule the two form-finding strategies are not meaningfully different in most of the design space. The exceptions are one thickness step, and the robustness checks remove them.</li>
+          </ul>
+        </div>
+        <div class="entry">
+          <div class="entry-head"><h3><a href="/work/shellbench/">ShellBench</a>: embodied carbon of thin-shell floors in seismic RC frames</h3><span class="when">2026</span></div>
           <p class="where">Lead researcher and developer · Python, OpenSeesPy, CalculiX · MIT licence</p>
           <ul>
             <li>Audited my thesis as the validation case: 16 input inconsistencies and 21 doubtful printed values logged, each with a recorded decision.</li>
@@ -73,31 +102,15 @@ const cite = (d: (typeof pubs)[number]['data']) => {
           </ul>
         </div>
         <div class="entry">
-          <div class="entry-head"><h3><a href="/work/shellform/">ShellForm</a>: the carbon cost of seismic resilience in form-found concrete shells</h3><span class="when">2026–</span></div>
-          <p class="where">Lead researcher and developer · Python, CalculiX, three.js · MIT licence</p>
-          <ul>
-            <li>Design study of 168 sized shells (two spans, two support types, three rise ratios, two strategies) over 0–0.6 g, with carbon under GB/T 51366 and ICE factors.</li>
-            <li>Released as v0.2.0. Under the pre-registered 5% rule the two form-finding strategies are not meaningfully different in most of the design space. The exceptions are one thickness step, and the robustness checks remove them.</li>
-          </ul>
-        </div>
-        <div class="entry">
-          <div class="entry-head"><h3><a href="/work/stress-line-ribs/">Stress-line ribs vs optimised thickness</a></h3><span class="when">2026</span></div>
-          <p class="where">Lead researcher and developer · Python, CalculiX, Gmsh · MIT licence</p>
-          <ul>
-            <li>Seven designs of one 12 × 12 m form-found shell, equal concrete volume, linear buckling under self-weight plus 0.2 g sway, then a geometric imperfection.</li>
-            <li>Stress-line ribs fall 31.10% below the plain shell. An orthogonal grid gains 16.05%. An optimised thickness gains 25.74%, and 15.03% once the imperfection governs. The hypothesis is not supported.</li>
-          </ul>
-        </div>
-        <div class="entry">
           <div class="entry-head"><h3><a href="/work/shelllab/">ShellLab: force-density form finding for concrete shells, in the browser</a></h3><span class="when">2026</span></div>
           <p class="where">Independent computational design project · JavaScript, three.js, Python</p>
           <ul><li>Browser port of the ShellForm form finder with live bar forces, support thrust and concrete carbon; tested against ShellForm fixtures to 10<sup>−13</sup> m.</li></ul>
         </div>
         <div class="entry">
-          <div class="entry-head"><h3>Nano-modified warm mix asphalt: life-cycle assessment</h3><span class="when">2025–2026</span></div>
+          <div class="entry-head"><h3><a href="/work/pavecarbon/">PaveCarbon</a>: from laboratory durability to annualised pavement carbon</h3><span class="when">2025–2026</span></div>
           <p class="where">Independent research, sole author · Python, LCA</p>
           <ul>
-            <li><a href="/work/pavecarbon/">Cradle-to-gate (A1–A3) comparison</a>: production GWP fell by 5.2% (61.31 to 58.15 kgCO₂e/t); a 15% longer service life lowered annualised GWP by 17.5%.</li>
+            <li>Axisymmetric Q9 FEA + mechanistic-empirical fatigue/rutting + annualised A1–A3 LCA of nano-silica WMA; 1,500 Monte Carlo runs.</li>
           </ul>
         </div>
       </div>
@@ -133,12 +146,13 @@ const cite = (d: (typeof pubs)[number]['data']) => {
       <h2>Experience</h2>
       <div>
         <div class="entry">
-          <div class="entry-head"><h3>Project engineer, precision manufacturing</h3><span class="when">2024–2026</span></div>
-          <p class="where">Guangdong, China</p>
+          <div class="entry-head"><h3>Project and quality-control engineer, Denco Manufacturing, Inc.</h3><span class="when">Jan 2024 – Mar 2026</span></div>
+          <p class="where">Precision medical-device manufacturing · Guangdong, China</p>
           <ul>
-            <li>Quality control on automated inspection and testing lines, including review of durability (fatigue) test results.</li>
-            <li>Investigated non-conformities and led root-cause analysis and corrective and preventive actions.</li>
+            <li>Mechanical characterisation, cyclic-durability and fatigue testing of superelastic nickel-titanium (NiTi) alloy components; micro-CNC metrology.</li>
+            <li>Statistical root-cause failure analysis and corrective/preventive actions (CAPA).</li>
             <li>Reviewed technical drawings and tolerances and kept traceability records.</li>
+            <li>Direct motivation for the constitutive SMA modelling in the <a href="/work/diagrid-seismic-opt/">Diagrid seismic opt</a> study.</li>
           </ul>
         </div>
         <div class="entry">
@@ -153,8 +167,8 @@ const cite = (d: (typeof pubs)[number]['data']) => {
       <h2>Skills</h2>
       <div>
         <ul>
-          <li><strong>Structural engineering:</strong> hand design of RC frames to GB 50009, 50010, 50011 and 55002; gravity, wind and seismic analysis (base-shear method, response spectrum); capacity checks; shell form-finding (force density method).</li>
-          <li><strong>Computation:</strong> Python (NumPy, SciPy, Matplotlib, pytest), OpenSeesPy, CalculiX, Gmsh; Git and GitHub Actions; JavaScript web prototypes; LaTeX.</li>
+          <li><strong>Structural and solid mechanics:</strong> constitutive modelling (Auricchio–Sacco superelastic NiTi); hand design of RC frames to GB 50009, 50010, 50011 and 55002; gravity, wind and seismic analysis (base-shear method, response spectrum, nonlinear time-history); capacity checks; shell form-finding (force density method).</li>
+          <li><strong>Computation:</strong> Python (NumPy, SciPy, Matplotlib, pytest, scikit-learn, PyTorch), OpenSeesPy, CalculiX, Gmsh; Git and GitHub Actions; JavaScript web prototypes; LaTeX.</li>
           <li><strong>Design and BIM:</strong> AutoCAD (advanced); Revit and BIM workflows (working knowledge).</li>
           <li><strong>Sustainability:</strong> A1–A3 embodied-carbon and life-cycle assessment; GB/T 51366 and ICE carbon factors.</li>
           <li><strong>Research practice:</strong> pre-registered analysis plans; validation against benchmarks and hand calculations; tagged, reproducible releases; AI-assisted coding with full human review and disclosed AI use.</li>

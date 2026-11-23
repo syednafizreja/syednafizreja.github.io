@@ -30,7 +30,7 @@ content:
         type: select
         list: true
         options:
-          values: [form-finding, seismic-analysis, embodied-carbon, finite-element, optimisation, validation, life-cycle-assessment, machine-learning, hand-calculation, interactive-tools, durability-modelling]
+          values: [form-finding, seismic-analysis, embodied-carbon, finite-element, constitutive-mechanics, optimisation, validation, life-cycle-assessment, machine-learning, sciml-uq, hand-calculation, interactive-tools, durability-modelling]
       - { name: tools, label: Tools, type: string, list: true }
       - name: hero
         label: Hero image

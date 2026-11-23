@@ -2,8 +2,8 @@
   "name": "Syed Nafiz Reja Hasib",
   "short_name": "Syed Nafiz Reja Hasib",
   "job_title": "Civil and structural engineer",
-  "identity": "Computational design and mechanics of structures: form-finding, finite-element analysis and seismic design, with concrete shells as the test case and embodied carbon as a design variable.",
-  "bio": "I work on computational design and mechanics of structures: finding efficient forms and checking them with finite-element analysis and seismic design. Concrete shells are my current test case, and embodied carbon is one of the design variables.",
+  "identity": "Computational mechanics of materials and structures: constitutive modelling, finite-element analysis, form-finding and seismic design — spanning self-centring hybrid systems and thin concrete shells with embodied carbon as a coupled design variable.",
+  "bio": "I work on computational mechanics of materials and structures: constitutive modelling, finite-element analysis, form-finding and seismic design. Thin concrete shells and self-centring NiTi systems are the test cases, and embodied carbon is the design variable that joins them.",
   "currently": "Applying for funded MSc and PhD positions starting September 2027.",
   "location": "Guangdong, China",
   "email_user": "syednafiz2811",
@@ -13,6 +13,6 @@
   "linkedin": "https://www.linkedin.com/in/syednafizreja",
   "researchgate": "https://www.researchgate.net/profile/Syed-Nafiz-Reja-Hasib",
   "cv_pdf": "/cv/CV_Syed_Nafiz_Reja_Hasib.pdf",
-  "featured": ["stress-line-ribs", "shellbench", "shellform"],
+  "featured": ["diagrid-seismic-opt", "stress-line-ribs", "shellform"],
   "accent": "oxide"
 }

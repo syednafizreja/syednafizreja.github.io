@@ -8,7 +8,7 @@ const projects = (await getCollection('projects', (p) => !p.data.draft)).sort((a
 const used = METHODS.filter((m) => projects.some((p) => p.data.methods.includes(m)));
 ---
 
-<Base title="Projects" description="Numbered index of research and engineering projects: concrete shells, seismic design, embodied carbon, pavements and validation." og="work">
+<Base title="Projects" description="Numbered index of research and engineering projects: constitutive modelling, seismic design, concrete shells, embodied carbon, pavements and validation." og="work">
   <header class="page-head wrap">
     <span class="eyebrow"><span class="cm" aria-hidden="true">#</span>Index</span>
     <h1>Projects</h1>

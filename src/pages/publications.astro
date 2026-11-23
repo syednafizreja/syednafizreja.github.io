@@ -7,14 +7,14 @@ import { PUB_STATUS_LABEL, doiUrl, links } from '../lib/site';
 const pubs = (await getCollection('publications')).sort((a, b) => a.data.order - b.data.order);
 const groups = [
   { type: 'journal', title: 'Peer-reviewed journal articles' },
-  { type: 'manuscript', title: 'Manuscripts under review and in preparation' },
-  { type: 'report', title: 'Technical reports and preprints' },
+  { type: 'manuscript', title: 'Manuscripts in preparation' },
+  { type: 'report', title: 'Archived technical reports and preprints' },
 ] as const;
 const projects = await getCollection('projects');
 const projectTitle = (id?: string) => projects.find((p) => p.id === id)?.data.short_title;
 ---
 
-<Base title="Publications" description="Peer-reviewed articles, manuscripts under review and in preparation, and technical reports, with DOIs and BibTeX." og="publications">
+<Base title="Publications" description="Peer-reviewed journal articles, manuscripts in preparation, and archived technical reports and preprints, with DOIs and BibTeX." og="publications">
   <header class="page-head wrap">
     <span class="eyebrow"><span class="cm" aria-hidden="true">#</span>Publications</span>
     <h1>Publications</h1>
