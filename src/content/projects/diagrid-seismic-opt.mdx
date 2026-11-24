@@ -52,11 +52,11 @@ import More from '../../components/More.astro'
 
 ## Question
 
-Can a parametric glulam&#8209;timber diagrid canopy fitted with superelastic NiTi self&#8209;centring fuses hold lower residual drift and whole&#8209;life carbon than one with equal&#8209;strength yielding steel fuses — and can a learnable surrogate recover that answer with zero false&#8209;safe designs?
+Can a parametric glulam&#8209;timber diagrid canopy fitted with superelastic NiTi self&#8209;centring fuses hold lower residual drift and whole&#8209;life carbon than one with equal&#8209;strength yielding steel fuses. Can a learnable surrogate recover that answer with zero false&#8209;safe designs?
 
 ## Findings in brief
 
-A single pipeline runs the whole loop: an exact NiTi constitutive model, parametric geometry, nonlinear OpenSeesPy time&#8209;history analysis, whole&#8209;life carbon, a grouped&#8209;cross&#8209;validation Matérn&#8209;5/2 Gaussian&#8209;process surrogate, NSGA&#8209;II optimisation and a differentiable PyTorch inverse identifier. The surrogate's Pareto front is re&#8209;run exactly in OpenSeesPy, and none of the certified designs is false&#8209;safe. The study surfaces a real trade&#8209;off: an equal&#8209;strength NiTi substitution lowers residual drift, but its 40 GPa modulus against steel's 200 GPa makes the system more flexible, so peak drift rises to 3.40% against steel's 1.79% and lifecycle carbon rises with it — self&#8209;centring therefore pays only as the output of the constrained, uncertainty&#8209;aware (95% UCB) optimisation, not as a drop&#8209;in part. The workbench exposes the model, the replay and the charts in the browser.
+A single pipeline runs the whole loop: an exact NiTi constitutive model, parametric geometry, nonlinear OpenSeesPy time&#8209;history analysis, whole&#8209;life carbon, a grouped&#8209;cross&#8209;validation Matérn&#8209;5/2 Gaussian&#8209;process surrogate, NSGA&#8209;II optimisation and a differentiable PyTorch inverse identifier. The surrogate's Pareto front is re&#8209;run exactly in OpenSeesPy, and none of the certified designs is false&#8209;safe. The study surfaces a real trade&#8209;off: an equal&#8209;strength NiTi substitution lowers residual drift, but its 40 GPa modulus against steel's 200 GPa makes the system more flexible, so peak drift rises to 3.40% against steel's 1.79% and lifecycle carbon rises with it. Self&#8209;centring therefore pays only as the output of the constrained, uncertainty&#8209;aware (95% UCB) optimisation, not as a drop&#8209;in part. The workbench exposes the model, the replay and the charts in the browser.
 
 <More label="See the method and the checks">
 
