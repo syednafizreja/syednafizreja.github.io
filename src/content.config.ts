@@ -18,6 +18,7 @@ const projects = defineCollection({
       methods: z.array(z.enum(METHODS)).min(1),
       tools: z.array(z.string()).default([]),
       hero: z.object({ src: image(), alt: z.string().min(10), caption: z.string() }),
+      exhibit: z.object({ src: image(), alt: z.string().min(10) }).optional(),
       gallery: z.array(z.object({ src: image(), alt: z.string().min(10), caption: z.string() })).default([]),
       key_numbers: z
         .array(z.object({ label: z.string(), value: z.string(), unit: z.string().default(''), basis: z.string().default('') }))

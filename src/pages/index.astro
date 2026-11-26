@@ -3,7 +3,7 @@ import { getCollection } from 'astro:content';
 import Base from '../layouts/Base.astro';
 import IndexRow from '../components/IndexRow.astro';
 import ShellViewer from '../components/ShellViewer.astro';
-import { site, links } from '../lib/site';
+import { site } from '../lib/site';
 import cell from '../assets/models/shellform-cell.json';
 
 const projects = (await getCollection('projects', (p) => !p.data.draft)).sort((a, b) => a.data.number.localeCompare(b.data.number));
@@ -19,20 +19,27 @@ const featured = site.featured.map((id) => projects.find((p) => p.id === id)).fi
     <canvas class="mesh" data-mesh aria-hidden="true"></canvas>
     <div class="wrap">
       <div class="railed hero-in">
-        <p class="marker"><span class="cm" aria-hidden="true">#</span><span class="n">00</span>Start</p>
+        <p class="kicker">Computational structural mechanics</p>
         <h1 id="hero-h" class="statement">
           <span class="l">{site.identity}</span>
         </h1>
         <p class="identity">{site.bio}</p>
         <div class="cta">
-          <a class="btn primary" href="/publications/">Preprints</a>
-          <a class="btn" href="/work/">Projects</a>
-          <a class="btn" href={links.github}>GitHub</a>
-          <a class="btn" href={links.orcid}>ORCID</a>
-          <a class="btn" href="/cv/">CV</a>
-          <a class="btn" href="/contact/">Contact</a>
+          <a class="btn primary" href="#preprints">Read preprints</a>
+          <a class="btn" href="#research">Selected research</a>
         </div>
-        <a class="scroll-cue" href="#sig" aria-hidden="true" tabindex="-1"><span class="mouse"><span></span></span><span class="t">Scroll</span></a>
+        <div class="latest" id="preprints">
+          <a href="https://doi.org/10.5281/zenodo.24559613">
+            <span class="k">Preprint · Zenodo DOI</span>
+            <strong>1D superelastic NiTi return map and diagrid seismic-carbon trade-offs</strong>
+            <span class="m">1.85e-10 tangent error · 80 paired canopies</span>
+          </a>
+          <a href="https://doi.org/10.5281/zenodo.24560903">
+            <span class="k">Preprint · Zenodo DOI</span>
+            <strong>Buckling and imperfection sensitivity of form-found thin concrete shells</strong>
+            <span class="m">Scordelis-Lo/Zoelly verified · 7 equal-volume layouts</span>
+          </a>
+        </div>
       </div>
       <dl class="stats">
         <div><dt>projects with automated tests</dt><dd>{projects.filter((p) => p.data.evidence.tests).length}</dd></div>

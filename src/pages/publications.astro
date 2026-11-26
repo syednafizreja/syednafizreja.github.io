@@ -2,7 +2,7 @@
 import { getCollection } from 'astro:content';
 import Base from '../layouts/Base.astro';
 import { toBibtex } from '../lib/bibtex';
-import { site, PUB_STATUS_LABEL, doiUrl, links } from '../lib/site';
+import { site, doiUrl, links } from '../lib/site';
 
 const pubs = (await getCollection('publications')).sort((a, b) => a.data.order - b.data.order);
 const groups = [
@@ -18,7 +18,13 @@ const groups = [
   },
 ] as const;
 const projects = await getCollection('projects');
-const projectTitle = (id?: string) => projects.find((p) => p.id === id)?.data.short_title;
+const projectRepo = (id?: string) => projects.find((p) => p.id === id)?.data.evidence.repo;
+const badge = (status: string, year?: number) => {
+  if (status === 'under-review') return 'UNDER REVIEW';
+  if (status === 'preprint') return `${year ?? ''} PREPRINT`.trim();
+  if (status === 'published') return `${year ?? ''} JOURNAL`.trim();
+  return status;
+};
 ---
 
 <Base title="Publications" description="Peer-reviewed journal articles, manuscripts in preparation, and archived technical reports and preprints, with DOIs and BibTeX." og="publications">
@@ -34,14 +40,15 @@ const projectTitle = (id?: string) => projects.find((p) => p.id === id)?.data.sh
         const items = pubs.filter((p) => g.match(p.data.status, p.data.doi ?? ''));
         return items.length ? (
           <section class="pub-group" aria-labelledby={`g-${g.id}`}>
-            <h2 id={`g-${g.id}`}>{g.title}</h2>
+            <h2 id={`g-${g.id}`}>{g.id === 'open' ? 'Preprints and under review' : 'Earlier peer-reviewed articles'}</h2>
             <ol class="pubs">
               {items.map((p) => {
                 const d = p.data;
                 const bibId = `bib-${p.id}`;
+                const code = projectRepo(d.project);
                 return (
                   <li class="pub">
-                    <span class="n">[{d.order}]</span>
+                    <span class="badge">{badge(d.status, d.year)}</span>
                     <div>
                       <p class="t">{d.title}</p>
                       <p class="a">
@@ -51,24 +58,14 @@ const projectTitle = (id?: string) => projects.find((p) => p.id === id)?.data.sh
                             {i + 1 === d.owner_index ? <span class="me">{a}</span> : a}
                           </>
                         ))}
-                        {d.year && <> ({d.year}).</>}{' '}
-                        {d.type === 'journal' && (
-                          <span class="v">
-                            {d.venue}, {d.volume}
-                            {d.issue && <>({d.issue})</>}
-                            {d.pages && <>, {d.pages}</>}.
-                          </span>
-                        )}
+                        {d.venue && <span class="v">. {d.venue}</span>}
+                        {d.note && <span class="note">. {d.note}</span>}
                       </p>
                       <div class="row">
-                        <span class={`status ${d.status === 'published' ? 'complete' : 'in-progress'}`}>
-                          {PUB_STATUS_LABEL[d.status]}{d.status === 'under-review' && d.venue ? `, ${d.venue}` : ''}
-                        </span>
-                        {d.note && <span class="note">{d.note}</span>}
-                        {d.doi && <a href={doiUrl(d.doi)}>doi:{d.doi}</a>}
-                        {d.url && <a href={d.url}>Link</a>}
-                        {d.project && projectTitle(d.project) && <a href={`/work/${d.project}/`}>Project: {projectTitle(d.project)}</a>}
-                        <button class="copy-btn no-print" type="button" data-copy={bibId}>Copy BibTeX</button>
+                        {d.doi && <a class="pill-link" href={doiUrl(d.doi)}>DOI</a>}
+                        {code && <a class="pill-link" href={code}>Code</a>}
+                        {d.url && <a class="pill-link" href={d.url}>PDF</a>}
+                        <button class="copy-btn no-print" type="button" data-copy={bibId}>BibTeX</button>
                       </div>
                       <pre id={bibId} hidden>{toBibtex(d, p.id)}</pre>
                     </div>

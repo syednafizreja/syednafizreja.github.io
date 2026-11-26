@@ -16,6 +16,7 @@ const d = project.data;
 const H = headingLevel;
 const links = detail ? d.card_links : [];
 const brief = detail ? d.brief : undefined;
+const shot = detail && d.exhibit ? d.exhibit : d.hero;
 ---
 
 <li class="index-row" data-methods={d.methods.join(' ')}>
@@ -23,8 +24,8 @@ const brief = detail ? d.brief : undefined;
     <a class="cover" href={`/work/${project.id}/`}>
       {
         thumb && (
-          <span class="thumb" aria-hidden="true">
-            <Image src={d.hero.src} alt="" width={640} widths={[416, 640]} sizes="(min-width: 60rem) 26rem, 92vw" quality={70} loading="lazy" decoding="async" />
+          <span class:list={['thumb', d.exhibit && detail && 'frame']} aria-hidden="true">
+            <Image src={shot.src} alt="" width={640} widths={[416, 640]} sizes="(min-width: 60rem) 26rem, 92vw" quality={70} loading="lazy" decoding="async" />
           </span>
         )
       }
@@ -50,7 +51,7 @@ const brief = detail ? d.brief : undefined;
           {brief && (
             <dl class="brief">
               <div><dt>Method</dt><dd>{brief.finding}</dd></div>
-              <div><dt>Key result</dt><dd>{brief.limit}</dd></div>
+              <div><dt>Result</dt><dd>{brief.limit}</dd></div>
               <div><dt>Open limit</dt><dd>{brief.next}</dd></div>
             </dl>
           )}

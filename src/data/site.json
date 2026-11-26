@@ -1,9 +1,9 @@
 {
   "name": "Syed Nafiz Reja Hasib",
   "short_name": "Syed Nafiz Reja Hasib",
-  "job_title": "Civil and structural engineer",
+  "job_title": "Computational mechanics researcher",
   "identity": "Computational structural mechanics, superelastic alloys, thin-shell stability, and low-carbon seismic systems.",
-  "bio": "Two years of cyclic-durability testing on superelastic NiTi at Denco Manufacturing (following a BEng in Civil Engineering, SWPU) led me to build verified mechanics solvers to test where structural efficiency meets seismic and carbon limits.",
+  "bio": "Two years of cyclic-durability testing on superelastic NiTi at Denco Manufacturing led me to build open-source constitutive and buckling solvers. My work quantifies where geometric efficiency meets seismic and embodied-carbon limits.",
   "currently": "Building verified mechanics solvers for seismic and carbon limits.",
   "location": "Guangdong, China",
   "email_user": "syednafiz2811",
