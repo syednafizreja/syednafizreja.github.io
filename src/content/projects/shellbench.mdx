@@ -5,7 +5,7 @@ short_title: "ShellBench"
 year: "2026"
 sort_date: 2026-10-01
 status: complete
-summary: "5,184 thin-shell floor designs in 36 seismic RC frames. Median whole-building A1-A3 reduction 5.7%. 287 automated tests. Code and the archived dataset are public."
+summary: "Median 5.7% whole-building A1-A3 reduction in 32 of 33 frames (14.3% for floors alone)."
 methods: [seismic-analysis, embodied-carbon, form-finding, finite-element, validation, machine-learning]
 tools: [Python, OpenSeesPy, CalculiX, Gmsh, pytest, GitHub Actions]
 hero:
@@ -41,49 +41,25 @@ evidence:
   tests: "287 passed (pytest, on every push)"
   licence: MIT
 card_links:
-  - label: Code
+  - label: GitHub repo
     href: https://github.com/syednafizreja/ShellBench
   - label: Dataset
     href: https://doi.org/10.5281/zenodo.24194144
+brief:
+  finding: "Coupled OpenSeesPy RC frames (3-8 storeys) and CalculiX shell floors across 5,184 designs (287 automated tests)."
+  limit: "Median 5.7% whole-building A1-A3 carbon reduction in 32 of 33 comparable frames (14.3% for floors alone)."
+  next: "Seismic frame reinforcement dilutes floor-only savings."
 related: [shellform, thesis-rc-frame, stress-line-ribs]
 ---
 
-import More from '../../components/More.astro'
+## Method
 
-## Question
+Coupled OpenSeesPy RC frames (3-8 storeys) and CalculiX shell floors across 5,184 designs (287 automated tests).
 
-A thinner floor weighs less. Less weight means smaller seismic forces, which can mean smaller beams, columns and footings. ShellBench follows that chain through the whole building, using real design codes, rather than comparing floors on their own.
+## Key result
 
-The question: how much do thin-shell floors cut the whole-building A1–A3 embodied carbon of a GB 50010 / GB 50011 reinforced concrete frame across 3–8 storeys, and how does the saving change with storey count and seismic intensity once diaphragm, tie and topping needs are met?
+Median 5.7% whole-building A1-A3 carbon reduction in 32 of 33 comparable frames (14.3% for floors alone).
 
-## Findings in brief
+## Open limit
 
-In 32 of 33 buildings the thin-shell floor lowers whole-building A1–A3 carbon, by a median of 5.7%, against 14.3% for the floor alone. The saving is smaller than the floor-only saving because the frame and the footings remain. It does not grow with seismic intensity or with storey count, and no building needs a topping to act as a rigid diaphragm.
-
-The surrogate, tested on unseen storey counts, fell short of its pre-registered coverage target and did not beat the simple rule of always choosing the shell. The verdicts are frozen in the repository. The papers are still in preparation.
-
-<More label="See the method and the checks">
-
-## Approach
-
-The study is checked against one real, fully documented building: my own bachelor thesis design. That building is validation case 0, and every model must reproduce it before it is trusted on anything else.
-
-1. **Audit.** I logged 16 input inconsistencies and 21 doubtful printed values in the thesis, each with a recorded decision, and typed eight thesis result tables in as validation targets.
-2. **Anchor model.** The thesis frame rebuilt in OpenSeesPy under gravity, wind and earthquake (GB 50011 base-shear method and a 3D response-spectrum check), with GB 50010 member checks, take-off and A1–A3 carbon. Every difference above 10 % from the thesis has a written reason. Released as v0.1.0.
-3. **Generator.** Designs a frame to written design rules, including capacity design, for a family of 36 buildings: 3–8 storeys × six peak ground accelerations (0.05–0.40 g). Failures are counted, not dropped.
-4. **Shell floor module.** Force-density form-finding and CalculiX shell analysis; a floor library of 72 cases; a diaphragm test (in-plane deflection ≤ 2 × storey drift) and a topping rule.
-5. **Pre-registration.** Hypotheses H1–H4 and the analysis plan were fixed on 3 November 2026, before any family result existed.
-6. **Surrogate (Paper 2).** A machine-learning surrogate with split-conformal intervals, frozen before evaluation.
-
-## Validation
-
-The shell solver reproduces two standard benchmarks within 0.4 %: the Scordelis–Lo roof (0.9984 of the reference displacement) and the pinched hemisphere (0.9965). The anchor frame reproduces the thesis storey shears and drifts; each difference above 10 % is explained in the anchor report.
-
-</More>
-
-## What this does not show
-
-- The analysis is elastic and at screening level. It is not a claim of seismic safety. The baseline is one code-checked conventional floor per building, not a search over every flat or ribbed slab.
-- Carbon is cradle-to-gate (A1–A3) only, and footings are outside the scope of the anchor comparison.
-- The design rules follow the Chinese codes (GB 50010, GB 50011); other codes would change member sizes.
-- Construction, formwork and long-term behaviour are not modelled.
+Seismic frame reinforcement dilutes floor-only savings.

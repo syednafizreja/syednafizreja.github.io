@@ -1,40 +1,8 @@
 ---
 title: "Research"
-description: "Research statement: computational mechanics of materials and structures, constitutive modelling and seismic design of self-centring systems and thin shells, with embodied carbon as the design variable."
+description: "Computational structural mechanics, superelastic alloys, thin-shell stability, and low-carbon seismic systems."
 ---
 
-import More from '../../components/More.astro'
+Two years of NiTi cyclic-durability testing at Denco Manufacturing, after a civil engineering degree at SWPU, led to these solvers.
 
-## The direction
-
-From 2024 to 2026 I ran cyclic-durability tests and failure analysis on superelastic NiTi components at Denco Manufacturing. A BEng in Civil Engineering at Southwest Petroleum University sits beside that work. The two led to independent computational mechanics on constitutive modelling, thin-shell stability, seismic systems and embodied carbon. Every number below is checked before it is used.
-
-<More label="See why a lighter floor is not the whole answer">
-
-Concrete shells are my current test case. They carry load through their shape rather than their thickness, so the link between form, mechanics and material is direct. In the frame I designed for my thesis, the floors hold more than half of the cradle-to-gate carbon of the building, so a lighter floor matters. In a seismic region, though, mass and stiffness decide the earthquake forces, and the design codes add minimum thicknesses, ties and diaphragm checks. I want to know when the material saving of a shell survives all of that, and when it does not.
-
-</More>
-
-## Three research pillars
-
-**1. Nonlinear constitutive and seismic mechanics.** [Diagrid seismic opt](/work/diagrid-seismic-opt) models a superelastic NiTi self-centring fuse as a one-dimensional Auricchio-Sacco constitutive driver, with the tangent checked to 1.85e-10 relative and dissipation held against a -1e-9 MPa gate. On 80 paired canopies and one 0.40 g record, an OpenSeesPy SelfCentering fuse lowers mean residual roof drift from 0.0659% to 0.0175% and raises mean peak drift from 1.788% to 3.397% on every geometry. Cradle-to-gate carbon rises by 620.9 kgCO2e, and lifecycle carbon rises on 66 of 80 designs. A grouped-CV Gaussian process and NSGA-II give 0 false-safe predictions on 160 held-out designs. PyTorch inverse identification recovers six parameters from 3% noise to 7.28% worst case. The drift and carbon penalty is the open constitutive question.
-
-**2. Geometry, stability and low-carbon shells.** [The ribs study](/work/stress-line-ribs) holds volume fixed on a 12 by 12 m shell of rise 2.4 m. Stress-line ribs lose 31.10% of the plain shell's buckling capacity, an orthogonal grid gains 16.05%, and an optimised thickness gains 25.74% (15.03% with a mode-1 imperfection). [ShellBench](/work/shellbench) counts whole-building A1-A3 carbon for 5,184 shell floors in 36 seismic RC frames: the median reduction is 5.7%, with 287 automated tests. [ShellForm and ShellLab](/work/shellform) compare seismic-aware force-density form-finding on 168 designs from 0 to 0.6 g. The browser solver matches the Python solver within 10^-13 m. [Seismic shell floors](/work/seismic-shell-floors/) stays an ongoing note: one unreleased 3 m bay, no carbon optimum.
-
-**3. Materials durability and lifecycle modelling.** In pavements, the larger part of a better material's carbon benefit can come from a longer service life rather than lower production emissions. [PaveCarbon](/work/pavecarbon) carries a laboratory durability gain through an axisymmetric finite-element model and mechanistic-empirical damage rules to an annualised A1–A3 carbon figure, with a Monte Carlo uncertainty check. The same durability-and-carbon discipline runs through the collaborative BIM and nano-asphalt work at Hohai.
-
-Taken together the three pillars converge on the ground shared by solid mechanics and low-carbon construction: honest constitutive models with uncertainty-quantified surrogates, stability and seismic sizing that treat embodied carbon as a coupled variable, and results that can be checked: open code with automated tests, benchmarks against closed-form or published solutions, and tagged releases. My own [bachelor thesis](/work/thesis-rc-frame) is the first validation case, and its errors are logged rather than hidden.
-
-<More label="See the checks behind each pillar">
-
-**Pillar 1: nonlinear constitutive and seismic mechanics.** The diagrid constitutive driver is validated against central finite differences to under 1.9 × 10⁻¹⁰ relative, far inside the 1e-7 gate, with dissipation held within the Clausius–Duhem bound. The nonlinear time-history uses elastic beam-column members with P-Delta transforms and corotational truss fuses; the grouped-cross-validation Matérn-5/2 Gaussian-process surrogate reaches a 0% held-out false-safe rate at the 95% upper confidence bound, and the eight NSGA-II Pareto designs are re-run exactly in OpenSeesPy. A differentiable PyTorch model recovers all six NiTi parameters from 3% noisy data to 7.28% worst case.
-
-**Pillar 2: geometry, stability and low-carbon shells.** The ribs study is pre-registered: before any result, stress-line ribs had to recover at least 70% of the optimised thickness's gain, and the orthogonal grid recovers 62.36% of it, a rare, honest negative result. ShellBench's surrogate fell short of its pre-registered coverage target and did not beat the simple rule of always choosing the shell; the verdict stays frozen in the repository.
-
-**Pillar 3: materials durability and lifecycle modelling.** PaveCarbon's axisymmetric stresses match the Boussinesq closed form within 0.3%, the mesh is doubled to 5,120 elements, and the carbon comparison runs 1,500 Monte Carlo samples to keep the uncertainty honest. The same discipline runs through the collaborative BIM and nano-asphalt work at Hohai.
-
-</More>
-
-## What I want to do next
-
-I am applying for September 2027 entry to Erasmus Mundus STRAINS, MS2 and FRP++, and to related MSc and PhD places in the mechanics of materials and structures. The NiTi peak-drift and carbon penalty is the reason for 3D thermomechanical constitutive modelling (STRAINS). The 31.10% rib loss at equal volume is the reason for enriched continua and shell stability (MS2) and for lightweight composite or hybrid shell systems (FRP++).
+The open question is where structural efficiency meets seismic drift and embodied carbon. Code, data, and the two Zenodo preprints are linked from each study.

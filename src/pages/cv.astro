@@ -29,19 +29,8 @@ const cite = (d: (typeof pubs)[number]['data']) => {
     <section>
       <h2>Profile</h2>
       <div>
-        <p>
-          I work on computational mechanics of materials and structures: constitutive modelling, finite-element analysis, form-finding and seismic design,
-          with embodied carbon as a coupled design variable. My code is open and tested. The flagship study models a superelastic NiTi self-centring fuse
-          as a constitutive problem, optimises it against yielding steel in a nonlinear seismic time-history, and certifies the Pareto front with zero
-          false-safe designs. The same verification-first discipline runs through thin-shell buckling and carbon studies, and an axisymmetric pavement
-          LCA. Before this I spent two and a half years as a project and quality-control engineer in precision medical-device manufacturing, working
-          on nickel-titanium alloy components — durability testing, fatigue analysis and root-cause failure investigation — which is where I learned
-          the alloy before I modelled it. My bachelor thesis was the full hand design of a four-storey seismic RC frame to the Chinese codes.
-        </p>
-        <p class="mt-2 muted">
-          Interests: constitutive models for shape-memory and structural alloys with uncertainty-quantified surrogates; form-finding and optimisation
-          that treat seismic demand and embodied carbon together; validated, reproducible structural software; lightweight structures for extreme environments.
-        </p>
+        <p>{site.identity}</p>
+        <p class="mt-2">{site.bio}</p>
       </div>
     </section>
 
@@ -73,7 +62,7 @@ const cite = (d: (typeof pubs)[number]['data']) => {
             <li>1D Auricchio–Sacco NiTi constitutive driver with exact consistent tangent (&lt; 1e-7) and Clausius–Duhem dissipation monitoring.</li>
             <li>3D OpenSeesPy 0.40 g nonlinear time-history with P-Delta beam-column frames and corotational truss fuses (SelfCentering NiTi vs Steel02).</li>
             <li>80-design LHS, grouped-CV Matérn-5/2 GP (0% held-out false-safe rate at 95% UCB), 8 NSGA-II certified Pareto designs, PyTorch inverse ID.</li>
-            <li>Honest trade-off: equal-strength NiTi cuts mean residual drift from 0.0659% to 0.0175% and raises mean peak drift from 1.788% to 3.397%, with lifecycle carbon higher on 66 of 80 designs.</li>
+            <li>Residual drift 0.0659% to 0.0175%. Peak drift 1.79% to 3.40%. Carbon +620.9 kgCO2e.</li>
           </ul>
         </div>
         <div class="entry">
@@ -149,10 +138,7 @@ const cite = (d: (typeof pubs)[number]['data']) => {
           <div class="entry-head"><h3>Project and quality-control engineer, Denco Manufacturing, Inc.</h3><span class="when">Jan 2024 – Mar 2026</span></div>
           <p class="where">Precision medical-device manufacturing · Guangdong, China</p>
           <ul>
-            <li>Mechanical characterisation, cyclic-durability and fatigue testing of superelastic nickel-titanium (NiTi) alloy components; micro-CNC metrology.</li>
-            <li>Statistical root-cause failure analysis and corrective/preventive actions (CAPA).</li>
-            <li>Reviewed technical drawings and tolerances and kept traceability records.</li>
-            <li>Direct motivation for the constitutive SMA modelling in the <a href="/work/diagrid-seismic-opt/">Diagrid seismic opt</a> study.</li>
+            <li>Cyclic-durability testing of superelastic NiTi, micro-CNC metrology, and failure analysis.</li>
           </ul>
         </div>
         <div class="entry">
@@ -167,12 +153,7 @@ const cite = (d: (typeof pubs)[number]['data']) => {
       <h2>Skills</h2>
       <div>
         <ul>
-          <li><strong>Structural and solid mechanics:</strong> constitutive modelling (Auricchio–Sacco superelastic NiTi); hand design of RC frames to GB 50009, 50010, 50011 and 55002; gravity, wind and seismic analysis (base-shear method, response spectrum, nonlinear time-history); capacity checks; shell form-finding (force density method).</li>
-          <li><strong>Computation:</strong> Python (NumPy, SciPy, Matplotlib, pytest, scikit-learn, PyTorch), OpenSeesPy, CalculiX, Gmsh; Git and GitHub Actions; JavaScript web prototypes; LaTeX.</li>
-          <li><strong>Design and BIM:</strong> AutoCAD (advanced); Revit and BIM workflows (working knowledge).</li>
-          <li><strong>Sustainability:</strong> A1–A3 embodied-carbon and life-cycle assessment; GB/T 51366 and ICE carbon factors.</li>
-          <li><strong>Research practice:</strong> pre-registered analysis plans; validation against benchmarks and hand calculations; tagged, reproducible releases; AI-assisted coding with full human review and disclosed AI use.</li>
-          <li><strong>Quality engineering:</strong> inspection and test-line QC, fatigue-test review, root-cause analysis, CAPA, drawing and tolerance review.</li>
+          <li>OpenSeesPy, CalculiX, Python/PyTorch, Gmsh, Three.js, LaTeX.</li>
         </ul>
       </div>
     </section>

@@ -5,7 +5,7 @@ short_title: "Thesis: RC frame by hand"
 year: "2023"
 sort_date: 2023-06-01
 status: complete
-summary: "Bachelor thesis (87/100): the full hand design of a 3,500 m² four-storey reinforced concrete frame office building in Panzhihua, Sichuan, for seismic intensity 7 (0.10 g). 18 A3 drawings. Now validation case 0 for ShellBench."
+summary: "Hand-designed four-storey seismic RC frame. Thesis grade 87/100."
 methods: [hand-calculation, seismic-analysis]
 tools: [Hand calculation, AutoCAD]
 hero:
@@ -44,37 +44,4 @@ evidence:
 related: [shellbench]
 ---
 
-import More from '../../components/More.astro'
-
-## Question
-
-Can a complete reinforced concrete frame for a seismic site be designed, checked and drawn by hand, to the Chinese codes, in a way that someone else can follow line by line?
-
-## Results
-
-A complete, documented design with drawings, released openly with a DOI.
-
-<More label="See the method and the checks">
-
-## Approach
-
-The No. 2 Office Building in Panzhihua City is a four-storey cast-in-place RC moment frame (seismic grade three) with spans of 7.2–6.6–7.2 m, 600 × 600 mm columns, C40 concrete and HRB400 bars. The design was carried out entirely by hand to GB 50009-2012, GB 50010-2010 and GB 50011-2010, for seismic intensity 7 (0.10 g), design group 1, site class II, and a basic wind pressure of 0.30 kN/m².
-
-- Preliminary sizing from axial compression ratios, then beam and column line stiffness.
-- Gravity loads by two-cycle moment distribution; wind and horizontal seismic action by the D-value method.
-- Two-way slabs by yield-line design.
-- Load combinations, then capacity design: strong column, weak beam; strong shear, weak bending.
-- Beam and column reinforcement, and 18 A3 drawing sheets. Supervisor: He Weidong.
-
-## Validation
-
-Inter-storey drifts were checked against the GB 50011 limit of 1/550; the largest elastic drift under earthquake is 1/1126 in the ground storey.
-
-Three years later, the thesis became the validation case for ShellBench. Rebuilding it in OpenSeesPy, I logged 16 input inconsistencies and 21 doubtful printed values, each with a recorded decision. That audit is what taught me to trust a result only after it has been checked against something independent.
-
-</More>
-
-## What this does not show
-
-- The analysis uses classical hand methods (moment distribution, D-value), not a full 3D model; ShellBench's response-spectrum check is the later comparison.
-- The printed thesis contains the inconsistencies listed in the ShellBench audit; the audit, not the original, is the corrected record.
+Hand design of a four-storey seismic RC frame in Panzhihua. Thesis grade 87/100.

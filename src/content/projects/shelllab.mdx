@@ -5,7 +5,7 @@ short_title: "ShellLab"
 year: "2026"
 sort_date: 2026-11-17
 status: complete
-summary: "ShellForm's form finder, ported to the browser. Set a rectangular plan, place supports, choose the rise and a lateral load, and read bar forces, support thrust, a live equilibrium residual and A1–A3 concrete carbon. The solver is tested against ShellForm itself."
+summary: "Browser force-density solver. Matches ShellForm within 10^-13 m."
 methods: [form-finding, embodied-carbon, validation, interactive-tools]
 tools: [JavaScript, three.js, Python]
 hero:
@@ -37,29 +37,4 @@ evidence:
 related: [shellform, shellbench]
 ---
 
-import More from '../../components/More.astro'
-
-## Question
-
-What shape carries a shell's own weight in pure compression, and what does that shape ask of its supports? ShellForm answers this for a fixed set of designs. ShellLab makes the same solver something a designer can push around live.
-
-<More label="See the method and the checks">
-
-## Approach
-
-- **Force density method** (Schek, 1974). With the force densities fixed, equilibrium at the free nodes is linear, so each coordinate comes from one banded Cholesky solve.
-- **Rectangular plans** from 6 to 40 m a side, supports from presets or placed by clicking nodes, an edge tie that stops free edges drawing in, and lateral load in x and y.
-- **Readouts**: bar forces, horizontal thrust at every support, vertical reactions, the equilibrium residual, concrete volume and A1–A3 carbon (C40, 340 kgCO₂e/m³, from ShellBench) with a ±25 % band.
-- Export as JSON or OBJ, and a link that holds the whole design. No build step, no CDN, no server.
-
-## Validation
-
-The solver is a port of ShellForm's `formfind.py`. A script runs ShellForm itself on six cases (edge- and corner-supported, with and without lateral load, and the free-edge inset search) and stores the results as test fixtures. The browser solver matches their coordinates to 9.4 × 10⁻¹⁴ m and their reactions to 10⁻⁸, and every form is in equilibrium to a relative residual below 10⁻⁹. The tests run on every push.
-
-</More>
-
-## What this does not show
-
-- It finds forms; it does not design shells. Thickness is not sized, and buckling, bending under non-funicular loads, reinforcement and supports are not checked.
-- The stress shown is a bar force over its strip of shell, for orientation only.
-- Carbon counts concrete only, so it is a lower bound.
+ShellLab runs the ShellForm force-density solver in the browser. Coordinates match within 10^-13 m.

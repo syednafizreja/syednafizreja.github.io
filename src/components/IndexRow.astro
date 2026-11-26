@@ -33,7 +33,7 @@ const brief = detail ? d.brief : undefined;
         <span class="yr">{d.year} · <span class={`status ${d.status}`}>{STATUS_LABEL[d.status]}</span></span>
       </span>
       <H><span class="sr-only">{d.number}. </span>{d.short_title}</H>
-      <p class="summary">{d.summary}</p>
+      {!brief && <p class="summary">{d.summary}</p>}
       <span class="tags">{d.methods.map((m) => <span class="tag">{METHOD_LABELS[m]}</span>)}</span>
       <span class="go" aria-hidden="true">→</span>
     </a>
@@ -49,9 +49,9 @@ const brief = detail ? d.brief : undefined;
           )}
           {brief && (
             <dl class="brief">
-              <div><dt>Finding</dt><dd>{brief.finding}</dd></div>
-              <div><dt>Limitation and learning</dt><dd>{brief.limit}</dd></div>
-              <div><dt>Next research step</dt><dd>{brief.next}</dd></div>
+              <div><dt>Method</dt><dd>{brief.finding}</dd></div>
+              <div><dt>Key result</dt><dd>{brief.limit}</dd></div>
+              <div><dt>Open limit</dt><dd>{brief.next}</dd></div>
             </dl>
           )}
         </div>

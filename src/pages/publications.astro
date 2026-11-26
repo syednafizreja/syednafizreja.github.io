@@ -7,7 +7,7 @@ import { site, PUB_STATUS_LABEL, doiUrl, links } from '../lib/site';
 const pubs = (await getCollection('publications')).sort((a, b) => a.data.order - b.data.order);
 const groups = [
   {
-    title: 'Preprints and manuscripts under review',
+    title: 'Preprints and under review',
     id: 'open',
     match: (status: string, doi = '') => status === 'under-review' || (status === 'preprint' && doi.startsWith('10.5281/zenodo.245')),
   },
@@ -15,11 +15,6 @@ const groups = [
     title: 'Earlier peer-reviewed articles',
     id: 'journal',
     match: (status: string) => status === 'published',
-  },
-  {
-    title: 'Other archived reports and drafts',
-    id: 'other',
-    match: (status: string, doi = '') => status !== 'published' && status !== 'under-review' && !(status === 'preprint' && doi.startsWith('10.5281/zenodo.245')),
   },
 ] as const;
 const projects = await getCollection('projects');
@@ -30,10 +25,7 @@ const projectTitle = (id?: string) => projects.find((p) => p.id === id)?.data.sh
   <header class="page-head wrap">
     <span class="eyebrow"><span class="cm" aria-hidden="true">#</span>Publications</span>
     <h1>Publications</h1>
-    <p class="lede">
-      Statuses as of 26 November 2026. Full record on <a href={links.orcid}>ORCID {site.orcid}</a> and{' '}
-      <a href={links.researchgate}>ResearchGate</a>.
-    </p>
+    <p class="lede">DOIs are on each line. ORCID <a href={links.orcid}>{site.orcid}</a>.</p>
   </header>
 
   <div class="wrap mt-5">
