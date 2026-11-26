@@ -2,9 +2,9 @@
   "name": "Syed Nafiz Reja Hasib",
   "short_name": "Syed Nafiz Reja Hasib",
   "job_title": "Civil and structural engineer",
-  "identity": "Computational mechanics of materials and structures: constitutive modelling, finite-element analysis, form-finding and seismic design, spanning self-centring hybrid systems and thin concrete shells with embodied carbon as a coupled design variable.",
-  "bio": "I work on computational mechanics of materials and structures: constitutive modelling, finite-element analysis, form-finding and seismic design. Thin concrete shells and self-centring NiTi systems are the test cases, and embodied carbon is the design variable that joins them.",
-  "currently": "Applying for funded MSc and PhD positions starting September 2027.",
+  "identity": "Two years of cyclic-durability testing and failure analysis on superelastic NiTi components at Denco Manufacturing (2024-2026), together with a BEng in Civil Engineering at Southwest Petroleum University, led to independent computational mechanics on constitutive modelling, thin-shell stability, seismic systems and embodied carbon.",
+  "bio": "From 2024 to 2026 I tested superelastic NiTi components for cyclic durability and failure at Denco Manufacturing. That work, and a BEng in Civil Engineering from Southwest Petroleum University, is the start of the computational mechanics on this site: constitutive models, thin-shell stability, seismic systems and embodied carbon.",
+  "currently": "Applying for Erasmus Mundus STRAINS, MS2 and FRP++, and related MSc and PhD places, for September 2027.",
   "location": "Guangdong, China",
   "email_user": "syednafiz2811",
   "email_domain": "gmail.com",
@@ -13,6 +13,6 @@
   "linkedin": "https://www.linkedin.com/in/syednafizreja",
   "researchgate": "https://www.researchgate.net/profile/Syed-Nafiz-Reja-Hasib",
   "cv_pdf": "/cv/CV_Syed_Nafiz_Reja_Hasib.pdf",
-  "featured": ["diagrid-seismic-opt", "stress-line-ribs", "shellform"],
+  "featured": ["diagrid-seismic-opt", "stress-line-ribs", "shellbench", "shellform"],
   "accent": "oxide"
 }

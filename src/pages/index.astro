@@ -81,12 +81,13 @@ const words = ['structural forms', 'constitutive models', 'finite-element models
   <section class="section wrap" aria-labelledby="sel">
     <div class="railed">
       <div class="section-head">
-        <div><span class="idx"><span class="cm" aria-hidden="true">#</span> 02 · Projects</span><h2 id="sel">Selected work</h2></div>
+        <div><span class="idx"><span class="cm" aria-hidden="true">#</span> 02 · Projects</span><h2 id="sel">Flagship research</h2></div>
         <a href="/work/">All {projects.length} projects →</a>
       </div>
       <ol class="index">
-        {featured.map((p) => <IndexRow project={p} />)}
+        {featured.map((p) => <IndexRow project={p} detail />)}
       </ol>
+      <p class="ongoing">Ongoing work: seismic shell floors, one unreleased 3 m vault bay. At a rise of 0.60 m the smooth shell keeps 0.40763 of the flat extensional stiffness and one rib cross keeps 0.38984. There is no carbon optimum yet. <a href="/work/seismic-shell-floors/">Notes</a>.</p>
     </div>
   </section>
 

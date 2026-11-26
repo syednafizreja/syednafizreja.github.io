@@ -16,7 +16,7 @@ const Site = z.object({
   linkedin: z.url(),
   researchgate: z.url(),
   cv_pdf: z.string(),
-  featured: z.array(z.string()).max(3),
+  featured: z.array(z.string()).max(4),
   accent: z.enum(['oxide', 'cobalt', 'moss']),
 });
 

@@ -32,8 +32,18 @@ validation:
   value: "−0.16%"
 evidence:
   repo: https://github.com/syednafizreja/stress-line-ribs-shell-buckling
+  doi: 10.5281/zenodo.24560903
   tests: "11 passed (pytest, on every push)"
   licence: MIT
+card_links:
+  - label: Code
+    href: https://github.com/syednafizreja/stress-line-ribs-shell-buckling
+  - label: Preprint
+    href: https://doi.org/10.5281/zenodo.24560903
+brief:
+  finding: "One 12 by 12 m pinned concrete shell, rise 2.4 m, under self-weight plus 0.2 g sway. CalculiX buckling and a mode-1 imperfection are checked on the Scordelis-Lo roof and the Zoelly cap. Across seven equal-volume layouts, stress-line ribs lose 31.10% of the plain shell's buckling capacity, an orthogonal grid gains 16.05%, and an optimised thickness gains 25.74%, or 15.03% with the mode-1 imperfection."
+  limit: "The ribs take their volume from the shell, and the thin panels between them buckle first. The loss belongs to that layout. Linear buckling plus one imperfection mode is as far as this check goes."
+  next: "The 31.10% loss is the reason to study enriched continua and shell stability (MS2) and lightweight composite or hybrid shells (FRP++). It sits beside the NiTi peak-drift and carbon penalty, which is the STRAINS question."
 related: [seismic-shell-floors, shellform, shellbench, shelllab]
 ---
 

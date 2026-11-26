@@ -36,6 +36,14 @@ const projects = defineCollection({
         })
         .default({}),
       related: z.array(z.string()).default([]),
+      card_links: z.array(z.object({ label: z.string(), href: z.url() })).default([]),
+      brief: z
+        .object({
+          finding: z.string(),
+          limit: z.string(),
+          next: z.string(),
+        })
+        .optional(),
       draft: z.boolean().default(false),
     }),
 });

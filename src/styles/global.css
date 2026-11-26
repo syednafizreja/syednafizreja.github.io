@@ -388,13 +388,13 @@
   .titleblock dd { color: var(--ink); margin-top: 0.1rem; }
 
   /* cut corners: one notch top right and one bottom left */
-  :is(.btn, .pill, .index-row a, .now > div, .titleblock.plate, .stats, .cta-band, .avatar, .chip) {
+  :is(.btn, .pill, .index-row .card, .now > div, .titleblock.plate, .stats, .cta-band, .avatar, .chip) {
     --n: 10px;
     clip-path: polygon(0 0, calc(100% - var(--n)) 0, 100% var(--n), 100% 100%, var(--n) 100%, 0 calc(100% - var(--n)));
   }
   :is(.btn, .pill, .chip) { --n: 7px; }
   /* a clipped box would hide its focus ring, so the notch steps aside on keyboard focus */
-  :is(.btn, .pill, .index-row a):focus-visible { clip-path: none; }
+  :is(.btn, .pill, .index-row .card):focus-visible { clip-path: none; }
 
   /* trailing cursor ring (mouse only, added by cursor.ts) */
   .cursor-ring { position: fixed; left: 0; top: 0; z-index: 70; width: 2rem; height: 2rem; margin: -1rem 0 0 -1rem; border: 1px solid var(--accent); border-radius: 50%; pointer-events: none; opacity: 0; transition: opacity 0.2s, width 0.2s, height 0.2s, margin 0.2s, background-color 0.2s; }
@@ -421,31 +421,42 @@
   /* project cards (class names kept from the old numbered index) */
   .index { list-style: none; padding: 0; display: grid; gap: var(--s3); grid-template-columns: repeat(auto-fill, minmax(min(100%, 21rem), 1fr)); }
   .index-row { display: flex; }
-  .index-row a {
-    position: relative; isolation: isolate; flex: 1; display: flex; flex-direction: column; gap: 0.8rem;
+  .index-row .card {
+    position: relative; isolation: isolate; flex: 1; display: flex; flex-direction: column;
     padding: 0.75rem 0.75rem 1.25rem; border: 1px solid var(--rule); border-radius: var(--radius-lg);
-    background: var(--card); color: inherit; text-decoration: none; box-shadow: var(--shadow);
+    background: var(--card); color: inherit; box-shadow: var(--shadow);
     transition: transform 0.25s cubic-bezier(.2,.7,.2,1), border-color 0.25s, background-color 0.25s;
   }
-  .index-row a::before {
+  .index-row .card::before {
     content: ''; position: absolute; inset: -1px; z-index: -1; border-radius: inherit; padding: 1px; opacity: 0; transition: opacity 0.25s;
     background: linear-gradient(135deg, var(--accent), transparent 45%, var(--accent-2));
     -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor;
     mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
   }
-  .index-row a:hover { transform: translateY(-4px); background: var(--card-hi); border-color: transparent; }
-  .index-row a:hover::before { opacity: 1; }
+  .index-row .card:hover { transform: translateY(-4px); background: var(--card-hi); border-color: transparent; }
+  .index-row .card:hover::before { opacity: 1; }
+  .index-row .cover {
+    display: flex; flex-direction: column; gap: 0.8rem; flex: 1; color: inherit; text-decoration: none;
+  }
   .index-row .thumb { display: block; border-radius: 10px; overflow: hidden; background: var(--plate); }
   .index-row .thumb img { width: 100%; aspect-ratio: 16 / 10; object-fit: cover; transition: transform 0.5s cubic-bezier(.2,.7,.2,1); }
-  .index-row a:hover .thumb img { transform: scale(1.03); }
+  .index-row .card:hover .thumb img { transform: scale(1.03); }
   .index-row .meta { display: flex; justify-content: space-between; align-items: center; gap: var(--s1); padding-inline: 0.5rem; margin-top: 0.2rem; font-family: var(--mono); font-size: 0.74rem; color: var(--ink-3); }
   .index-row .n { color: var(--accent-ink); letter-spacing: 0.04em; }
   .index-row h2, .index-row h3 { font-size: 1.22rem; letter-spacing: -0.02em; padding-inline: 0.5rem; }
   .index-row .summary { color: var(--ink-2); font-size: 0.93rem; line-height: 1.55; padding-inline: 0.5rem; }
   .index-row .tags { display: flex; flex-wrap: wrap; gap: 0.35rem; padding-inline: 0.5rem; margin-top: auto; padding-top: 0.25rem; }
   .index-row .go { position: absolute; right: 1.1rem; bottom: 1.15rem; color: var(--ink-3); transition: transform 0.2s, color 0.2s; font-family: var(--mono); }
-  .index-row a:hover .go { color: var(--accent-ink); transform: translateX(3px); }
+  .index-row .card:hover .go { color: var(--accent-ink); transform: translateX(3px); }
   .index-row .tags { padding-right: 2rem; }
+  .index-row .card-foot { padding: 0.35rem 0.5rem 0; }
+  .index-row .card-links { display: flex; flex-wrap: wrap; gap: 0.35rem 0.75rem; margin: 0; font-family: var(--mono); font-size: 0.74rem; }
+  .index-row .card-links a { color: var(--accent-ink); }
+  .index-row .brief { margin: 0.7rem 0 0; }
+  .index-row .brief div + div { margin-top: 0.55rem; }
+  .index-row .brief dt { font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-3); }
+  .index-row .brief dd { margin: 0.15rem 0 0; color: var(--ink-2); font-size: 0.86rem; line-height: 1.45; }
+  .ongoing { margin-top: var(--s4); max-width: 68ch; color: var(--ink-2); font-size: 0.95rem; }
   .tag { font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.02em; color: var(--ink-2); background: var(--rule-soft); border: 1px solid var(--rule-soft); padding: 0.12rem 0.5rem; border-radius: 6px; white-space: nowrap; }
   .status { font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.06em; text-transform: uppercase; white-space: nowrap; }
   .status::before { content: ''; display: inline-block; width: 0.45rem; height: 0.45rem; border-radius: 50%; margin-right: 0.4rem; background: var(--ink-3); vertical-align: 0.05em; }

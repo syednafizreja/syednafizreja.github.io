@@ -5,7 +5,7 @@ short_title: "ShellBench"
 year: "2026"
 sort_date: 2026-10-01
 status: complete
-summary: "How much do thin-shell floors cut the A1–A3 embodied carbon of GB 50010 / GB 50011 reinforced concrete frames across 3–8 storeys, and how does the saving change with storey count and seismic intensity once diaphragm, tie and topping needs are met?"
+summary: "5,184 thin-shell floor designs in 36 seismic RC frames. Median whole-building A1-A3 reduction 5.7%. 287 automated tests. Code and the archived dataset are public."
 methods: [seismic-analysis, embodied-carbon, form-finding, finite-element, validation, machine-learning]
 tools: [Python, OpenSeesPy, CalculiX, Gmsh, pytest, GitHub Actions]
 hero:
@@ -40,6 +40,11 @@ evidence:
   doi: 10.5281/zenodo.23851675
   tests: "287 passed (pytest, on every push)"
   licence: MIT
+card_links:
+  - label: Code
+    href: https://github.com/syednafizreja/ShellBench
+  - label: Dataset
+    href: https://doi.org/10.5281/zenodo.24194144
 related: [shellform, thesis-rc-frame, stress-line-ribs]
 ---
 

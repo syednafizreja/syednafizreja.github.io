@@ -2,13 +2,25 @@
 import { getCollection } from 'astro:content';
 import Base from '../layouts/Base.astro';
 import { toBibtex } from '../lib/bibtex';
-import { PUB_STATUS_LABEL, doiUrl, links } from '../lib/site';
+import { site, PUB_STATUS_LABEL, doiUrl, links } from '../lib/site';
 
 const pubs = (await getCollection('publications')).sort((a, b) => a.data.order - b.data.order);
 const groups = [
-  { type: 'journal', title: 'Peer-reviewed journal articles' },
-  { type: 'manuscript', title: 'Manuscripts in preparation' },
-  { type: 'report', title: 'Archived technical reports and preprints' },
+  {
+    title: 'Preprints and manuscripts under review',
+    id: 'open',
+    match: (status: string, doi = '') => status === 'under-review' || (status === 'preprint' && doi.startsWith('10.5281/zenodo.245')),
+  },
+  {
+    title: 'Earlier peer-reviewed articles',
+    id: 'journal',
+    match: (status: string) => status === 'published',
+  },
+  {
+    title: 'Other archived reports and drafts',
+    id: 'other',
+    match: (status: string, doi = '') => status !== 'published' && status !== 'under-review' && !(status === 'preprint' && doi.startsWith('10.5281/zenodo.245')),
+  },
 ] as const;
 const projects = await getCollection('projects');
 const projectTitle = (id?: string) => projects.find((p) => p.id === id)?.data.short_title;
@@ -19,7 +31,7 @@ const projectTitle = (id?: string) => projects.find((p) => p.id === id)?.data.sh
     <span class="eyebrow"><span class="cm" aria-hidden="true">#</span>Publications</span>
     <h1>Publications</h1>
     <p class="lede">
-      Listed as in my CV. Statuses are as of November 2026. Full record on <a href={links.orcid}>ORCID</a> and{' '}
+      Statuses as of 26 November 2026. Full record on <a href={links.orcid}>ORCID {site.orcid}</a> and{' '}
       <a href={links.researchgate}>ResearchGate</a>.
     </p>
   </header>
@@ -27,10 +39,10 @@ const projectTitle = (id?: string) => projects.find((p) => p.id === id)?.data.sh
   <div class="wrap mt-5">
     {
       groups.map((g) => {
-        const items = pubs.filter((p) => p.data.type === g.type);
+        const items = pubs.filter((p) => g.match(p.data.status, p.data.doi ?? ''));
         return items.length ? (
-          <section class="pub-group" aria-labelledby={`g-${g.type}`}>
-            <h2 id={`g-${g.type}`}>{g.title}</h2>
+          <section class="pub-group" aria-labelledby={`g-${g.id}`}>
+            <h2 id={`g-${g.id}`}>{g.title}</h2>
             <ol class="pubs">
               {items.map((p) => {
                 const d = p.data;

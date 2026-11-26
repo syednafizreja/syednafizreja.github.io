@@ -5,7 +5,7 @@ short_title: "Diagrid seismic opt"
 year: "2026"
 sort_date: 2026-11-23
 status: complete
-summary: "1D Auricchio–Sacco superelastic NiTi fuse (exact tangent, Clausius–Duhem ≥ 0) versus yielding steel, in OpenSeesPy 0.40 g time-history of a glulam–timber diagrid canopy; a grouped-CV Gaussian-process surrogate and NSGA-II return a certified zero-false-safe Pareto front on lifecycle carbon."
+summary: "1D Auricchio-Sacco NiTi against yielding steel in a glulam diagrid: OpenSeesPy SelfCentering fuses on 80 paired canopies, and a grouped-CV Gaussian process with NSGA-II."
 methods: [constitutive-mechanics, finite-element, seismic-analysis, optimisation, sciml-uq, embodied-carbon, validation, interactive-tools]
 tools: [Python, OpenSeesPy, scikit-learn, PyTorch, three.js]
 hero:
@@ -21,7 +21,7 @@ gallery:
     caption: "Certified Pareto front: lifecycle carbon against clear span, four steel and four NiTi designs."
 key_numbers:
   - label: "Algorithmic tangent"
-    value: "< 1.9 × 10⁻¹⁰"
+    value: "1.85 × 10⁻¹⁰"
     unit: "relative"
     basis: "Against central finite differences; the gate is 1e-7"
   - label: "False-safe rate"
@@ -39,12 +39,22 @@ key_numbers:
 validation:
   benchmark: "Central finite differences"
   metric: "Relative algorithmic tangent error"
-  value: "< 1.9 × 10⁻¹⁰"
+  value: "1.85 × 10⁻¹⁰"
 evidence:
   repo: https://github.com/syednafizreja/diagrid-seismic-opt
+  doi: 10.5281/zenodo.24559613
   live: https://syednafizreja.github.io/diagrid-seismic-opt/
   tests: "28 passed (pytest)"
   licence: MIT
+card_links:
+  - label: Code
+    href: https://github.com/syednafizreja/diagrid-seismic-opt
+  - label: Preprint
+    href: https://doi.org/10.5281/zenodo.24559613
+brief:
+  finding: "On 80 paired canopies and one 0.40 g synthetic record, the OpenSeesPy SelfCentering fuse lowered mean residual roof drift from 0.0659% to 0.0175% and raised mean peak drift from 1.788% to 3.397% on every geometry. Cradle-to-gate carbon rose by 620.9 kgCO2e, and lifecycle carbon rose on 66 of 80 designs. The 1D Auricchio-Sacco return map matches a central difference to 1.85e-10 relative, with dissipation roundoff near -2e-15 MPa against a -1e-9 MPa gate. Inverse identification recovers six parameters from 3% noise to 7.28% worst case. Grouped cross-validation with NSGA-II has 0 false-safe predictions on 160 held-out designs."
+  limit: "Recentring is real, and so is the penalty. The lower modulus raises peak drift, and the alloy raises carbon. A 1D isothermal map, used as a flag-shaped fuse, does not say how a 3D thermomechanical law would change the member."
+  next: "The peak-drift and carbon penalty is the reason to study 3D thermomechanical constitutive modelling (STRAINS). The same 1D fuse is why enriched shell stability (MS2) and lightweight composite or hybrid shells (FRP++) belong in the same application."
 draft: false
 ---
 
@@ -56,7 +66,7 @@ Can a parametric glulam&#8209;timber diagrid canopy fitted with superelastic NiT
 
 ## Findings in brief
 
-A single pipeline runs the whole loop: an exact NiTi constitutive model, parametric geometry, nonlinear OpenSeesPy time&#8209;history analysis, whole&#8209;life carbon, a grouped&#8209;cross&#8209;validation Matérn&#8209;5/2 Gaussian&#8209;process surrogate, NSGA&#8209;II optimisation and a differentiable PyTorch inverse identifier. The surrogate's Pareto front is re&#8209;run exactly in OpenSeesPy, and none of the certified designs is false&#8209;safe. The study surfaces a real trade&#8209;off: an equal&#8209;strength NiTi substitution lowers residual drift, but its 40 GPa modulus against steel's 200 GPa makes the system more flexible, so peak drift rises to 3.40% against steel's 1.79% and lifecycle carbon rises with it. Self&#8209;centring therefore pays only as the output of the constrained, uncertainty&#8209;aware (95% UCB) optimisation, not as a drop&#8209;in part. The workbench exposes the model, the replay and the charts in the browser.
+A single pipeline runs the whole loop: an exact NiTi constitutive model, parametric geometry, nonlinear OpenSeesPy time&#8209;history analysis, whole&#8209;life carbon, a grouped&#8209;cross&#8209;validation Matérn&#8209;5/2 Gaussian&#8209;process surrogate, NSGA&#8209;II optimisation and a differentiable PyTorch inverse identifier. The surrogate's Pareto front is re&#8209;run exactly in OpenSeesPy, and none of the certified designs is false&#8209;safe. The study surfaces a real trade&#8209;off: an equal&#8209;strength NiTi substitution lowers residual drift, but its 40 GPa modulus against steel's 200 GPa makes the system more flexible, so mean peak drift rises from 1.788% to 3.397% and lifecycle carbon rises with it. Self&#8209;centring therefore pays only as the output of the constrained, uncertainty&#8209;aware (95% UCB) optimisation, not as a drop&#8209;in part. The workbench exposes the model, the replay and the charts in the browser.
 
 <More label="See the method and the checks">
 

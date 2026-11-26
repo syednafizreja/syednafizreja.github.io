@@ -8,28 +8,54 @@ interface Props {
   project: CollectionEntry<'projects'>;
   thumb?: boolean;
   headingLevel?: 'h2' | 'h3';
+  /** Flagship cards show code links and, where written, the three-part brief. */
+  detail?: boolean;
 }
-const { project, thumb = true, headingLevel = 'h3' } = Astro.props;
+const { project, thumb = true, headingLevel = 'h3', detail = false } = Astro.props;
 const d = project.data;
 const H = headingLevel;
+const links = detail ? d.card_links : [];
+const brief = detail ? d.brief : undefined;
 ---
 
 <li class="index-row" data-methods={d.methods.join(' ')}>
-  <a href={`/work/${project.id}/`}>
+  <div class="card">
+    <a class="cover" href={`/work/${project.id}/`}>
+      {
+        thumb && (
+          <span class="thumb" aria-hidden="true">
+            <Image src={d.hero.src} alt="" width={640} widths={[416, 640]} sizes="(min-width: 60rem) 26rem, 92vw" quality={70} loading="lazy" decoding="async" />
+          </span>
+        )
+      }
+      <span class="meta">
+        <span class="n" aria-hidden="true">{d.number}</span>
+        <span class="yr">{d.year} · <span class={`status ${d.status}`}>{STATUS_LABEL[d.status]}</span></span>
+      </span>
+      <H><span class="sr-only">{d.number}. </span>{d.short_title}</H>
+      <p class="summary">{d.summary}</p>
+      <span class="tags">{d.methods.map((m) => <span class="tag">{METHOD_LABELS[m]}</span>)}</span>
+      <span class="go" aria-hidden="true">→</span>
+    </a>
     {
-      thumb && (
-        <span class="thumb" aria-hidden="true">
-          <Image src={d.hero.src} alt="" width={640} widths={[416, 640]} sizes="(min-width: 60rem) 26rem, 92vw" quality={70} loading="lazy" decoding="async" />
-        </span>
+      (links.length > 0 || brief) && (
+        <div class="card-foot">
+          {links.length > 0 && (
+            <p class="card-links">
+              {links.map((item) => (
+                <a href={item.href}>{item.label}</a>
+              ))}
+            </p>
+          )}
+          {brief && (
+            <dl class="brief">
+              <div><dt>Finding</dt><dd>{brief.finding}</dd></div>
+              <div><dt>Limitation and learning</dt><dd>{brief.limit}</dd></div>
+              <div><dt>Next research step</dt><dd>{brief.next}</dd></div>
+            </dl>
+          )}
+        </div>
       )
     }
-    <span class="meta">
-      <span class="n" aria-hidden="true">{d.number}</span>
-      <span class="yr">{d.year} · <span class={`status ${d.status}`}>{STATUS_LABEL[d.status]}</span></span>
-    </span>
-    <H><span class="sr-only">{d.number}. </span>{d.short_title}</H>
-    <p class="summary">{d.summary}</p>
-    <span class="tags">{d.methods.map((m) => <span class="tag">{METHOD_LABELS[m]}</span>)}</span>
-    <span class="go" aria-hidden="true">→</span>
-  </a>
+  </div>
 </li>
