@@ -97,7 +97,7 @@ test('copy BibTeX button finds its entry', async ({ page }) => {
 test('theme toggle switches and persists', async ({ page }) => {
   await page.goto('/');
   const before = await page.evaluate(() => document.documentElement.dataset.theme);
-  await page.click('[data-theme-toggle]');
+  await page.locator('[data-theme-toggle]:visible').click();
   const after = await page.evaluate(() => document.documentElement.dataset.theme);
   expect(after).not.toBe(before);
   await page.reload();

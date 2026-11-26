@@ -15,7 +15,23 @@ const initials = site.name.split(' ').filter(Boolean).map((w) => w[0]).slice(0, 
 ---
 
 <header class="site-header">
-  <div class="wrap bar">
+  <div class="topbar">
+    <a class="brand" href="/">
+      <span class="mark" aria-hidden="true">{initials}</span>
+      <span class="name">{site.name}</span>
+    </a>
+    <div class="top-actions">
+      <button class="theme-toggle" type="button" aria-label="Switch colour theme" title="Switch colour theme" data-theme-toggle>
+        <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="12" r="4.2"></circle><path d="M12 2.5v2.2M12 19.3v2.2M4.6 4.6l1.6 1.6M17.8 17.8l1.6 1.6M2.5 12h2.2M19.3 12h2.2M4.6 19.4l1.6-1.6M17.8 6.2l1.6-1.6"></path></svg>
+        <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5Z"></path></svg>
+      </button>
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-drawer" aria-label="Open menu">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"></path></svg>
+      </button>
+    </div>
+  </div>
+  <button class="scrim" type="button" data-scrim hidden aria-label="Close menu"></button>
+  <div class="bar" id="site-drawer">
     <a class="brand" href="/">
       <span class="mark" aria-hidden="true">{initials}</span>
       <span class="avatar" aria-hidden="true"><Image src={portrait} alt="" widths={[112, 224]} sizes="112px" loading="lazy" decoding="async" /></span>
@@ -50,17 +66,23 @@ const initials = site.name.split(' ').filter(Boolean).map((w) => w[0]).slice(0, 
 </header>
 
 <script>
-  // Projects sub-menu: a disclosure button. In the sidebar (64rem and up) it opens in place and starts open on project pages;
-  // in the top bar it drops down and closes on Escape, outside click or link choice.
-  const group = document.querySelector<HTMLElement>('[data-subnav]');
-  const btn = group?.querySelector<HTMLButtonElement>('.sub-toggle');
-  const list = group?.querySelector<HTMLUListElement>('.subnav');
-  if (group && btn && list) {
-    const wide = matchMedia('(min-width: 64rem)');
-    const set = (open: boolean) => { btn.setAttribute('aria-expanded', String(open)); list.hidden = !open; };
-    if (wide.matches && location.pathname.startsWith('/work/')) set(true);
-    btn.addEventListener('click', () => set(list.hidden));
-    document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && !list.hidden && !wide.matches) { set(false); btn.focus(); } });
-    document.addEventListener('click', (e) => { if (!wide.matches && !list.hidden && !group.contains(e.target as Node)) set(false); });
-  }
+  const header = document.querySelector<HTMLElement>('.site-header');
+  const btn = header?.querySelector<HTMLButtonElement>('.menu-toggle');
+  const drawer = document.getElementById('site-drawer');
+  const scrim = header?.querySelector<HTMLButtonElement>('[data-scrim]');
+  const wide = matchMedia('(min-width: 64.0625rem)');
+  const setOpen = (open: boolean) => {
+    if (!header || !btn) return;
+    const show = open && !wide.matches;
+    header.classList.toggle('is-open', show);
+    btn.setAttribute('aria-expanded', String(show));
+    btn.setAttribute('aria-label', show ? 'Close menu' : 'Open menu');
+    if (scrim) scrim.hidden = !show;
+    document.body.classList.toggle('nav-open', show);
+  };
+  btn?.addEventListener('click', () => setOpen(btn.getAttribute('aria-expanded') !== 'true'));
+  scrim?.addEventListener('click', () => setOpen(false));
+  drawer?.querySelectorAll('a').forEach((link) => link.addEventListener('click', () => setOpen(false)));
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') setOpen(false); });
+  wide.addEventListener('change', () => setOpen(false));
 </script>

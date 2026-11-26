@@ -2,21 +2,25 @@
 
 const root = document.documentElement;
 
-document.querySelectorAll<HTMLButtonElement>('[data-theme-toggle]').forEach((btn) => {
-  const sync = () => btn.setAttribute('aria-pressed', String(root.dataset.theme === 'dark'));
-  sync();
+const themeButtons = [...document.querySelectorAll<HTMLButtonElement>('[data-theme-toggle]')];
+const syncTheme = () => {
+  const dark = root.dataset.theme !== 'light';
+  for (const btn of themeButtons) btn.setAttribute('aria-pressed', String(dark));
+};
+syncTheme();
+for (const btn of themeButtons) {
   btn.addEventListener('click', () => {
-    const next = root.dataset.theme === 'dark' ? 'light' : 'dark';
+    const next = root.dataset.theme === 'light' ? 'dark' : 'light';
     root.dataset.theme = next;
     try {
       localStorage.setItem('theme', next);
     } catch {
       /* private mode: theme lasts for this page only */
     }
-    sync();
+    syncTheme();
     window.dispatchEvent(new CustomEvent('themechange', { detail: next }));
   });
-});
+}
 
 document.querySelectorAll<HTMLElement>('.email[data-u][data-d]').forEach((el) => {
   const addr = `${el.dataset.u}@${el.dataset.d}`;

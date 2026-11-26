@@ -71,7 +71,8 @@ const ld = [person, ...jsonLd];
     <script is:inline>
       (() => {
         try {
-          // Dark is the house style; a reader's own choice from the toggle wins.
+          // Dark is unconditional for a first visit. The OS colour scheme is ignored.
+          // A saved toggle choice of "light" is the only way to leave dark.
           document.documentElement.dataset.theme = localStorage.getItem('theme') === 'light' ? 'light' : 'dark';
         } catch (e) {
           document.documentElement.dataset.theme = 'dark';
@@ -110,6 +111,7 @@ const ld = [person, ...jsonLd];
         <slot />
       ) : (
         <>
+          <canvas class="mesh" data-mesh aria-hidden="true"></canvas>
           <a class="skip" href="#main">Skip to content</a>
           <Header />
           <main id="main" tabindex="-1">
@@ -126,6 +128,7 @@ const ld = [person, ...jsonLd];
     <script>
       import '../scripts/site';
       import '../scripts/cursor';
+      import '../scripts/mesh';
     </script>
   </body>
 </html>
