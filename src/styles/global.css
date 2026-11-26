@@ -165,7 +165,7 @@
   .prose li + li { margin-top: 0.35em; }
   .prose li::marker { color: var(--accent-ink); }
   .prose p, .prose li { color: color-mix(in srgb, var(--ink) 88%, var(--ink-2)); }
-  .section { padding-block: 4.5rem; }
+  .section { padding-block: 4rem; }
   .stack > * + * { margin-top: var(--s2); }
 }
 
@@ -333,13 +333,13 @@
   .hero { position: relative; isolation: isolate; overflow: hidden; padding-block: clamp(2.5rem, 7vw, 5.5rem) clamp(2.5rem, 6vw, 4.5rem); }
   @media (min-width: 64rem) { .hero { min-height: auto; display: block; padding-block: 4.5rem 3rem; } }
   .mesh { position: absolute; inset: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none; }
-  .hero .kicker { font-family: var(--mono); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.14em; color: var(--accent-ink); margin-bottom: 0.85rem; }
-  .hero .identity { font-size: 1rem; line-height: 1.65; max-width: 60ch; color: rgba(226, 232, 240, 0.78); margin-top: 1rem; }
+  .hero .kicker { font-family: var(--mono); font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.12em; color: var(--accent-ink); margin-bottom: 0.85rem; }
+  .hero .identity { font-size: 0.98rem; line-height: 1.65; max-width: 60ch; color: rgba(226, 232, 240, 0.78); margin-top: 1rem; }
   :root[data-theme='light'] .hero .identity { color: var(--ink-2); }
   .marker { font-family: var(--mono); font-size: 0.76rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent-ink); margin-bottom: var(--s3); display: flex; align-items: center; gap: 0.75em; }
   .marker .n { color: var(--ink-3); }
   .marker::after { content: ''; width: 2.5rem; height: 1px; background: linear-gradient(90deg, var(--accent), transparent); }
-  .statement { font-size: clamp(2rem, 3.1vw, 2.75rem); line-height: 1.15; letter-spacing: -0.02em; font-weight: 600; max-width: 24ch; text-wrap: balance; }
+  .statement { font-size: clamp(1.85rem, 2.7vw, 2.45rem); line-height: 1.18; letter-spacing: -0.02em; font-weight: 600; max-width: 26ch; text-wrap: balance; }
   .statement .l { display: block; }
   .statement .who { color: var(--accent-ink); }
   .statement .serif { font-family: var(--serif-it); font-style: italic; font-weight: 400; letter-spacing: -0.01em; font-size: 1.08em; }
@@ -372,6 +372,27 @@
   .latest .k { font-family: var(--mono); font-size: 0.75rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent-ink); }
   .latest strong { font-size: 1rem; font-weight: 600; line-height: 1.35; letter-spacing: -0.015em; }
   .latest .m { color: var(--ink-2); font-size: 0.85rem; line-height: 1.45; }
+  .topics { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 1.1rem; max-width: 60ch; }
+  .topics span { font-family: var(--mono); font-size: 0.75rem; letter-spacing: 0.02em; color: var(--ink-2); border: 1px solid var(--rule); border-radius: 999px; padding: 0.22rem 0.6rem; background: transparent; }
+  .miles { list-style: none; padding: 0; margin: 0; display: grid; gap: 0; }
+  .miles li { display: grid; grid-template-columns: 11rem minmax(0, 1fr); gap: 1rem; padding: 0.85rem 0; border-bottom: 1px solid var(--rule-soft); }
+  .miles .y { font-family: var(--mono); font-size: 0.78rem; letter-spacing: 0.04em; color: var(--accent-ink); }
+  .miles p { margin: 0; max-width: 65ch; color: var(--ink-2); font-size: 0.95rem; line-height: 1.6; }
+  @media (max-width: 40rem) { .miles li { grid-template-columns: 1fr; gap: 0.2rem; } }
+  .studies { list-style: none; padding: 0; margin: 0; display: grid; gap: 1rem; }
+  @media (min-width: 48rem) { .studies { grid-template-columns: 1fr 1fr; } }
+  .study { display: flex; flex-direction: column; gap: 0.75rem; padding: 0.9rem; border: 1px solid var(--rule); border-radius: 10px; background: var(--card); }
+  .study h3 { font-size: 1.125rem; line-height: 1.3; }
+  .study img.shot { width: 100%; aspect-ratio: 16 / 10; object-fit: contain; background: #f4f6f8; border: 1px solid var(--rule); border-radius: 10px; }
+  .study p { margin: 0; color: var(--ink-2); font-size: 0.95rem; line-height: 1.6; }
+  .study .row { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+  .soft { display: grid; gap: 0.85rem; }
+  @media (min-width: 48rem) { .soft { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+  .soft article { padding: 1rem; border: 1px solid var(--rule); border-radius: 10px; background: var(--card); }
+  .soft h3 { font-size: 1.05rem; margin-bottom: 0.4rem; }
+  .soft p { margin: 0; color: var(--ink-2); font-size: 0.95rem; line-height: 1.55; }
+  .about-list { margin: 0; padding-left: 1.1rem; max-width: 65ch; }
+  .about-list li + li { margin-top: 0.55rem; }
   @media (min-width: 64rem) {
     .scroll-cue { position: absolute; left: calc(-0.7rem - 0.5px); bottom: 0; display: none; flex-direction: column; align-items: center; gap: 0.7rem; padding-block: 0.6rem; background: var(--paper); text-decoration: none; color: var(--ink-3); }
     .scroll-cue .mouse { width: 1.4rem; height: 2.2rem; border: 1.5px solid currentColor; border-radius: 0.7rem; display: grid; justify-items: center; padding-top: 0.4rem; }
