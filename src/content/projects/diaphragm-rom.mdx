@@ -1,0 +1,63 @@
+---
+number: "009"
+title: "When reduced-order diaphragm stiffness changes nonlinear seismic drift"
+short_title: "Diaphragm stiffness"
+year: "2026"
+sort_date: 2026-11-28
+status: complete
+summary: "605 OpenSeesPy NLTHA runs, 588 converged, on 7 RC archetypes. Submitted to Engineering Structures (ENGSTRUCT-D-26-12924)."
+methods: [seismic-analysis, finite-element, validation]
+tools: [Python, CalculiX, OpenSeesPy]
+hero:
+  src: ../../assets/media/diaphragm/graphical_abstract.png
+  alt: "Mid-span drift error against the diaphragm-to-wall period ratio for rigid, w-lock and X-strut models, beside a plan with walls at the two short ends."
+  caption: "Graphical abstract. Mid-span drift error against the period ratio. Source: paper/submission/graphical_abstract.png."
+gallery:
+  - src: ../../assets/media/diaphragm/fig1_rom_stiffness_error.png
+    alt: "Horizontal bars of deflection difference for shell layouts and for w-locked and X-strut reduced-order models."
+    caption: "Stiffness error of the reduced-order models against the free S8R shell. Source: figures/fig1_rom_stiffness_error.png."
+key_numbers:
+  - label: "NLTHA runs"
+    value: "605"
+    basis: "7 RC archetypes, 11 ESM 3.0 records, 0.25 g and 0.35 g"
+  - label: "Converged"
+    value: "588"
+    unit: "runs"
+    basis: "97.19% of 605. paper/audit/FACTS.md"
+  - label: "Ductility-adjusted 2-DOF CQC"
+    value: "0.715"
+    unit: "R^2"
+    basis: "RMSE 11.42 percentage points, as rounded in the manuscript"
+numbers_note: "Dataset 10.5281/zenodo.24598960. Release v1.0.0. Submitted to Engineering Structures, manuscript ENGSTRUCT-D-26-12924."
+validation:
+  benchmark: "CalculiX 2.23 S8R continuum diaphragm"
+  metric: "Converged OpenSeesPy nonlinear time-history runs"
+  value: "588 converged, from 605"
+evidence:
+  repo: https://github.com/syednafizreja/diaphragm-rom-seismic
+  tag: v1.0.0
+  doi: 10.5281/zenodo.24598960
+  licence: MIT
+card_links:
+  - label: GitHub repo
+    href: https://github.com/syednafizreja/diaphragm-rom-seismic
+  - label: Dataset
+    href: https://doi.org/10.5281/zenodo.24598960
+brief:
+  finding: "A CalculiX S8R diaphragm audit drives 605 OpenSeesPy fiber-section runs. 588 converged."
+  limit: "A rigid diaphragm and w-locking underpredict mid-span drift. The X-strut stays conservative."
+  next: "The 3 m vault bay still has no carbon optimum."
+related: [seismic-shell-floors, shellbench, shellform]
+---
+
+## Method
+
+CalculiX 2.23 S8R shells set the diaphragm stiffness. OpenSeesPy fiber sections then run the nonlinear time history on seven reinforced-concrete archetypes.
+
+## Key result
+
+588 of 605 runs converged. A rigid diaphragm underpredicts mid-span drift. Out-of-plane w-locking underpredicts it as well. The X-strut model stays on the conservative side. The ductility-adjusted two-degree-of-freedom CQC fit has R^2 0.715.
+
+## Open limit
+
+The record is the 11 site-class B motions at 0.25 g and 0.35 g. It is not a design check for one building.

@@ -1,0 +1,47 @@
+---
+number: "011"
+title: "CNC program for a 160 by 130 mm acrylic chassis plate"
+short_title: "Chassis plate CNC"
+year: "2026"
+sort_date: 2026-10-14
+status: complete
+summary: "Fanuc-style G-code for a Southwest Petroleum University training-vehicle plate, with a Python generator and a material-removal check."
+methods: [validation]
+tools: [Python]
+hero:
+  src: ../../assets/media/chassis/preview.png
+  alt: "Tool-centre paths and a simulated acrylic plate, 160 by 130 mm, with a centre slot, side windows and two triangular cut-outs."
+  caption: "Simulation of chassis_plate_acrylic.nc. White is cut through, blue is the acrylic left, and the dashed line is the drawing."
+key_numbers:
+  - label: "Finished plate"
+    value: "160 x 130"
+    unit: "mm"
+    basis: "Outline measured from the drawing, with 15 mm corner chamfers"
+  - label: "Mill program"
+    value: "289"
+    unit: "lines"
+    basis: "chassis_plate_acrylic.nc"
+numbers_note: "The drawing labels the corners R5. The program follows the drawn 15 mm chamfers."
+evidence:
+  repo: https://github.com/syednafizreja/chassis-plate-cnc
+card_links:
+  - label: GitHub repo
+    href: https://github.com/syednafizreja/chassis-plate-cnc
+brief:
+  finding: "A generator writes the Fanuc-style program from the plate geometry, and a height-map simulator reads that program back."
+  limit: "The check is against the drawing. It is not a cut part measured on a machine."
+  next: "A shop run would still have to confirm tool diameter, stock thickness and work offset."
+related: [thesis-rc-frame]
+---
+
+## Method
+
+`generate_chassis_plate.py` writes the G-code from the outline, the centre slot, the side windows and the two lightening triangles. `simulate_nc.py` plays the file onto a height map.
+
+## Key result
+
+The simulated plate keeps the 160 by 130 mm outline, the 4 by 50 mm centre slot, four side windows and two triangular cut-outs.
+
+## Open limit
+
+Cast acrylic, thickness taken as 4 mm inside the drawing range of 3 to 5 mm. The simulator does not replace a measured part.

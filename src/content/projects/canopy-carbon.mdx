@@ -1,0 +1,40 @@
+---
+number: "010"
+title: "Parametric carbon screening for a tapered shell canopy"
+short_title: "Canopy carbon screening"
+year: "2026"
+sort_date: 2026-11-21
+status: complete
+summary: "A browser model links canopy geometry to volume, carbon, deflection and utilisation. The numbers are screening estimates, not a finite-element check."
+methods: [embodied-carbon, optimisation, interactive-tools]
+tools: [JavaScript]
+hero:
+  src: ../../assets/media/canopy/view.png
+  alt: "Perspective view of a tapered shell canopy on tree columns, with hexagonal skylights and dimensions of 8 m and 16 m."
+  caption: "Default perspective in the browser prototype. The on-screen readout is a screening estimate, not a finite-element result."
+evidence:
+  repo: https://github.com/syednafizreja/parametric-canopy-carbon-optimization
+  live: https://syednafizreja.github.io/parametric-canopy-carbon-optimization/
+card_links:
+  - label: Open the prototype
+    href: https://syednafizreja.github.io/parametric-canopy-carbon-optimization/
+  - label: GitHub repo
+    href: https://github.com/syednafizreja/parametric-canopy-carbon-optimization
+brief:
+  finding: "Span, rise, ribs and skylights update volume, carbon, deflection and utilisation in the browser."
+  limit: "The structural quantities rank alternatives. They do not replace a shell analysis or a code check."
+  next: "A verified shell model would have to sit under the same sliders before a number could be used in design."
+related: [shelllab, shellform]
+---
+
+## Method
+
+Sixteen sliders set the plan, the rise and the skylights of a tapered canopy on tree columns. The page recomputes volume, embodied carbon, deflection and utilisation as the sliders move.
+
+## Key result
+
+The prototype is a way to see the trade. Presets recall a hypar, a dune roof and a wing roof. Nothing on the page is a CalculiX or OpenSees result.
+
+## Open limit
+
+Screening only. A close comparison still needs the shell solvers used on ShellForm and ShellBench.
