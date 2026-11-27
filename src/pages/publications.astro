@@ -2,35 +2,28 @@
 import { getCollection } from 'astro:content';
 import Base from '../layouts/Base.astro';
 import { toBibtex } from '../lib/bibtex';
-import { site, doiUrl, links } from '../lib/site';
+import { site, doiUrl, links, pubBadge } from '../lib/site';
 
 const pubs = (await getCollection('publications')).sort((a, b) => a.data.order - b.data.order);
 const groups = [
+  {
+    title: 'Submitted manuscripts',
+    id: 'submitted',
+    match: (status: string) => status === 'submitted' || status === 'under-review' || status === 'with-editor',
+  },
   {
     title: 'Preprints',
     id: 'preprints',
     match: (status: string, doi = '') => status === 'preprint' && doi.startsWith('10.5281/zenodo.245'),
   },
   {
-    title: 'Submitted manuscripts',
-    id: 'submitted',
-    match: (status: string) => status === 'submitted' || status === 'under-review',
-  },
-  {
-    title: 'Earlier peer-reviewed articles',
+    title: 'Peer-reviewed articles',
     id: 'journal',
     match: (status: string) => status === 'published',
   },
 ] as const;
 const projects = await getCollection('projects');
-const projectRepo = (id?: string) => projects.find((p) => p.id === id)?.data.evidence.repo;
-const badge = (status: string, year?: number) => {
-  if (status === 'submitted') return 'SUBMITTED';
-  if (status === 'under-review') return 'UNDER REVIEW';
-  if (status === 'preprint') return `${year ?? ''} PREPRINT`.trim();
-  if (status === 'published') return `${year ?? ''} JOURNAL`.trim();
-  return status;
-};
+const projectOf = (id?: string) => projects.find((p) => p.id === id)?.data;
 ---
 
 <Base title="Publications" description="Peer-reviewed journal articles, submitted manuscripts, and archived technical reports and preprints, with DOIs and BibTeX." og="publications">
@@ -51,10 +44,16 @@ const badge = (status: string, year?: number) => {
               {items.map((p) => {
                 const d = p.data;
                 const bibId = `bib-${p.id}`;
-                const code = projectRepo(d.project);
+                const project = projectOf(d.project);
+                const code = d.code ?? project?.evidence.repo;
+                const live = project?.evidence.live;
+                const doiName = d.status === 'published' || d.status === 'preprint' ? 'DOI' : 'Dataset';
                 return (
                   <li class="pub">
-                    <span class="badge">{badge(d.status, d.year)}</span>
+                    <span class="badge">
+                      {(d.when || d.year) && <span class="when">{d.when ?? d.year}</span>}
+                      <span class:list={['st', d.status === 'with-editor' && 'editor']}>{pubBadge(d.status)}</span>
+                    </span>
                     <div>
                       <p class="t">{d.title}</p>
                       <p class="a">
@@ -65,11 +64,19 @@ const badge = (status: string, year?: number) => {
                           </>
                         ))}
                         {d.venue && <span class="v">. {d.venue}</span>}
+                        {d.manuscript_id && <span class="note">. {d.manuscript_id}</span>}
                         {d.note && <span class="note">. {d.note}</span>}
                       </p>
+                      {d.scope && (
+                        <details class="spec">
+                          <summary>Verification record</summary>
+                          <p>{d.scope}</p>
+                        </details>
+                      )}
                       <div class="row">
-                        {d.doi && <a class="pill-link" href={doiUrl(d.doi)}>DOI</a>}
+                        {d.doi && <a class="pill-link" href={doiUrl(d.doi)}>{doiName}</a>}
                         {code && <a class="pill-link" href={code}>Code</a>}
+                        {live && <a class="pill-link" href={live}>Explorer</a>}
                         {d.url && <a class="pill-link" href={d.url}>PDF</a>}
                         <button class="copy-btn no-print" type="button" data-copy={bibId}>BibTeX</button>
                       </div>

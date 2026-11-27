@@ -56,6 +56,14 @@ const cite = (d: (typeof pubs)[number]['data']) => {
       <h2>Research projects</h2>
       <div>
         <div class="entry">
+          <div class="entry-head"><h3><a href="https://github.com/syednafizreja/diaphragm-rom-seismic">Reduced-order diaphragm stiffness in nonlinear seismic analysis</a></h3><span class="when">Nov 2026</span></div>
+          <p class="where">Lead researcher · CalculiX 2.23 S8R, OpenSeesPy · Engineering Structures, submitted, ENGSTRUCT-D-26-12924</p>
+          <ul>
+            <li>605 OpenSeesPy fiber-section NLTHA runs (577 converged, 95.37%) on 7 RC archetypes and 11 ESM 3.0 records, at 0.25 g and 0.35 g. Dataset 10.5281/zenodo.24598960.</li>
+            <li>A rigid diaphragm underpredicts mid-span drift by -36.1% to -57.1%. W-locking (2.40x) underpredicts by -8.0% to -27.0%. The X-strut (0.887x) stays conservative. A 2-DOF CQC law reaches R^2 = 0.715 (RMSE 11.42 percentage points).</li>
+          </ul>
+        </div>
+        <div class="entry">
           <div class="entry-head"><h3><a href="/work/diagrid-seismic-opt/">Diagrid seismic opt</a>: superelastic NiTi fuses against yielding steel</h3><span class="when">2026</span></div>
           <p class="where">Lead researcher and developer · Python, OpenSeesPy, scikit-learn, PyTorch · MIT licence</p>
           <ul>
@@ -78,7 +86,7 @@ const cite = (d: (typeof pubs)[number]['data']) => {
           <p class="where">Lead researcher and developer · Python, CalculiX, three.js · MIT licence</p>
           <ul>
             <li>168 feasible designs (84 gravity-only and seismic-aware pairs, 0 to 0.6 g) and 125 automated tests. Dataset 10.5281/zenodo.24281917.</li>
-            <li>79 of 84 pairs stay within 5% carbon. Linear buckling governs all 84 corner-supported shells. The 50 mm minimum thickness governs all 84 edge-supported shells. Five crossings are one 5 mm step at lambda_1 = 5.0, absent on the 61x61 mesh and at lambda &gt;= 3 or lambda = 8.</li>
+            <li>79 pairs from the set of 84 stay within 5% carbon. Linear buckling governs all 84 corner-supported shells. The 50 mm minimum thickness governs all 84 edge-supported shells. Five crossings are one 5 mm step at lambda_1 = 5.0, absent on the 61x61 mesh and at lambda &gt;= 3 or lambda = 8. Formwork is a separate cost and can move a close comparison. Submitted to Structures.</li>
           </ul>
         </div>
         <div class="entry">
@@ -87,7 +95,7 @@ const cite = (d: (typeof pubs)[number]['data']) => {
           <ul>
             <li>Audited my thesis as the validation case: 16 input inconsistencies and 21 doubtful printed values logged, each with a recorded decision.</li>
             <li>Rebuilt the thesis frame in OpenSeesPy under gravity, wind and earthquake, with GB 50010 member checks and automated tests on every change.</li>
-            <li>Released as v1.0.0. 5,184 designs across 36 seismic RC frames, 287 automated tests. Dataset 10.5281/zenodo.24194144. In 32 of 33 buildings the shell floor lowers whole-building carbon, by a median of 5.7%, against 14.3% for the floor alone.</li>
+            <li>Released as v1.0.0. 5,184 designs across 36 seismic RC frames, 287 automated tests. Dataset 10.5281/zenodo.24194144. With the editor at Journal of Building Engineering, manuscript JBE-D-26-22324.</li>
           </ul>
         </div>
         <div class="entry">
@@ -119,7 +127,7 @@ const cite = (d: (typeof pubs)[number]['data']) => {
                   {d.type === 'journal' ? (
                     <em>{d.venue}, {d.volume}{d.issue && `(${d.issue})`}{d.pages && `, ${d.pages}`}.</em>
                   ) : (
-                    <span class="muted">{PUB_STATUS_LABEL[d.status]}{(d.status === 'under-review' || d.status === 'submitted') && d.venue ? `, ${d.venue}` : ''}{d.note ? `. ${d.note}` : '.'}</span>
+                    <span class="muted">{PUB_STATUS_LABEL[d.status]}{(d.status === 'under-review' || d.status === 'submitted' || d.status === 'with-editor') && d.venue ? `, ${d.venue}` : ''}{d.manuscript_id ? ` (${d.manuscript_id})` : ''}{d.note ? `. ${d.note}` : '.'}</span>
                   )}
                   {d.doi && <> <a href={`https://doi.org/${d.doi}`}>doi:{d.doi}</a></>}
                 </li>
@@ -135,8 +143,8 @@ const cite = (d: (typeof pubs)[number]['data']) => {
       <h2>Experience</h2>
       <div>
         <div class="entry">
-          <div class="entry-head"><h3>Project and quality-control engineer, Denco Manufacturing, Inc.</h3><span class="when">Jan 2024 – Mar 2026</span></div>
-          <p class="where">Precision medical-device manufacturing · Guangdong, China</p>
+          <div class="entry-head"><h3>Project and quality-control engineer, precision manufacturing</h3><span class="when">Jan 2024 – Mar 2026</span></div>
+          <p class="where">Guangdong, China</p>
           <ul>
             <li>Cyclic-durability testing of superelastic NiTi, micro-CNC metrology, and failure analysis.</li>
           </ul>

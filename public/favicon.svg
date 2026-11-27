@@ -1,1 +1,9 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#22d3ee"/><stop offset="1" stop-color="#0ea5c9"/></linearGradient></defs><rect width="64" height="64" rx="14" fill="#070a12"/><rect x="1.5" y="1.5" width="61" height="61" rx="12.5" fill="none" stroke="url(#g)" stroke-width="3"/><path d="M10 46 Q32 6 54 46" fill="none" stroke="url(#g)" stroke-width="5" stroke-linecap="round"/><path d="M8 50 H56" fill="none" stroke="#e8eef8" stroke-width="4" stroke-linecap="round"/><circle cx="32" cy="26" r="4.5" fill="#e8eef8"/></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <rect width="32" height="32" fill="#080A0E"/>
+  <path d="M3 3h4M3 3v4M29 3h-4M29 3v4M3 29h4M3 29v-4M29 29h-4M29 29v-4" fill="none" stroke="#94A0B2" stroke-width="0.8"/>
+  <path d="M5 23.5h22M16 7.5v16" fill="none" stroke="#626E80" stroke-width="0.7"/>
+  <path d="M6 22.5 16 8.5 26 22.5" fill="none" stroke="#67D5F5" stroke-width="1.15" stroke-linejoin="round"/>
+  <path d="M8.2 22.5 16 12.2 23.8 22.5M10.6 22.5 16 16 21.4 22.5" fill="none" stroke="#67D5F5" stroke-width="0.8" stroke-linejoin="round"/>
+  <path d="M6 22.5 16 16.2 26 22.5" fill="none" stroke="#38BDF8" stroke-width="0.7"/>
+  <circle cx="16" cy="8.5" r="0.9" fill="#D9A45B"/>
+</svg>

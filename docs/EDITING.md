@@ -39,7 +39,7 @@ The build fails if a required field is missing, the summary is over 300 characte
 ### Rules the content follows
 
 - Every number comes from a repository, a report or a paper, and its source is named in `basis` or in the text.
-- Findings stay general: no exact study results and no grades, GPA or averages on the site (the CV sent to professors carries them). The privacy test in `tests/site.spec.ts` checks for withheld numbers by hash; the comment there shows how to add one.
+- Grades, GPA and averages stay off the site. A manuscript count the author has chosen to publish may appear. The privacy test in `tests/site.spec.ts` still rejects any matched token whose hash is withheld, including a number immediately followed by `of` and another number when that pair is private. The comment in the test shows how to add a hash.
 - No phone numbers or street addresses anywhere. Email stays split into `email_user` and `email_domain`; the page assembles it in the browser.
 - The former employer is described only as "precision manufacturing".
 - Set `draft: true` to keep a project off the site while you work on it.

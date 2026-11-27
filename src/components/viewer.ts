@@ -111,7 +111,7 @@ export function mount(host: HTMLElement) {
   controls.update();
 
   const theme = () => {
-    const dark = document.documentElement.dataset.theme === 'dark';
+    const dark = document.documentElement.dataset.theme !== 'light';
     lineMat.color.set(dark ? 0xebe6dc : 0x1c1a16);
     lineMat.opacity = dark ? 0.22 : 0.32;
     supMat.color.set(dark ? 0xebe6dc : 0x1c1a16);

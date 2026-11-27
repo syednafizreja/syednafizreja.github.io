@@ -2,42 +2,41 @@
 import { getCollection } from 'astro:content';
 import { Image } from 'astro:assets';
 import Base from '../layouts/Base.astro';
-import { site, doiUrl } from '../lib/site';
+import { site, doiUrl, pubBadge } from '../lib/site';
 import diagridFig from '../assets/figures/diagrid-pareto.png';
 import shellFig from '../assets/figures/shell-buckling.png';
 
 const pubs = (await getCollection('publications')).sort((a, b) => a.data.order - b.data.order);
 const projects = await getCollection('projects');
-const repo = (id?: string) => projects.find((p) => p.id === id)?.data.evidence.repo;
+const projectOf = (id?: string) => projects.find((p) => p.id === id)?.data;
 const groups = [
+  {
+    id: 'submitted',
+    title: 'Submitted manuscripts',
+    match: (status: string) => status === 'submitted' || status === 'under-review' || status === 'with-editor',
+  },
   {
     id: 'open',
     title: 'Preprints',
     match: (status: string, doi = '') => status === 'preprint' && doi.startsWith('10.5281/zenodo.245'),
   },
   {
-    id: 'submitted',
-    title: 'Submitted manuscripts',
-    match: (status: string) => status === 'submitted' || status === 'under-review',
-  },
-  {
     id: 'journal',
-    title: 'Earlier peer-reviewed articles',
+    title: 'Peer-reviewed articles',
     match: (status: string) => status === 'published',
   },
 ] as const;
-const badge = (status: string, year?: number) => {
-  if (status === 'submitted') return 'SUBMITTED';
-  if (status === 'under-review') return 'UNDER REVIEW';
-  if (status === 'preprint') return `${year ?? ''} PREPRINT`.trim();
-  if (status === 'published') return `${year ?? ''} JOURNAL`.trim();
-  return status;
-};
 const topics = ['Computational mechanics', 'Superelastic NiTi', 'Thin-shell buckling', 'Seismic systems', 'Embodied carbon'];
 ---
 
 <Base description={site.identity}>
   <section class="hero" id="home" aria-labelledby="hero-h">
+    <canvas class="mesh" data-mesh aria-hidden="true"></canvas>
+    <p class="hud" data-hud aria-hidden="true">
+      <span data-hud-uv>u 0.00   v 0.00</span>
+      <span data-hud-k>z 0.000</span>
+      <span data-hud-n>N 0</span>
+    </p>
     <div class="wrap">
       <div class="railed hero-in">
         <p class="kicker">Hello, I'm Syed Nafiz Reja Hasib</p>
@@ -56,19 +55,27 @@ const topics = ['Computational mechanics', 'Superelastic NiTi', 'Thin-shell buck
 
   <section class="section wrap" aria-labelledby="miles">
     <div class="railed">
-      <div class="section-head"><div><span class="idx"><span class="cm" aria-hidden="true">#</span> Record</span><h2 id="miles">Milestones</h2></div></div>
+      <div class="section-head"><div><span class="idx">00 //</span><h2 id="miles">Milestones</h2></div></div>
       <ol class="miles">
         <li>
-          <span class="y">2026 · Preprint</span>
-          <p>1D Auricchio-Sacco NiTi return map and 80-canopy seismic-carbon trade-offs. <a href="https://doi.org/10.5281/zenodo.24559613">Zenodo DOI</a></p>
+          <span class="y">Nov 2026 · Submitted</span>
+          <p>Engineering Structures, ENGSTRUCT-D-26-12924. Reduced-order diaphragm stiffness in nonlinear seismic analysis. <a href="https://github.com/syednafizreja/diaphragm-rom-seismic">Code</a> · <a href="https://doi.org/10.5281/zenodo.24598960">Dataset</a></p>
         </li>
         <li>
-          <span class="y">2026 · Preprint</span>
+          <span class="y">Nov 2026 · With editor</span>
+          <p>Journal of Building Engineering, JBE-D-26-22324. ShellBench: 5,184 designs across 36 seismic RC frames, 287 automated tests. <a href="https://github.com/syednafizreja/ShellBench">Code</a> · <a href="https://doi.org/10.5281/zenodo.24194144">Dataset</a></p>
+        </li>
+        <li>
+          <span class="y">Nov 2026 · Submitted</span>
+          <p>Structures. ShellForm: 168 feasible designs, 125 automated tests. <a href="https://github.com/syednafizreja/ShellForm">Code</a> · <a href="https://doi.org/10.5281/zenodo.24281917">Dataset</a></p>
+        </li>
+        <li>
+          <span class="y">Nov 2026 · Preprint</span>
+          <p>1D Auricchio-Sacco NiTi return map and 80-canopy seismic-carbon trade-offs. <a href="https://doi.org/10.5281/zenodo.24559613">Zenodo DOI</a> · <a href="https://syednafizreja.github.io/diagrid-seismic-opt/">Explorer</a></p>
+        </li>
+        <li>
+          <span class="y">Nov 2026 · Preprint</span>
           <p>Equal-volume concrete shell buckling: stress-line ribs against optimised thickness. <a href="https://doi.org/10.5281/zenodo.24560903">Zenodo DOI</a></p>
-        </li>
-        <li>
-          <span class="y">2026 · Dataset</span>
-          <p>ShellBench: 5,184 designs across 36 seismic RC frames (287 automated tests). <a href="https://github.com/syednafizreja/ShellBench">Code</a> · <a href="https://doi.org/10.5281/zenodo.24194144">Dataset</a></p>
         </li>
         <li>
           <span class="y">2026 · Web solver</span>
@@ -76,7 +83,7 @@ const topics = ['Computational mechanics', 'Superelastic NiTi', 'Thin-shell buck
         </li>
         <li>
           <span class="y">2024-2026 · Lab</span>
-          <p>Cyclic-durability testing and failure analysis of superelastic NiTi, Denco Manufacturing.</p>
+          <p>Cyclic-durability testing and failure analysis of superelastic NiTi, in precision manufacturing.</p>
         </li>
       </ol>
     </div>
@@ -84,19 +91,26 @@ const topics = ['Computational mechanics', 'Superelastic NiTi', 'Thin-shell buck
 
   <section class="section wrap" id="research" aria-labelledby="sel">
     <div class="railed">
-      <div class="section-head"><div><span class="idx"><span class="cm" aria-hidden="true">#</span> 01</span><h2 id="sel">Research</h2></div></div>
+      <div class="section-head"><div><span class="idx">01 //</span><h2 id="sel">Research</h2></div></div>
       <ol class="studies">
         <li class="study">
           <Image class="shot" src={diagridFig} alt="Pareto plot of lifecycle carbon against span for steel and NiTi diagrid designs." widths={[480, 720]} sizes="(min-width: 48rem) 28rem, 92vw" />
+          <svg class="motif" viewBox="0 0 48 32" aria-hidden="true"><path d="M24 6v20M8 16h32M12 8l24 16M36 8L12 24" fill="none" stroke="currentColor" stroke-width="1"/><circle cx="24" cy="16" r="2.2" fill="none" stroke="currentColor" stroke-width="1"/></svg>
           <h3>01 · Diagrid seismic optimisation (superelastic NiTi vs steel)</h3>
           <p>Superelastic NiTi recentring sounds free until you track peak drift and embodied carbon. A verified 1D Auricchio-Sacco return map (1.85e-10 tangent error), PyTorch inverse identification under 3% noise (7.28% max error), and 80 paired 0.40 g OpenSeesPy canopies show NiTi cuts residual drift (0.0659% to 0.0175%) while raising peak drift (1.79% to 3.40%) and cradle-to-gate carbon (+620.9 kgCO2e), with 0/160 false-safe GP screening predictions.</p>
+          <details class="spec">
+            <summary>Verification record</summary>
+            <p>Solver stack: 1D Auricchio-Sacco return map, OpenSeesPy, PyTorch. The live explorer is the same canopy model.</p>
+          </details>
           <p class="row">
             <a class="pill-link" href="https://doi.org/10.5281/zenodo.24559613">Preprint DOI</a>
             <a class="pill-link" href="https://github.com/syednafizreja/diagrid-seismic-opt">Code</a>
+            <a class="pill-link" href="https://syednafizreja.github.io/diagrid-seismic-opt/">Explorer</a>
           </p>
         </li>
         <li class="study">
           <Image class="shot" src={shellFig} alt="Buckling factors for seven equal-volume shell layouts." widths={[480, 720]} sizes="(min-width: 48rem) 28rem, 92vw" />
+          <svg class="motif" viewBox="0 0 48 32" aria-hidden="true"><path d="M6 24c6-14 30-14 36 0" fill="none" stroke="currentColor" stroke-width="1"/><path d="M6 24h36M24 10v14" fill="none" stroke="currentColor" stroke-width="0.8"/></svg>
           <h3>02 · Buckling of form-found thin concrete shells</h3>
           <p>Ribs along principal stress lines look efficient on screen, but under constant volume they can starve the shell of bending stiffness. CalculiX eigenvalue and mode-1 imperfection analyses on a 12x12 m pinned shell (0.2 g sway, verified against Scordelis-Lo and Zoelly) show stress-line ribs drop buckling capacity by 31.10%, while smooth thickness optimisation gains 25.74% (15.03% imperfect).</p>
           <p class="row">
@@ -105,16 +119,22 @@ const topics = ['Computational mechanics', 'Superelastic NiTi', 'Thin-shell buck
           </p>
         </li>
         <li class="study">
+          <svg class="motif" viewBox="0 0 48 32" aria-hidden="true"><path d="M8 8v16M40 8v16M8 14h32M14 14v4M34 14v4" fill="none" stroke="currentColor" stroke-width="1"/></svg>
           <h3>03 · ShellBench: whole-building carbon of thin-shell floors</h3>
-          <p>Cutting floor carbon means little if seismic frame demands erase the gain. Linking CalculiX shell floors with 3-to-8-storey OpenSeesPy RC frames across 5,184 designs in 36 frames (287 automated tests) cuts whole-building A1-A3 carbon by a median 5.7% in 32 of 33 frames (14.3% for floors alone). Submitted to Journal of Building Engineering, manuscript JBE-D-26-22324.</p>
+          <p>5,184 designs across 36 seismic RC frames, with 287 automated tests. The manuscript is with the editor at Journal of Building Engineering, ID JBE-D-26-22324.</p>
+          <details class="spec">
+            <summary>Verification record</summary>
+            <p>Solver stack: CalculiX shell floors coupled into OpenSeesPy RC frames, Python. Dataset 10.5281/zenodo.24194144.</p>
+          </details>
           <p class="row">
             <a class="pill-link" href="https://github.com/syednafizreja/ShellBench">Code</a>
             <a class="pill-link" href="https://doi.org/10.5281/zenodo.24194144">Dataset</a>
           </p>
         </li>
         <li class="study">
+          <svg class="motif" viewBox="0 0 48 32" aria-hidden="true"><path d="M8 22c4-10 28-10 32 0M8 22h32M16 16v6M32 16v6" fill="none" stroke="currentColor" stroke-width="1"/></svg>
           <h3>04 · ShellForm and ShellLab: seismic form-finding and live solver</h3>
-          <p>168 feasible designs pair gravity-only and seismic-aware form-finding from 0 to 0.6 g (125 automated tests). 79 of 84 pairs stay within 5% carbon. Linear buckling governs all 84 corner-supported shells, and the 50 mm minimum thickness governs all 84 edge-supported shells. Five crossings are one 5 mm step at lambda_1 = 5.0. That step vanishes on the 61x61 mesh and at lambda &gt;= 3 or lambda = 8. ShellLab matches the Python coordinates to 1e-9 m. Submitted to Structures.</p>
+          <p>168 feasible designs pair gravity-only and seismic-aware form-finding from 0 to 0.6 g (125 automated tests). 79 pairs from the set of 84 stay within 5% carbon. Linear buckling governs all 84 corner-supported shells, and the 50 mm minimum thickness governs all 84 edge-supported shells. Five crossings are one 5 mm step at lambda_1 = 5.0. That step vanishes on the 61x61 mesh and at lambda &gt;= 3 or lambda = 8. Formwork is a separate cost and can move a close comparison. ShellLab matches the Python coordinates to 1e-9 m. Submitted to Structures.</p>
           <p class="row">
             <a class="pill-link" href="https://github.com/syednafizreja/ShellForm">Code</a>
             <a class="pill-link" href="https://doi.org/10.5281/zenodo.24281917">Dataset</a>
@@ -127,7 +147,7 @@ const topics = ['Computational mechanics', 'Superelastic NiTi', 'Thin-shell buck
 
   <section class="section wrap" id="publications" aria-labelledby="pubs-h">
     <div class="railed">
-      <div class="section-head"><div><span class="idx"><span class="cm" aria-hidden="true">#</span> 02</span><h2 id="pubs-h">Publications</h2></div></div>
+      <div class="section-head"><div><span class="idx">02 //</span><h2 id="pubs-h">Publications</h2></div></div>
       {
         groups.map((g) => {
           const items = pubs.filter((p) => g.match(p.data.status, p.data.doi ?? ''));
@@ -137,10 +157,16 @@ const topics = ['Computational mechanics', 'Superelastic NiTi', 'Thin-shell buck
               <ol class="pubs">
                 {items.map((p) => {
                   const d = p.data;
-                  const code = repo(d.project);
+                  const project = projectOf(d.project);
+                  const code = d.code ?? project?.evidence.repo;
+                  const live = project?.evidence.live;
+                  const doiName = d.status === 'published' || d.status === 'preprint' ? 'DOI' : 'Dataset';
                   return (
                     <li class="pub">
-                      <span class="badge">{badge(d.status, d.year)}</span>
+                      <span class="badge">
+                        {(d.when || d.year) && <span class="when">{d.when ?? d.year}</span>}
+                        <span class:list={['st', d.status === 'with-editor' && 'editor']}>{pubBadge(d.status)}</span>
+                      </span>
                       <div>
                         <p class="t">{d.title}</p>
                         <p class="a">
@@ -151,11 +177,18 @@ const topics = ['Computational mechanics', 'Superelastic NiTi', 'Thin-shell buck
                             </>
                           ))}
                           {d.venue && <span class="v">. {d.venue}</span>}
-                          {d.note && <span class="note">. {d.note}</span>}
+                          {d.manuscript_id && <span class="note">. {d.manuscript_id}</span>}
                         </p>
+                        {d.scope && (
+                          <details class="spec">
+                            <summary>Verification record</summary>
+                            <p>{d.scope}</p>
+                          </details>
+                        )}
                         <div class="row">
-                          {d.doi && <a class="pill-link" href={doiUrl(d.doi)}>DOI</a>}
+                          {d.doi && <a class="pill-link" href={doiUrl(d.doi)}>{doiName}</a>}
                           {code && <a class="pill-link" href={code}>Code</a>}
+                          {live && <a class="pill-link" href={live}>Explorer</a>}
                         </div>
                       </div>
                     </li>
@@ -171,7 +204,7 @@ const topics = ['Computational mechanics', 'Superelastic NiTi', 'Thin-shell buck
 
   <section class="section wrap" id="software" aria-labelledby="soft-h">
     <div class="railed">
-      <div class="section-head"><div><span class="idx"><span class="cm" aria-hidden="true">#</span> 03</span><h2 id="soft-h">Software</h2></div></div>
+      <div class="section-head"><div><span class="idx">03 //</span><h2 id="soft-h">Software</h2></div></div>
       <div class="soft">
         <article>
           <h3>ShellLab</h3>
@@ -179,7 +212,7 @@ const topics = ['Computational mechanics', 'Superelastic NiTi', 'Thin-shell buck
         </article>
         <article>
           <h3>Open-source solvers and benchmarks</h3>
-          <p>Diagrid, shell buckling, ShellBench, and ShellForm. <a href="https://github.com/syednafizreja">GitHub</a>.</p>
+          <p>Diagrid, shell buckling, ShellBench, ShellForm, and the diaphragm audit. <a href="https://github.com/syednafizreja">GitHub</a>.</p>
         </article>
         <article>
           <h3>Core stack</h3>
@@ -191,10 +224,10 @@ const topics = ['Computational mechanics', 'Superelastic NiTi', 'Thin-shell buck
 
   <section class="section wrap" id="about" aria-labelledby="about-h">
     <div class="railed">
-      <div class="section-head"><div><span class="idx"><span class="cm" aria-hidden="true">#</span> 04</span><h2 id="about-h">About</h2></div></div>
+      <div class="section-head"><div><span class="idx">04 //</span><h2 id="about-h">About</h2></div></div>
       <ul class="about-list">
-        <li>Denco Manufacturing, 2024-2026: cyclic-durability testing of superelastic NiTi, micro-CNC metrology, and failure analysis.</li>
-        <li>BEng Civil Engineering, Southwest Petroleum University, 2019-2023: 84.05/100, Chinese Government Scholarship, RC seismic thesis 87/100.</li>
+        <li>Precision manufacturing, 2024-2026: cyclic-durability testing of superelastic NiTi, micro-CNC metrology, and failure analysis.</li>
+        <li>BEng Civil Engineering, Southwest Petroleum University, 2019-2023. Chinese Government Scholarship. RC seismic thesis on a four-storey frame.</li>
         <li>Open questions: 3D thermomechanical SMA models, imperfection-sensitive shells and enriched continua, and lightweight composite systems.</li>
       </ul>
     </div>

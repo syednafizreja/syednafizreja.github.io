@@ -10,12 +10,13 @@ if (fine.matches && !reduce.matches) {
   ring.setAttribute('aria-hidden', 'true');
   document.body.append(ring);
 
-  let x = -100, y = -100, rx = -100, ry = -100, raf = 0;
+  let x = -100, y = -100, rx = -100, ry = -100, raf = 0, hot = false, scale = 1;
   const loop = () => {
-    rx += (x - rx) * 0.2;
-    ry += (y - ry) * 0.2;
-    ring.style.transform = `translate3d(${rx}px, ${ry}px, 0)`;
-    raf = Math.abs(x - rx) + Math.abs(y - ry) > 0.3 ? requestAnimationFrame(loop) : 0;
+    rx += (x - rx) * 0.12;
+    ry += (y - ry) * 0.12;
+    scale += ((hot ? 1.35 : 1) - scale) * 0.18;
+    ring.style.transform = `translate3d(${rx}px, ${ry}px, 0) scale(${scale})`;
+    raf = Math.abs(x - rx) + Math.abs(y - ry) > 0.3 || Math.abs(scale - (hot ? 1.35 : 1)) > 0.01 ? requestAnimationFrame(loop) : 0;
   };
 
   addEventListener('pointermove', (e) => {
@@ -28,7 +29,8 @@ if (fine.matches && !reduce.matches) {
 
   document.addEventListener('pointerover', (e) => {
     const t = (e.target as Element).closest?.('a, button, [role="button"], summary, label, input, select, textarea');
-    ring.classList.toggle('hot', !!t);
+    hot = !!t;
+    if (!raf) raf = requestAnimationFrame(loop);
   });
   document.documentElement.addEventListener('pointerleave', () => ring.classList.remove('on'));
   reduce.addEventListener('change', () => { if (reduce.matches) ring.remove(); });

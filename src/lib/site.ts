@@ -40,8 +40,11 @@ export const PUB_STATUS_LABEL = {
   published: 'Published',
   submitted: 'Submitted',
   'under-review': 'Under review',
+  'with-editor': 'With Editor',
   'in-preparation': 'In preparation',
-  preprint: 'Preprint / report',
+  preprint: 'Preprint',
 } as const;
+
+export const pubBadge = (status: string) => PUB_STATUS_LABEL[status as keyof typeof PUB_STATUS_LABEL] ?? status;
 
 export const doiUrl = (doi: string) => `https://doi.org/${doi}`;

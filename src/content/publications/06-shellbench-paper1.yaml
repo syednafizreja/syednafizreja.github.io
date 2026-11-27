@@ -3,9 +3,12 @@ authors: ["Hasib, S. N. R."]
 owner_index: 1
 venue: "Journal of Building Engineering"
 year: 2026
+when: "Nov 2026"
 doi: "10.5281/zenodo.24194144"
-status: submitted
+status: with-editor
 type: manuscript
-note: "Elsevier. Manuscript ID JBE-D-26-22324. Dataset 10.5281/zenodo.24194144. 5,184 designs across 36 seismic RC frames, 287 automated tests."
+manuscript_id: "JBE-D-26-22324"
+note: "Elsevier, Q1. Manuscript ID JBE-D-26-22324. With the editor. Dataset 10.5281/zenodo.24194144."
+scope: "5,184 designs across 36 seismic RC frames, 287 automated tests. Solver stack: CalculiX shell floors coupled into OpenSeesPy RC frames, Python."
 project: shellbench
-order: 13
+order: 2

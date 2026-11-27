@@ -4,18 +4,13 @@ import AxeBuilder from '@axe-core/playwright';
 const pages = ['/', '/work/', '/work/shellbench/', '/work/shellform/', '/work/shelllab/', '/work/stress-line-ribs/', '/work/seismic-shell-floors/', '/research/', '/publications/', '/about/', '/education/', '/cv/', '/contact/'];
 
 for (const path of pages) {
-  for (const scheme of ['light', 'dark'] as const) {
-    test(`${path} has no WCAG A/AA violations (${scheme})`, async ({ page }) => {
-      await page.emulateMedia({ colorScheme: scheme, reducedMotion: 'reduce' });
-      // the site ignores the OS scheme (dark by default), so pick the theme the way a reader does
-      await page.addInitScript((t) => localStorage.setItem('theme', t), scheme);
-      await page.goto(path);
-      expect(await page.evaluate(() => document.documentElement.dataset.theme)).toBe(scheme);
-      await page.evaluate(() => document.querySelectorAll('details').forEach((d) => { if (d instanceof HTMLDetailsElement) d.open = true; }));
-      const r = await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa']).analyze();
-      expect(r.violations.map((v) => `${v.id}: ${v.nodes.map((n) => n.target.join(' ')).join(', ')}`)).toEqual([]);
-    });
-  }
+  test(`${path} has no WCAG A/AA violations`, async ({ page }) => {
+    await page.emulateMedia({ colorScheme: 'light', reducedMotion: 'reduce' });
+    await page.goto(path);
+    await page.evaluate(() => document.querySelectorAll('details').forEach((d) => { if (d instanceof HTMLDetailsElement) d.open = true; }));
+    const r = await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa']).analyze();
+    expect(r.violations.map((v) => `${v.id}: ${v.nodes.map((n) => n.target.join(' ')).join(', ')}`)).toEqual([]);
+  });
 }
 
 // Private strings that must never appear, stored encoded so they are not in the source.
@@ -46,33 +41,33 @@ test('no visible draft markers or private details', async ({ page }) => {
   }
 });
 
-test('projects menu lists every project and opens from the nav', async ({ page }) => {
-  await page.setViewportSize({ width: 1280, height: 800 });
-  await page.goto('/work/shellform/');
-  const toggle = page.locator('.sub-toggle');
-  await expect(toggle).toHaveAttribute('aria-expanded', 'true');
-  await expect(page.locator('#nav-projects a[aria-current="page"]')).toHaveText(/ShellForm/);
+test('mobile menu opens and closes', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 800 });
   await page.goto('/');
-  await expect(page.locator('#nav-projects')).toBeHidden();
-  await page.locator('.sub-toggle').click();
-  await expect(page.locator('#nav-projects')).toBeVisible();
-  expect(await page.locator('#nav-projects li:not(.all) a').count()).toBe(await page.locator('#nav-projects li').count() - 1);
+  const btn = page.locator('.menu-toggle');
+  await expect(btn).toHaveAttribute('aria-expanded', 'false');
+  await btn.click();
+  await expect(btn).toHaveAttribute('aria-expanded', 'true');
+  await expect(page.locator('#site-drawer nav a')).toHaveCount(5);
   await page.keyboard.press('Escape');
-  await expect(page.locator('#nav-projects')).toBeHidden();
+  await expect(btn).toHaveAttribute('aria-expanded', 'false');
 });
 
-test('typed hero line keeps looping and can be paused', async ({ page }) => {
+test('hero shell is drawn', async ({ page }) => {
+  await page.setViewportSize({ width: 1440, height: 900 });
   await page.goto('/');
-  const rot = page.locator('[data-rotate]');
-  const first = await rot.textContent();
-  await expect(rot).not.toHaveText(first!, { timeout: 8_000 });
-  const pause = page.locator('[data-rot-pause]');
-  await pause.click();
-  await expect(pause).toHaveText('Resume typing');
-  const held = await rot.textContent();
-  await page.waitForTimeout(1500);
-  await expect(rot).toHaveText(held!);
+  const canvas = page.locator('canvas.mesh');
+  await expect(canvas).toBeVisible();
+  await page.waitForTimeout(500);
+  const painted = await canvas.evaluate((el) => {
+    const c = el as HTMLCanvasElement;
+    const ctx = c.getContext('2d');
+    if (!ctx || c.width < 2) return false;
+    const { data } = ctx.getImageData(0, 0, c.width, c.height);
+    for (let i = 3; i < data.length; i += 32) if (data[i] > 8) return true;
+    return false;
+  });
+  expect(painted).toBe(true);
 });
 
 test('method filter is shareable through the URL', async ({ page }) => {
@@ -94,14 +89,14 @@ test('copy BibTeX button finds its entry', async ({ page }) => {
   for (const id of ids) expect(await page.locator(`#${id}`).count()).toBe(1);
 });
 
-test('theme toggle switches and persists', async ({ page }) => {
+test('the site stays dark with no theme switch', async ({ page }) => {
+  await page.emulateMedia({ colorScheme: 'light' });
   await page.goto('/');
-  const before = await page.evaluate(() => document.documentElement.dataset.theme);
-  await page.locator('[data-theme-toggle]:visible').click();
-  const after = await page.evaluate(() => document.documentElement.dataset.theme);
-  expect(after).not.toBe(before);
-  await page.reload();
-  expect(await page.evaluate(() => document.documentElement.dataset.theme)).toBe(after);
+  await expect(page.locator('[data-theme-toggle]')).toHaveCount(0);
+  const scheme = await page.evaluate(() => getComputedStyle(document.documentElement).colorScheme);
+  expect(scheme).toContain('dark');
+  const bg = await page.evaluate(() => getComputedStyle(document.documentElement).backgroundColor);
+  expect(bg).toBe('rgb(8, 10, 14)');
 });
 
 test('back-to-top control appears after scrolling and returns to the top', async ({ page }) => {
@@ -115,20 +110,18 @@ test('back-to-top control appears after scrolling and returns to the top', async
   await expect.poll(() => page.evaluate(() => window.scrollY)).toBeLessThan(5);
 });
 
-test('method text stays closed until see more is opened', async ({ page }) => {
-  await page.setViewportSize({ width: 1440, height: 900 });
-  await page.goto('/work/stress-line-ribs/');
-  const more = page.locator('details.more');
-  await expect(more).toHaveCount(1);
-  await expect(more).not.toHaveAttribute('open', '');
-  await expect(page.getByRole('heading', { name: 'Approach' })).toBeHidden();
-  await page.locator('.case-aside a[href="#approach"]').click();
-  await expect(more).toHaveAttribute('open', '');
-  await expect(page.getByRole('heading', { name: 'Approach' })).toBeVisible();
+test('a verification record stays closed until it is opened', async ({ page }) => {
+  await page.goto('/');
+  const spec = page.locator('details.spec').first();
+  await expect(spec).not.toHaveAttribute('open', '');
+  await expect(spec.locator('p')).toBeHidden();
+  await spec.locator('summary').click();
+  await expect(spec).toHaveAttribute('open', '');
+  await expect(spec.locator('p')).toBeVisible();
 });
 
 test('3D view loads only on request', async ({ page }) => {
-  await page.goto('/');
+  await page.goto('/work/shellform/');
   const host = page.locator('[data-viewer]').first();
   await expect(host.locator('canvas')).toHaveCount(0);
   await host.locator('[data-load]').click();

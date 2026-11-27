@@ -3,9 +3,11 @@ authors: ["Hasib, S. N. R."]
 owner_index: 1
 venue: "Structures"
 year: 2026
+when: "Nov 2026"
 doi: "10.5281/zenodo.24281917"
 status: submitted
 type: manuscript
-note: "Elsevier / IStructE. Dataset 10.5281/zenodo.24281917. 168 feasible designs (84 pairs, 0 to 0.6 g), 125 automated tests."
+note: "Elsevier / IStructE, Q1. Dataset 10.5281/zenodo.24281917."
+scope: "168 feasible designs (84 gravity-only and seismic-aware pairs, 0 to 0.6 g), 125 automated tests. 79 pairs from the set of 84 stay within the 5% carbon threshold. Linear buckling governs all 84 corner-supported shells and the 50 mm minimum thickness governs all 84 edge-supported shells. The 5 crossings are one 5 mm step at lambda_1 = 5.0. That step vanishes on the 61x61 mesh and at lambda >= 3 or lambda = 8. Formwork is a separate cost and can move a close comparison. ShellLab matches the Python coordinates to 1e-9 m."
 project: shellform
-order: 14
+order: 3

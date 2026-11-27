@@ -1,0 +1,14 @@
+title: "When Do Reduced-Order Diaphragm Stiffness Errors Matter in Nonlinear Seismic Analysis? Continuum-to-Frame Verification Across Coupled RC Wall-Frame Buildings"
+authors: ["Hasib, S. N. R."]
+owner_index: 1
+venue: "Engineering Structures"
+year: 2026
+when: "Nov 2026"
+doi: "10.5281/zenodo.24598960"
+status: submitted
+type: manuscript
+manuscript_id: "ENGSTRUCT-D-26-12924"
+code: "https://github.com/syednafizreja/diaphragm-rom-seismic"
+note: "Elsevier, Q1. Manuscript ID ENGSTRUCT-D-26-12924. Dataset 10.5281/zenodo.24598960."
+scope: "CalculiX 2.23 S8R continuum diaphragm audit coupled into 605 OpenSeesPy nonlinear fiber-section NLTHA runs (577 converged, 95.37%) across 7 RC archetypes (a bare frame and 6 dual perimeter RC wall-frame plans, L/B = 2, 3, 4, at 3 and 6 storeys) under 11 verified ESM 3.0 EC8 Site Class B records (CC-BY-3.0-IT) at DBE (0.25 g) and MCE (0.35 g). A rigid diaphragm underpredicts mid-span drift by -36.1% to -57.1%. Out-of-plane w-locking (2.40x stiffness bias) underpredicts by -8.0% to -27.0%. The X-strut (0.887x) stays conservative (+2.1% to +5.7%). EN 1998-1 cracking (0.50x) adds +10.7% to +35.8%. A ductility-adjusted 2-DOF CQC law reaches R^2 = 0.715 (RMSE 11.42 percentage points)."
+order: 1

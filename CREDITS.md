@@ -18,9 +18,9 @@ The site costs nothing to run: GitHub Pages hosting, GitHub Actions builds, Page
 
 | Font | Designer | Licence |
 | --- | --- | --- |
-| Geist (variable) | The Geist Project Authors (Vercel) | SIL Open Font License 1.1 |
-| Geist Mono (variable) | The Geist Project Authors (Vercel) | SIL Open Font License 1.1 |
-| Instrument Serif (italic, latin subset) | The Instrument Serif Project Authors | SIL Open Font License 1.1 |
+| Plus Jakarta Sans (variable) | The Plus Jakarta Sans Project Authors | SIL Open Font License 1.1 |
+| Inter (variable) | The Inter Project Authors | SIL Open Font License 1.1 |
+| JetBrains Mono (variable) | The JetBrains Mono Project Authors | SIL Open Font License 1.1 |
 
 ## Content
 

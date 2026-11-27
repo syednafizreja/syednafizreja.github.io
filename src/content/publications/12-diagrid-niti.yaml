@@ -2,10 +2,11 @@ title: "Thermodynamically consistent 1D superelastic NiTi constitutive modeling,
 authors: ["Hasib, S. N. R."]
 owner_index: 1
 year: 2026
+when: "Nov 2026"
 doi: "10.5281/zenodo.24559613"
 url: "https://zenodo.org/records/24559613/files/Hasib_2026_NiTi_diagrid_preprint.pdf"
 status: preprint
 type: report
 note: "Zenodo preprint, 26 November 2026."
 project: diagrid-seismic-opt
-order: 10
+order: 5

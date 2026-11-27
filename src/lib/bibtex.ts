@@ -21,11 +21,13 @@ export function toBibtex(p: Pub, id: string): string {
   } else if (p.type === 'manuscript') {
     type = 'unpublished';
     const status =
-      p.status === 'under-review'
-        ? `Under review${p.venue ? `, ${p.venue}` : ''}`
-        : p.status === 'submitted'
-          ? `Submitted${p.venue ? `, ${p.venue}` : ''}`
-          : 'In preparation';
+      p.status === 'with-editor'
+        ? `With editor${p.venue ? `, ${p.venue}` : ''}`
+        : p.status === 'under-review'
+          ? `Under review${p.venue ? `, ${p.venue}` : ''}`
+          : p.status === 'submitted'
+            ? `Submitted${p.venue ? `, ${p.venue}` : ''}`
+            : 'In preparation';
     fields.push(['note', p.note ? `${status}. ${p.note}` : status], ['year', p.year]);
   } else {
     fields.push(['howpublished', p.venue || undefined], ['note', 'Technical report'], ['year', p.year]);

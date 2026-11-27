@@ -21,10 +21,6 @@ const initials = site.name.split(' ').filter(Boolean).map((w) => w[0]).slice(0, 
       <span class="name">{site.name}</span>
     </a>
     <div class="top-actions">
-      <button class="theme-toggle" type="button" aria-label="Switch colour theme" title="Switch colour theme" data-theme-toggle>
-        <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="12" r="4.2"></circle><path d="M12 2.5v2.2M12 19.3v2.2M4.6 4.6l1.6 1.6M17.8 17.8l1.6 1.6M2.5 12h2.2M19.3 12h2.2M4.6 19.4l1.6-1.6M17.8 6.2l1.6-1.6"></path></svg>
-        <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5Z"></path></svg>
-      </button>
       <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-drawer" aria-label="Open menu">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"></path></svg>
       </button>
@@ -51,10 +47,6 @@ const initials = site.name.split(' ').filter(Boolean).map((w) => w[0]).slice(0, 
     </nav>
     <div class="actions">
       <a class="pill" href="/contact/" aria-current={path === '/contact/' ? 'page' : undefined}>Contact</a>
-      <button class="theme-toggle" type="button" aria-label="Switch colour theme" title="Switch colour theme" data-theme-toggle>
-        <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="12" r="4.2"></circle><path d="M12 2.5v2.2M12 19.3v2.2M4.6 4.6l1.6 1.6M17.8 17.8l1.6 1.6M2.5 12h2.2M19.3 12h2.2M4.6 19.4l1.6-1.6M17.8 6.2l1.6-1.6"></path></svg>
-        <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5Z"></path></svg>
-      </button>
     </div>
     <ul class="social">
       <li><a href={links.orcid} rel="me">ORCID</a></li>

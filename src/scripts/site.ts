@@ -1,26 +1,4 @@
-// Small site-wide behaviours: theme toggle, email reveal, copy-to-clipboard, back to top.
-
-const root = document.documentElement;
-
-const themeButtons = [...document.querySelectorAll<HTMLButtonElement>('[data-theme-toggle]')];
-const syncTheme = () => {
-  const dark = root.dataset.theme !== 'light';
-  for (const btn of themeButtons) btn.setAttribute('aria-pressed', String(dark));
-};
-syncTheme();
-for (const btn of themeButtons) {
-  btn.addEventListener('click', () => {
-    const next = root.dataset.theme === 'light' ? 'dark' : 'light';
-    root.dataset.theme = next;
-    try {
-      localStorage.setItem('theme', next);
-    } catch {
-      /* private mode: theme lasts for this page only */
-    }
-    syncTheme();
-    window.dispatchEvent(new CustomEvent('themechange', { detail: next }));
-  });
-}
+// Site-wide behaviours: email reveal, copy-to-clipboard, back to top, scroll reveal.
 
 document.querySelectorAll<HTMLElement>('.email[data-u][data-d]').forEach((el) => {
   const addr = `${el.dataset.u}@${el.dataset.d}`;
@@ -89,6 +67,11 @@ if (!matchMedia('(prefers-reduced-motion: reduce)').matches && 'IntersectionObse
     el.dataset.reveal = '';
     io.observe(el);
   });
+  window.setTimeout(() => {
+    document.querySelectorAll<HTMLElement>('[data-reveal=""]').forEach((el) => {
+      el.dataset.reveal = 'in';
+    });
+  }, 1600);
 }
 
 // A "see more" block starts closed. A link to a heading inside it opens the block first.

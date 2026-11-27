@@ -4,7 +4,7 @@ import Base from '../../layouts/Base.astro';
 import IndexRow from '../../components/IndexRow.astro';
 import { METHODS, METHOD_LABELS } from '../../lib/methods';
 
-const projects = (await getCollection('projects', (p) => !p.data.draft)).sort((a, b) => a.data.number.localeCompare(b.data.number));
+const projects = (await getCollection('projects', (p) => !p.data.draft)).sort((a, b) => +b.data.sort_date - +a.data.sort_date);
 const used = METHODS.filter((m) => projects.some((p) => p.data.methods.includes(m)));
 ---
 
@@ -12,7 +12,7 @@ const used = METHODS.filter((m) => projects.some((p) => p.data.methods.includes(
   <header class="page-head wrap">
     <span class="eyebrow"><span class="cm" aria-hidden="true">#</span>Index</span>
     <h1>Projects</h1>
-    <p class="lede">Four flagship studies, then the shorter records. Filter by method.</p>
+    <p class="lede">Newest first. Filter by method.</p>
   </header>
 
   <section class="wrap">
