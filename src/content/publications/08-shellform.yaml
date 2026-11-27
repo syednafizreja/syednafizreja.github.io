@@ -1,8 +1,11 @@
-title: "The carbon cost of seismic resilience: gravity-only versus seismic-aware form-finding of concrete shells"
+title: "When Does Seismic Form-Finding Reduce Embodied Carbon in Thin Concrete Shells? Governing Buckling and Minimum-Thickness Limits Across 168 Designs"
 authors: ["Hasib, S. N. R."]
 owner_index: 1
-status: in-preparation
+venue: "Structures"
+year: 2026
+doi: "10.5281/zenodo.24281917"
+status: submitted
 type: manuscript
-note: "ShellForm. Submission planned early 2027."
+note: "Elsevier / IStructE. Dataset 10.5281/zenodo.24281917. 168 feasible designs (84 pairs, 0 to 0.6 g), 125 automated tests."
 project: shellform
-order: 6
+order: 14

@@ -5,7 +5,7 @@ short_title: "ShellLab"
 year: "2026"
 sort_date: 2026-11-17
 status: complete
-summary: "Browser force-density solver. Matches ShellForm within 10^-13 m."
+summary: "Browser force-density solver. Coordinate match to ShellForm is 1e-9 m."
 methods: [form-finding, embodied-carbon, validation, interactive-tools]
 tools: [JavaScript, three.js, Python]
 hero:
@@ -14,9 +14,9 @@ hero:
   caption: "ShellLab: a 20 × 20 m shell on eight supports with a 4.5 m rise, surface view. Screenshot of the public tool, 17 Nov 2026."
 key_numbers:
   - label: "Agreement with ShellForm"
-    value: "10⁻¹³"
+    value: "1e-9"
     unit: "m"
-    basis: "Largest coordinate difference over six fixture cases"
+    basis: "Coordinate tolerance on six fixture cases. Largest difference found is 9.4e-14 m."
   - label: "Equilibrium residual"
     value: "< 10⁻⁹"
     unit: ""
@@ -28,7 +28,7 @@ key_numbers:
 validation:
   benchmark: "ShellForm v0.2.0 form finder, six square fixture cases"
   metric: "Largest coordinate difference"
-  value: "9.4 × 10⁻¹⁴ m"
+  value: "9.4e-14 m"
 evidence:
   repo: https://github.com/syednafizreja/ShellLab
   live: https://syednafizreja.github.io/ShellLab/
@@ -37,4 +37,4 @@ evidence:
 related: [shellform, shellbench]
 ---
 
-ShellLab runs the ShellForm force-density solver in the browser. Coordinates match within 10^-13 m.
+ShellLab runs the ShellForm force-density solver in the browser. Coordinates match to 1e-9 m.

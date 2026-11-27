@@ -5,7 +5,7 @@ short_title: "ShellForm and ShellLab"
 year: "2026"
 sort_date: 2026-10-15
 status: complete
-summary: "79 of 84 paired carbon comparisons stayed within 5%. Buckling and minimum thickness governed."
+summary: "168 feasible designs (84 pairs, 0 to 0.6 g) and 125 automated tests. 79 of 84 pairs stay within 5% carbon. Submitted to Structures."
 methods: [form-finding, seismic-analysis, embodied-carbon, finite-element, interactive-tools]
 tools: [Python, CalculiX, three.js]
 hero:
@@ -36,31 +36,33 @@ validation:
 evidence:
   repo: https://github.com/syednafizreja/ShellForm
   tag: v0.2.0
-  doi: 10.5281/zenodo.24084110
+  doi: 10.5281/zenodo.24281917
   tests: "125 passed (pytest, on every push)"
   licence: MIT
 card_links:
   - label: GitHub repo
     href: https://github.com/syednafizreja/ShellForm
+  - label: Dataset
+    href: https://doi.org/10.5281/zenodo.24281917
   - label: ShellLab repo
     href: https://github.com/syednafizreja/ShellLab
   - label: Live tool
     href: https://syednafizreja.github.io/ShellLab/
 brief:
-  finding: "Gravity versus seismic force-density form-finding (168 designs, 0-0.6 g) plus a Three.js solver matching within 10^-13 m."
-  limit: "79 of 84 paired carbon comparisons stayed within 5%. Buckling and minimum thickness governed."
-  next: "Pure compression form-finding loses leverage under lateral inertia."
+  finding: "168 feasible designs: 84 gravity-only and seismic-aware pairs from 0 to 0.6 g, with 125 automated tests."
+  limit: "79 of 84 pairs stay within 5% carbon. Linear buckling governs all 84 corner-supported shells. The 50 mm minimum thickness governs all 84 edge-supported shells."
+  next: "Five crossings are one 5 mm step at lambda_1 = 5.0. That step vanishes on the 61x61 mesh and at lambda >= 3 or lambda = 8."
 related: [shellbench, shelllab, stress-line-ribs]
 ---
 
 ## Method
 
-Gravity versus seismic force-density form-finding (168 designs, 0-0.6 g) plus a Three.js solver matching within 10^-13 m.
+168 feasible designs: 84 gravity-only and seismic-aware pairs from 0 to 0.6 g, with 125 automated tests. Dataset 10.5281/zenodo.24281917. Submitted to Structures.
 
 ## Key result
 
-79 of 84 paired carbon comparisons stayed within 5%. Buckling and minimum thickness governed.
+79 of 84 pairs stay within 5% carbon. Linear buckling governs all 84 corner-supported shells. The 50 mm minimum thickness governs all 84 edge-supported shells.
 
 ## Open limit
 
-Pure compression form-finding loses leverage under lateral inertia.
+Five crossings are one 5 mm step at lambda_1 = 5.0. That step vanishes on the 61x61 mesh and at lambda >= 3 or lambda = 8.

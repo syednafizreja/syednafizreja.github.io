@@ -12,8 +12,13 @@ const repo = (id?: string) => projects.find((p) => p.id === id)?.data.evidence.r
 const groups = [
   {
     id: 'open',
-    title: 'Preprints and under review',
-    match: (status: string, doi = '') => status === 'under-review' || (status === 'preprint' && doi.startsWith('10.5281/zenodo.245')),
+    title: 'Preprints',
+    match: (status: string, doi = '') => status === 'preprint' && doi.startsWith('10.5281/zenodo.245'),
+  },
+  {
+    id: 'submitted',
+    title: 'Submitted manuscripts',
+    match: (status: string) => status === 'submitted' || status === 'under-review',
   },
   {
     id: 'journal',
@@ -22,6 +27,7 @@ const groups = [
   },
 ] as const;
 const badge = (status: string, year?: number) => {
+  if (status === 'submitted') return 'SUBMITTED';
   if (status === 'under-review') return 'UNDER REVIEW';
   if (status === 'preprint') return `${year ?? ''} PREPRINT`.trim();
   if (status === 'published') return `${year ?? ''} JOURNAL`.trim();
@@ -62,11 +68,11 @@ const topics = ['Computational mechanics', 'Superelastic NiTi', 'Thin-shell buck
         </li>
         <li>
           <span class="y">2026 · Dataset</span>
-          <p>ShellBench: 5,184 coupled seismic RC-frame and thin-shell floor designs (287 automated tests). <a href="https://github.com/syednafizreja/ShellBench">Code</a> · <a href="https://doi.org/10.5281/zenodo.24194144">Dataset</a></p>
+          <p>ShellBench: 5,184 designs across 36 seismic RC frames (287 automated tests). <a href="https://github.com/syednafizreja/ShellBench">Code</a> · <a href="https://doi.org/10.5281/zenodo.24194144">Dataset</a></p>
         </li>
         <li>
           <span class="y">2026 · Web solver</span>
-          <p>ShellLab: browser force-density form-finding, matching Python to 10^-13 m. <a href="https://syednafizreja.github.io/ShellLab/">Launch</a></p>
+          <p>ShellLab: browser force-density form-finding, matching Python to 1e-9 m. <a href="https://syednafizreja.github.io/ShellLab/">Launch</a></p>
         </li>
         <li>
           <span class="y">2024-2026 · Lab</span>
@@ -100,7 +106,7 @@ const topics = ['Computational mechanics', 'Superelastic NiTi', 'Thin-shell buck
         </li>
         <li class="study">
           <h3>03 · ShellBench: whole-building carbon of thin-shell floors</h3>
-          <p>Cutting floor carbon means little if seismic frame demands erase the gain. Linking CalculiX shell floors with 3-to-8-storey OpenSeesPy RC frames across 5,184 designs (287 automated tests) cuts whole-building A1-A3 carbon by a median 5.7% in 32 of 33 frames (14.3% for floors alone).</p>
+          <p>Cutting floor carbon means little if seismic frame demands erase the gain. Linking CalculiX shell floors with 3-to-8-storey OpenSeesPy RC frames across 5,184 designs in 36 frames (287 automated tests) cuts whole-building A1-A3 carbon by a median 5.7% in 32 of 33 frames (14.3% for floors alone). Submitted to Journal of Building Engineering, manuscript JBE-D-26-22324.</p>
           <p class="row">
             <a class="pill-link" href="https://github.com/syednafizreja/ShellBench">Code</a>
             <a class="pill-link" href="https://doi.org/10.5281/zenodo.24194144">Dataset</a>
@@ -108,9 +114,10 @@ const topics = ['Computational mechanics', 'Superelastic NiTi', 'Thin-shell buck
         </li>
         <li class="study">
           <h3>04 · ShellForm and ShellLab: seismic form-finding and live solver</h3>
-          <p>Comparing gravity-only and seismic-aware force-density form-finding across 168 shells (0 to 0.6 g) shows 79 of 84 carbon pairs stay within 5% because buckling and minimum thickness govern. ShellLab is the Three.js browser solver, matching equilibrium within 10^-13 m.</p>
+          <p>168 feasible designs pair gravity-only and seismic-aware form-finding from 0 to 0.6 g (125 automated tests). 79 of 84 pairs stay within 5% carbon. Linear buckling governs all 84 corner-supported shells, and the 50 mm minimum thickness governs all 84 edge-supported shells. Five crossings are one 5 mm step at lambda_1 = 5.0. That step vanishes on the 61x61 mesh and at lambda &gt;= 3 or lambda = 8. ShellLab matches the Python coordinates to 1e-9 m. Submitted to Structures.</p>
           <p class="row">
             <a class="pill-link" href="https://github.com/syednafizreja/ShellForm">Code</a>
+            <a class="pill-link" href="https://doi.org/10.5281/zenodo.24281917">Dataset</a>
             <a class="pill-link" href="https://syednafizreja.github.io/ShellLab/">Launch ShellLab</a>
           </p>
         </li>

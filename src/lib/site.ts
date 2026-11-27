@@ -38,6 +38,7 @@ export const STATUS_LABEL = {
 
 export const PUB_STATUS_LABEL = {
   published: 'Published',
+  submitted: 'Submitted',
   'under-review': 'Under review',
   'in-preparation': 'In preparation',
   preprint: 'Preprint / report',

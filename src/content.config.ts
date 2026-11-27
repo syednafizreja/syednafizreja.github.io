@@ -62,7 +62,7 @@ const publications = defineCollection({
     pages: z.string().optional(),
     doi: z.string().optional(),
     url: z.url().optional(),
-    status: z.enum(['published', 'under-review', 'in-preparation', 'preprint']),
+    status: z.enum(['published', 'submitted', 'under-review', 'in-preparation', 'preprint']),
     type: z.enum(['journal', 'manuscript', 'report']),
     note: z.string().optional(),
     project: z.string().optional(),

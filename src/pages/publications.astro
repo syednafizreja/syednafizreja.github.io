@@ -7,9 +7,14 @@ import { site, doiUrl, links } from '../lib/site';
 const pubs = (await getCollection('publications')).sort((a, b) => a.data.order - b.data.order);
 const groups = [
   {
-    title: 'Preprints and under review',
-    id: 'open',
-    match: (status: string, doi = '') => status === 'under-review' || (status === 'preprint' && doi.startsWith('10.5281/zenodo.245')),
+    title: 'Preprints',
+    id: 'preprints',
+    match: (status: string, doi = '') => status === 'preprint' && doi.startsWith('10.5281/zenodo.245'),
+  },
+  {
+    title: 'Submitted manuscripts',
+    id: 'submitted',
+    match: (status: string) => status === 'submitted' || status === 'under-review',
   },
   {
     title: 'Earlier peer-reviewed articles',
@@ -20,6 +25,7 @@ const groups = [
 const projects = await getCollection('projects');
 const projectRepo = (id?: string) => projects.find((p) => p.id === id)?.data.evidence.repo;
 const badge = (status: string, year?: number) => {
+  if (status === 'submitted') return 'SUBMITTED';
   if (status === 'under-review') return 'UNDER REVIEW';
   if (status === 'preprint') return `${year ?? ''} PREPRINT`.trim();
   if (status === 'published') return `${year ?? ''} JOURNAL`.trim();
@@ -27,7 +33,7 @@ const badge = (status: string, year?: number) => {
 };
 ---
 
-<Base title="Publications" description="Peer-reviewed journal articles, manuscripts in preparation, and archived technical reports and preprints, with DOIs and BibTeX." og="publications">
+<Base title="Publications" description="Peer-reviewed journal articles, submitted manuscripts, and archived technical reports and preprints, with DOIs and BibTeX." og="publications">
   <header class="page-head wrap">
     <span class="eyebrow"><span class="cm" aria-hidden="true">#</span>Publications</span>
     <h1>Publications</h1>
@@ -40,7 +46,7 @@ const badge = (status: string, year?: number) => {
         const items = pubs.filter((p) => g.match(p.data.status, p.data.doi ?? ''));
         return items.length ? (
           <section class="pub-group" aria-labelledby={`g-${g.id}`}>
-            <h2 id={`g-${g.id}`}>{g.id === 'open' ? 'Preprints and under review' : 'Earlier peer-reviewed articles'}</h2>
+            <h2 id={`g-${g.id}`}>{g.title}</h2>
             <ol class="pubs">
               {items.map((p) => {
                 const d = p.data;

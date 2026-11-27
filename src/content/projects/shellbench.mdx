@@ -5,7 +5,7 @@ short_title: "ShellBench"
 year: "2026"
 sort_date: 2026-10-01
 status: complete
-summary: "Median 5.7% whole-building A1-A3 reduction in 32 of 33 frames (14.3% for floors alone)."
+summary: "5,184 designs across 36 seismic RC frames, with 287 automated tests. Submitted to Journal of Building Engineering (JBE-D-26-22324)."
 methods: [seismic-analysis, embodied-carbon, form-finding, finite-element, validation, machine-learning]
 tools: [Python, OpenSeesPy, CalculiX, Gmsh, pytest, GitHub Actions]
 hero:
@@ -24,12 +24,12 @@ key_numbers:
   - label: "Shell family"
     value: "5,184"
     unit: "designs"
-    basis: "36 buildings × 36 floor variants × 4 toppings"
+    basis: "36 seismic RC frames, each with 36 floor variants and 4 toppings"
   - label: "Automated tests"
     value: "287"
     unit: "passed"
     basis: "pytest, run in CI on every push"
-numbers_note: "Software v1.0.0. Base case, results/verdicts_buildings.csv. Dataset 10.5281/zenodo.24194144."
+numbers_note: "Software v1.0.0. Base case, results/verdicts_buildings.csv. Dataset 10.5281/zenodo.24194144. Submitted to Journal of Building Engineering, manuscript JBE-D-26-22324."
 validation:
   benchmark: "Scordelis–Lo roof and pinched hemisphere (CalculiX S8R); the author's own thesis frame as validation case 0"
   metric: "Computed / reference displacement"
@@ -37,7 +37,7 @@ validation:
 evidence:
   repo: https://github.com/syednafizreja/ShellBench
   tag: v1.0.0
-  doi: 10.5281/zenodo.23851675
+  doi: 10.5281/zenodo.24194144
   tests: "287 passed (pytest, on every push)"
   licence: MIT
 card_links:
@@ -46,7 +46,7 @@ card_links:
   - label: Dataset
     href: https://doi.org/10.5281/zenodo.24194144
 brief:
-  finding: "Coupled OpenSeesPy RC frames (3-8 storeys) and CalculiX shell floors across 5,184 designs (287 automated tests)."
+  finding: "Coupled OpenSeesPy RC frames (3-8 storeys, 36 frames) and CalculiX shell floors across 5,184 designs (287 automated tests)."
   limit: "Median 5.7% whole-building A1-A3 carbon reduction in 32 of 33 comparable frames (14.3% for floors alone)."
   next: "Seismic frame reinforcement dilutes floor-only savings."
 related: [shellform, thesis-rc-frame, stress-line-ribs]
@@ -54,7 +54,7 @@ related: [shellform, thesis-rc-frame, stress-line-ribs]
 
 ## Method
 
-Coupled OpenSeesPy RC frames (3-8 storeys) and CalculiX shell floors across 5,184 designs (287 automated tests).
+Coupled OpenSeesPy RC frames (3-8 storeys, 36 frames) and CalculiX shell floors across 5,184 designs (287 automated tests).
 
 ## Key result
 

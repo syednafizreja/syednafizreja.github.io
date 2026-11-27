@@ -1,8 +1,11 @@
-title: "Whole-building embodied carbon of thin-shell floors in seismic RC frames"
+title: "Whole-Building Embodied Carbon of Thin-Shell Floors in Seismic Reinforced Concrete Frames: A Coupled Parametric Benchmark and Formwork Sensitivity Study"
 authors: ["Hasib, S. N. R."]
 owner_index: 1
-status: in-preparation
+venue: "Journal of Building Engineering"
+year: 2026
+doi: "10.5281/zenodo.24194144"
+status: submitted
 type: manuscript
-note: "ShellBench, Paper 1. Submission planned November 2026."
+note: "Elsevier. Manuscript ID JBE-D-26-22324. Dataset 10.5281/zenodo.24194144. 5,184 designs across 36 seismic RC frames, 287 automated tests."
 project: shellbench
-order: 4
+order: 13
