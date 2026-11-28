@@ -2,7 +2,7 @@
   "name": "Syed Nafiz Reja Hasib",
   "short_name": "Syed Nafiz Reja Hasib",
   "job_title": "Computational mechanics",
-  "identity": "Mechanics, verification, and low-carbon design in one workflow.",
+  "identity": "Computational design and mechanics of structures under seismic loading, with embodied carbon as a design variable; current work spans superelastic NiTi systems and thin-shell form-finding and stability.",
   "bio": "I work on computational structural mechanics, seismic resilience, and embodied carbon. After two years of cyclic-durability testing on superelastic NiTi in precision manufacturing, I build verified solvers to test where structural efficiency holds and where it breaks.",
   "currently": "Building verified mechanics solvers for seismic and carbon limits.",
   "location": "Guangdong, China",

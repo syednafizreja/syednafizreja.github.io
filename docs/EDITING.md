@@ -33,7 +33,7 @@ In `src/data/site.json`:
 
 - `name` is the name in the header, the footer, and the page titles.
 - `job_title` is the small line under the name.
-- `identity` is the one-line description used in search results and on the resume.
+- `identity` is the research-focus sentence. It is the resume profile and the search description for any page that does not set its own. Keep it identical to `hero.focus` in `src/data/home.json`.
 - `bio` is the short biography on the homepage About band and the resume.
 - `currently` is the "Now" line.
 - `location` is a region only. Never a street address.
