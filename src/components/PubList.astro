@@ -1,0 +1,73 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { groupPubs, type Pub } from '../lib/pubs';
+import { doiUrl, pubBadge } from '../lib/site';
+import { toBibtex } from '../lib/bibtex';
+
+interface Props {
+  pubs: Pub[];
+  projects: CollectionEntry<'projects'>[];
+  /** h2 on the publications page, h3 under a homepage section heading. */
+  level?: 'h2' | 'h3';
+  bibtex?: boolean;
+}
+const { pubs, projects, level = 'h2', bibtex = false } = Astro.props;
+const groups = groupPubs(pubs);
+const projectOf = (id?: string) => projects.find((p) => p.id === id)?.data;
+const H = level;
+---
+
+{
+  groups.map((group) => (
+    <section class="pub-group" aria-labelledby={`g-${group.id}`}>
+      <H id={`g-${group.id}`}>{group.title}</H>
+      <ol class="pubs">
+        {group.items.map((p) => {
+          const d = p.data;
+          const project = projectOf(d.project);
+          const code = d.code ?? project?.evidence.repo;
+          const live = project?.evidence.live;
+          const doiName = d.status === 'published' || d.status === 'preprint' ? 'DOI' : 'Dataset';
+          const bibId = `bib-${p.id}`;
+          return (
+            <li class="pub">
+              <span class="badge">
+                {(d.when || d.year) && <span class="when">{d.when ?? d.year}</span>}
+                <span class:list={['st', d.status]}>{pubBadge(d.status)}</span>
+              </span>
+              <div>
+                <p class="t">{d.title}</p>
+                <p class="a">
+                  {d.authors.map((author, i) => (
+                    <>
+                      {i > 0 && (i === d.authors.length - 1 ? ', & ' : ', ')}
+                      {i + 1 === d.owner_index ? <span class="me">{author}</span> : author}
+                    </>
+                  ))}
+                  {d.venue && <span class="v">. {d.venue}</span>}
+                  {d.manuscript_id && <span class="note">. {d.manuscript_id}</span>}
+                  {d.note && <span class="note">. {d.note}</span>}
+                </p>
+                {d.scope && (
+                  <details class="spec">
+                    <summary>Verification record</summary>
+                    <p>{d.scope}</p>
+                  </details>
+                )}
+                <div class="row">
+                  {d.doi && <a class="pill-link" href={doiUrl(d.doi)}>{doiName}</a>}
+                  {code && <a class="pill-link" href={code}>Code</a>}
+                  {live && <a class="pill-link" href={live}>Explorer</a>}
+                  {d.url && <a class="pill-link" href={d.url}>PDF</a>}
+                  {d.project && <a class="pill-link" href={`/work/${d.project}/`}>Project</a>}
+                  {bibtex && <button class="copy-btn no-print" type="button" data-copy={bibId}>BibTeX</button>}
+                </div>
+                {bibtex && <pre id={bibId} hidden>{toBibtex(d, p.id)}</pre>}
+              </div>
+            </li>
+          );
+        })}
+      </ol>
+    </section>
+  ))
+}

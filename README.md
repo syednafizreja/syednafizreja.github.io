@@ -79,9 +79,9 @@ A portfolio and research repository documenting the computational design of stru
 ---
 
 <p align="center">
-  <a href="https://syednafizreira.github.io/" target="_blank">View Live Portfolio</a> ·
-  <a href="https://github.com/syednafizreja/syednafizreira.github.io/graphs/contributors" target="_blank">View Contributors</a> ·
-  <a href="https://github.com/syednafizrea/syednafizreira.github.io/issues" target="_blank">Report Issue</a>
+  <a href="https://syednafizreja.github.io/" target="_blank">View Live Portfolio</a> ·
+  <a href="https://github.com/syednafizreja/syednafizreja.github.io/graphs/contributors" target="_blank">View Contributors</a> ·
+  <a href="https://github.com/syednafizreja/syednafizreja.github.io/issues" target="_blank">Report Issue</a>
 </p>
 
 ---

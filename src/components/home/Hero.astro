@@ -1,0 +1,34 @@
+---
+import { site } from '../../lib/site';
+import { home } from '../../lib/home';
+
+interface Props {
+  index?: string;
+}
+const { kicker, headline, focus, primary, secondary, tertiary } = home.hero;
+const lines = headline.split('\n');
+---
+
+<section class="hero" id="home" aria-labelledby="hero-h">
+  <canvas class="mesh" data-mesh aria-hidden="true"></canvas>
+  <p class="hud" data-hud aria-hidden="true">
+    <span data-hud-uv>u 0.00   v 0.00</span>
+    <span data-hud-k>z 0.000</span>
+    <span data-hud-n>N 0</span>
+  </p>
+  <p class="mesh-note">Hyperbolic-paraboloid sketch.<br />Not a calculated result.</p>
+  <div class="wrap studio">
+    <div class="hero-copy">
+      <p class="kicker"><span class="cm" aria-hidden="true">#</span>{site.name}</p>
+      <p class="hero-kicker">{kicker}</p>
+      <h1 id="hero-h" class="statement">{lines.map((line) => <span class="line">{line}</span>)}</h1>
+      <p class="focus"><span class="focus-label">Research focus</span>{focus}</p>
+      <p class="identity">{site.currently}</p>
+      <div class="cta">
+        <a class="btn primary" href={primary.href}>{primary.label}</a>
+        <a class="btn" href={secondary.href}>{secondary.label}</a>
+        {tertiary && <a class="btn quiet" href={tertiary.href}>{tertiary.label}</a>}
+      </div>
+    </div>
+  </div>
+</section>

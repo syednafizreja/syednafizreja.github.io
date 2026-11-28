@@ -51,7 +51,7 @@ if (toTop) {
 // Scroll reveal. Only elements below the first screen are hidden, and only when motion is allowed,
 // so content never depends on this script.
 if (!matchMedia('(prefers-reduced-motion: reduce)').matches && 'IntersectionObserver' in window) {
-  const sel = '.section-head, .feature, .index-row, .now > div, .stats, .pub, .cv section, figure.fig, .numbers, .panel, .related a, .cta-band, .contact-list';
+  const sel = '.section-head, .feature, .index-row, .studio-card, .dir, .step, .tool, .now > div, .stats, .pub, .cv section, figure.fig, .numbers, .panel, .related a, .cta-band, .contact-list';
   const io = new IntersectionObserver(
     (entries) => entries.forEach((e) => { if (e.isIntersecting) { (e.target as HTMLElement).dataset.reveal = 'in'; io.unobserve(e.target); } }),
     { rootMargin: '0px 0px -8% 0px' },

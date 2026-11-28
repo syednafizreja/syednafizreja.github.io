@@ -1,0 +1,27 @@
+---
+import { getCollection } from 'astro:content';
+import PubList from '../PubList.astro';
+import { home } from '../../lib/home';
+import { byOrder } from '../../lib/pubs';
+
+interface Props {
+  index?: string;
+}
+const { index = '04' } = Astro.props;
+const pubs = byOrder(await getCollection('publications')).slice(0, home.publicationLimit);
+const projects = await getCollection('projects');
+---
+
+<section class="section" id="publications" aria-labelledby="outputs-h">
+  <div class="wrap studio">
+    <div class="section-head">
+      <div>
+        <span class="idx"><span class="cm" aria-hidden="true">#</span>{index}</span>
+        <h2 id="outputs-h">{home.outputs.heading}</h2>
+      </div>
+      <a href="/publications/">All publications</a>
+    </div>
+    <p class="lede">{home.outputs.lede}</p>
+    <PubList pubs={pubs} projects={projects} level="h3" />
+  </div>
+</section>

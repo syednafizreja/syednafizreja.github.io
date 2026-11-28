@@ -75,9 +75,29 @@ content:
           - { name: live, label: Live tool URL, type: string }
           - { name: tests, label: Tests, type: string }
           - { name: licence, label: Licence, type: string }
+      - name: exhibit
+        label: "Exhibit image (optional calculated figure)"
+        type: object
+        fields:
+          - { name: src, label: Image, type: image }
+          - { name: alt, label: "Alt text (at least ten characters)", type: string }
+      - name: brief
+        label: "Card brief"
+        type: object
+        fields:
+          - { name: finding, label: "Method", type: text }
+          - { name: limit, label: "Result, including trade-offs", type: text }
+          - { name: next, label: "Open limit", type: text }
+      - name: card_links
+        label: "Card links"
+        type: object
+        list: true
+        fields:
+          - { name: label, label: Label, type: string }
+          - { name: href, label: URL, type: string }
       - { name: related, label: "Related projects (file names without .mdx)", type: string, list: true }
       - { name: draft, label: Draft (hidden from the site), type: boolean, default: false }
-      - { name: body, label: "Case study (Question, Approach, Validation, Findings in brief, What this does not show)", type: rich-text }
+      - { name: body, label: "Case study (Method, Key result, Open limit)", type: rich-text }
 
   - name: publications
     label: Publications
@@ -100,14 +120,19 @@ content:
       - name: status
         label: Status
         type: select
-        options: { values: [published, under-review, in-preparation, preprint] }
+        options: { values: [published, submitted, under-review, with-editor, in-preparation, preprint] }
       - { name: venue, label: Journal or venue, type: string }
       - { name: year, label: Year, type: number }
       - { name: volume, label: Volume, type: string }
       - { name: issue, label: Issue, type: string }
       - { name: pages, label: Pages, type: string }
       - { name: doi, label: "DOI (without https://doi.org/)", type: string }
-      - { name: url, label: URL, type: string }
+      - { name: url, label: "PDF or record URL", type: string }
+      - { name: when, label: "Display date (e.g. Nov 2026)", type: string }
+      - { name: manuscript_id, label: "Manuscript ID", type: string }
+      - { name: code, label: "Code URL", type: string }
+      - { name: scope, label: "Verification record", type: text }
+      - { name: bibtex, label: "BibTeX override (optional)", type: text }
       - { name: note, label: Note, type: string }
       - { name: project, label: "Linked project (file name without .mdx)", type: string }
 
@@ -151,5 +176,108 @@ content:
       - { name: linkedin, label: LinkedIn URL, type: string }
       - { name: researchgate, label: ResearchGate URL, type: string }
       - { name: cv_pdf, label: CV PDF path, type: string }
-      - { name: featured, label: "Featured projects on the home page (file names)", type: string, list: true }
       - { name: accent, label: Accent, type: string }
+
+  - name: home
+    label: Homepage
+    type: file
+    path: src/data/home.json
+    format: json
+    fields:
+      - name: sections
+        label: "Section order and visibility"
+        type: object
+        list: true
+        fields:
+          - name: id
+            label: Section
+            type: select
+            options: { values: [hero, map, work, method, outputs, tools, about] }
+          - { name: enabled, label: Enabled, type: boolean }
+      - { name: featured, label: "Featured project ids, in order", type: string, list: true }
+      - { name: publicationLimit, label: "How many publications on the homepage", type: number }
+      - name: hero
+        label: Hero
+        type: object
+        fields:
+          - { name: kicker, label: Kicker, type: string }
+          - { name: headline, label: Headline, type: string }
+          - { name: focus, label: "Research focus (keep the meaning exact)", type: text }
+          - name: primary
+            label: Primary action
+            type: object
+            fields:
+              - { name: label, label: Label, type: string }
+              - { name: href, label: Link, type: string }
+          - name: secondary
+            label: Secondary action
+            type: object
+            fields:
+              - { name: label, label: Label, type: string }
+              - { name: href, label: Link, type: string }
+          - name: tertiary
+            label: Third action
+            type: object
+            fields:
+              - { name: label, label: Label, type: string }
+              - { name: href, label: Link, type: string }
+      - name: map
+        label: Research map
+        type: object
+        fields:
+          - { name: heading, label: Heading, type: string }
+          - { name: question, label: Connecting question, type: text }
+          - name: directions
+            label: Directions
+            type: object
+            list: true
+            fields:
+              - { name: id, label: Id, type: string }
+              - { name: index, label: Index, type: string }
+              - { name: title, label: Title, type: string }
+              - { name: summary, label: Summary, type: text }
+              - { name: points, label: Points, type: string, list: true }
+              - { name: project, label: "Project id", type: string }
+              - name: diagram
+                label: Diagram
+                type: select
+                options: { values: [hysteresis, shell] }
+      - name: work
+        label: Selected work
+        type: object
+        fields:
+          - { name: heading, label: Heading, type: string }
+          - { name: lede, label: Lede, type: text }
+      - name: method
+        label: Method
+        type: object
+        fields:
+          - { name: heading, label: Heading, type: string }
+          - { name: intro, label: Intro, type: text }
+          - name: steps
+            label: Steps
+            type: object
+            list: true
+            fields:
+              - { name: id, label: Id, type: string }
+              - { name: title, label: Title, type: string }
+              - { name: text, label: Text, type: text }
+      - name: outputs
+        label: Outputs
+        type: object
+        fields:
+          - { name: heading, label: Heading, type: string }
+          - { name: lede, label: Lede, type: text }
+      - name: tools
+        label: Tools
+        type: object
+        fields:
+          - { name: heading, label: Heading, type: string }
+          - { name: lede, label: Lede, type: text }
+          - { name: ids, label: "Project ids", type: string, list: true }
+      - name: about
+        label: About band
+        type: object
+        fields:
+          - { name: heading, label: Heading, type: string }
+          - { name: lines, label: "Extra lines", type: text, list: true }

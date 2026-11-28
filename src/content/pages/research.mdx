@@ -1,8 +1,28 @@
 ---
 title: "Research"
-description: "Computational structural mechanics, superelastic alloys, thin-shell stability, and low-carbon seismic systems."
+description: "Computational design and mechanics of structures under seismic loading, with embodied carbon as a design variable."
 ---
 
-Two years of NiTi cyclic-durability testing in precision manufacturing, after a civil engineering degree at Southwest Petroleum University, led to these solvers.
+The two lines meet on that question. One is the material and the structural system that has to recentre. The other is the form of a thin shell, and whether that form is still worth the concrete once seismic demand and embodied carbon are both in the model.
 
-The open question is where structural efficiency meets seismic drift and embodied carbon. Code, data, and the two Zenodo preprints are linked from each study.
+## Superelastic NiTi and seismic systems
+
+The material work starts from superelastic nickel-titanium. A one-dimensional Auricchio–Sacco return map, an inverse identification, and nonlinear time-history analyses of diagrid canopies are the current chain. The paired comparison is the point. In that canopy study, NiTi cut residual drift and raised both peak drift and cradle-to-gate carbon. The false-safe rate of the screening model is part of the result. So is the limit of a one-dimensional isothermal law.
+
+The same interest in seismic idealisation shows up in reduced-order diaphragm stiffness. A model that is convenient in a frame analysis can move the drift. That is a verification problem before it is a design preference.
+
+## Thin shells, stability, and embodied carbon
+
+Seismic-aware form-finding does not automatically cut carbon. Across the ShellForm set, most gravity-only and seismic-aware pairs stay within five percent. Linear buckling governs the corner-supported shells. The minimum thickness governs the edge-supported shells. A finer mesh removes one apparent crossing. Formwork is a separate cost.
+
+Stress-line ribs are the counterexample kept next to the form-finding. Under equal volume they lost buckling capacity against the uniform shell. Moving thickness, not drawing ribs along the stress lines, raised it. The analysis is elastic. It is not a cracked, full-scale shell test.
+
+ShellBench puts the floor back into the frame. The floor-only carbon reduction is larger than the whole-building reduction, because the seismic frame reinforcement dilutes the saving. Those two numbers are not interchangeable.
+
+ShellLab is the same force-density solver, in the browser, checked against the Python coordinates. It is a way to look at the form. It is not a substitute for the finite-element check.
+
+## What counts as evidence
+
+A benchmark, a tangent check, a mesh study, or a test suite can support a numerical claim. It does not turn that claim into a full-scale experiment. Manuscripts under review, with an editor, or on Zenodo stay labelled as such. Code and datasets are linked from each project.
+
+The open technical questions are three-dimensional thermomechanical shape-memory models, imperfection-sensitive shells and enriched continua, and lightweight systems in which seismic performance and embodied carbon are decided together.

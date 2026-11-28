@@ -48,6 +48,13 @@ const ld = {
       <span class="n">{d.number}</span>
       <h1>{d.title}</h1>
       <p class="lede">{d.summary}</p>
+      <div class="row case-links">
+        {e.repo && <a class="pill-link" href={e.repo}>Code</a>}
+        {e.doi && <a class="pill-link" href={doiUrl(e.doi)}>DOI</a>}
+        {e.live && <a class="pill-link" href={e.live}>Live tool</a>}
+        {e.report && <a class="pill-link" href={e.report}>Report</a>}
+        <a class="pill-link" href="#evidence">Verification</a>
+      </div>
       <dl class="case-meta">
         <div><dt>Year</dt><dd class="num">{d.year}</dd></div>
         <div><dt>Status</dt><dd><span class={`status ${d.status}`}>{STATUS_LABEL[d.status]}</span></dd></div>

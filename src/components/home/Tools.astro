@@ -1,0 +1,60 @@
+---
+import { getCollection } from 'astro:content';
+import { Image } from 'astro:assets';
+import { home } from '../../lib/home';
+
+interface Props {
+  index?: string;
+}
+const { index = '05' } = Astro.props;
+const all = await getCollection('projects', (p) => !p.data.draft);
+const tools = home.tools.ids.map((id) => {
+  const project = all.find((p) => p.id === id);
+  if (!project) throw new Error(`Homepage tools: unknown project "${id}"`);
+  return project;
+});
+---
+
+<section class="section" id="software" aria-labelledby="tools-h">
+  <div class="wrap studio">
+    <div class="section-head">
+      <div>
+        <span class="idx"><span class="cm" aria-hidden="true">#</span>{index}</span>
+        <h2 id="tools-h">{home.tools.heading}</h2>
+      </div>
+    </div>
+    <p class="lede">{home.tools.lede}</p>
+    <div class="tools">
+      {
+        tools.map((project) => {
+          const d = project.data;
+          const live = d.evidence.live;
+          return (
+            <article class="tool">
+              <a class="shot" href={live ?? `/work/${project.id}/`}>
+                <Image
+                  src={d.hero.src}
+                  alt={d.hero.alt}
+                  widths={[640, 960]}
+                  sizes="(min-width: 64rem) 32rem, 92vw"
+                  quality={70}
+                  loading="lazy"
+                  decoding="async"
+                />
+              </a>
+              <div>
+                <h3>{d.short_title}</h3>
+                <p>{d.summary}</p>
+                <div class="cta">
+                  {live && <a class="btn primary" href={live}>Open the tool</a>}
+                  <a class="btn quiet" href={`/work/${project.id}/`}>Case study</a>
+                  {d.evidence.repo && <a class="btn quiet" href={d.evidence.repo}>Code</a>}
+                </div>
+              </div>
+            </article>
+          );
+        })
+      }
+    </div>
+  </div>
+</section>

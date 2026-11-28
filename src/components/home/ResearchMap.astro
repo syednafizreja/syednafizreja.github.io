@@ -1,0 +1,69 @@
+---
+import { getCollection } from 'astro:content';
+import { home } from '../../lib/home';
+
+interface Props {
+  index?: string;
+}
+const { index = '01' } = Astro.props;
+const projects = await getCollection('projects', (p) => !p.data.draft);
+const linked = (id: string) => {
+  const project = projects.find((p) => p.id === id);
+  if (!project) throw new Error(`Homepage map: unknown project "${id}"`);
+  return project;
+};
+---
+
+<section class="section" id="research" aria-labelledby="map-h">
+  <div class="wrap studio">
+    <div class="section-head">
+      <div>
+        <span class="idx"><span class="cm" aria-hidden="true">#</span>{index}</span>
+        <h2 id="map-h">{home.map.heading}</h2>
+      </div>
+      <a href="/research/">Research statement</a>
+    </div>
+    <p class="question">{home.map.question}</p>
+    <div class="dirs">
+      {
+        home.map.directions.map((dir) => {
+          const project = linked(dir.project);
+          return (
+            <article class="dir">
+              <div class="dir-copy">
+                <p class="dir-index">{dir.index}</p>
+                <h3>{dir.title}</h3>
+                <p>{dir.summary}</p>
+                <ul>
+                  {dir.points.map((point) => <li>{point}</li>)}
+                </ul>
+                <p class="dir-link">
+                  <a href={`/work/${project.id}/`}>{project.data.short_title}</a>
+                </p>
+              </div>
+              <figure class="diagram">
+                {
+                  dir.diagram === 'shell' ? (
+                    <svg viewBox="0 0 200 110" aria-hidden="true">
+                      <path d="M16 86c28-52 140-52 168 0" fill="none" stroke="currentColor" stroke-width="1.4" />
+                      <path d="M16 86c36-18 132-18 168 0" fill="none" stroke="currentColor" stroke-width="1" opacity="0.55" />
+                      <path d="M16 86h168M48 78v16M100 40v46M152 78v16" fill="none" stroke="currentColor" stroke-width="1" opacity="0.45" />
+                      <circle cx="100" cy="48" r="2.2" fill="currentColor" />
+                    </svg>
+                  ) : (
+                    <svg viewBox="0 0 200 110" aria-hidden="true">
+                      <path d="M28 90h150M36 98V18" fill="none" stroke="currentColor" stroke-width="1" opacity="0.4" />
+                      <path d="M48 74c22 0 28-38 58-40 8 14 4 32-16 34 18 2 28-16 46-18" fill="none" stroke="currentColor" stroke-width="1.4" />
+                      <path d="M150 28c-6 16-28 18-46 16" fill="none" stroke="currentColor" stroke-width="1.2" />
+                    </svg>
+                  )
+                }
+                <figcaption>Diagram, not a calculated result.</figcaption>
+              </figure>
+            </article>
+          );
+        })
+      }
+    </div>
+  </div>
+</section>

@@ -1,0 +1,91 @@
+---
+import { getCollection, type CollectionEntry } from 'astro:content';
+import { Image } from 'astro:assets';
+import { home } from '../../lib/home';
+import { METHOD_LABELS } from '../../lib/methods';
+import { STATUS_LABEL, doiUrl } from '../../lib/site';
+
+interface Props {
+  index?: string;
+}
+const { index = '02' } = Astro.props;
+const all = await getCollection('projects', (p) => !p.data.draft);
+const projects = home.featured.map((id) => {
+  const project = all.find((p) => p.id === id);
+  if (!project) throw new Error(`Homepage featured list: unknown project "${id}"`);
+  return project;
+});
+
+const shotOf = (project: CollectionEntry<'projects'>) => project.data.exhibit ?? project.data.hero;
+const linksOf = (project: CollectionEntry<'projects'>) => {
+  if (project.data.card_links.length > 0) return project.data.card_links;
+  const e = project.data.evidence;
+  const links: { label: string; href: string }[] = [];
+  if (e.repo) links.push({ label: 'Code', href: e.repo });
+  if (e.doi) links.push({ label: 'DOI', href: doiUrl(e.doi) });
+  if (e.live) links.push({ label: 'Live tool', href: e.live });
+  if (e.report) links.push({ label: 'Report', href: e.report });
+  return links;
+};
+---
+
+<section class="section" id="work" aria-labelledby="work-h">
+  <div class="wrap studio">
+    <div class="section-head">
+      <div>
+        <span class="idx"><span class="cm" aria-hidden="true">#</span>{index}</span>
+        <h2 id="work-h">{home.work.heading}</h2>
+      </div>
+      <a href="/work/">All projects</a>
+    </div>
+    <p class="lede">{home.work.lede}</p>
+    <ol class="picks">
+      {
+        projects.map((project, i) => {
+          const d = project.data;
+          const shot = shotOf(project);
+          const links = linksOf(project);
+          return (
+            <li class:list={['studio-card', i === 0 && 'lead']}>
+              <a class="shot" href={`/work/${project.id}/`}>
+                <Image
+                  src={shot.src}
+                  alt={shot.alt}
+                  widths={i === 0 ? [720, 1100, 1400] : [480, 720]}
+                  sizes={i === 0 ? '(min-width: 64rem) 42rem, 92vw' : '(min-width: 64rem) 22rem, 92vw'}
+                  quality={72}
+                  loading="lazy"
+                  decoding="async"
+                />
+              </a>
+              <div class="studio-body">
+                <p class="meta">
+                  <span class="n">{d.number}</span>
+                  <span>{d.year}</span>
+                  <span class={`status ${d.status}`}>{STATUS_LABEL[d.status]}</span>
+                </p>
+                <h3><a href={`/work/${project.id}/`}>{d.short_title}</a></h3>
+                <p class="summary">{d.summary}</p>
+                <ul class="tags" aria-label="Methods">
+                  {d.methods.slice(0, 4).map((m) => <li class="tag">{METHOD_LABELS[m]}</li>)}
+                </ul>
+                {
+                  d.validation && (
+                    <details class="spec">
+                      <summary>Verification record</summary>
+                      <p>{d.validation.benchmark}. {d.validation.metric}: {d.validation.value}.</p>
+                    </details>
+                  )
+                }
+                <p class="row">
+                  <a class="pill-link" href={`/work/${project.id}/`}>Case study</a>
+                  {links.map((item) => <a class="pill-link" href={item.href}>{item.label}</a>)}
+                </p>
+              </div>
+            </li>
+          );
+        })
+      }
+    </ol>
+  </div>
+</section>

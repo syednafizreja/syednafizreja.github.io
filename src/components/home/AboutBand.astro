@@ -1,0 +1,38 @@
+---
+import Email from '../Email.astro';
+import { home } from '../../lib/home';
+import { links, site } from '../../lib/site';
+
+interface Props {
+  index?: string;
+}
+const { index = '06' } = Astro.props;
+---
+
+<section class="section" id="about" aria-labelledby="about-h">
+  <div class="wrap studio">
+    <div class="section-head">
+      <div>
+        <span class="idx"><span class="cm" aria-hidden="true">#</span>{index}</span>
+        <h2 id="about-h">{home.about.heading}</h2>
+      </div>
+      <a href="/about/">Full about</a>
+    </div>
+    <div class="about-band">
+      <div>
+        <p class="lede">{site.bio}</p>
+        {home.about.lines.map((line) => <p class="about-line">{line}</p>)}
+      </div>
+      <ul class="about-links">
+        <li><a href="/about/">About</a></li>
+        <li><a href="/cv/">CV</a></li>
+        <li><a href="/education/">Education</a></li>
+        <li><a href="/contact/">Contact</a></li>
+        <li><Email /></li>
+        <li><a href={links.github} rel="me">GitHub</a></li>
+        <li><a href={links.linkedin} rel="me">LinkedIn</a></li>
+        <li><a href={links.orcid} rel="me">ORCID</a></li>
+      </ul>
+    </div>
+  </div>
+</section>

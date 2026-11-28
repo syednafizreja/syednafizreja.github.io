@@ -1,94 +1,22 @@
 ---
 import { getCollection } from 'astro:content';
 import Base from '../layouts/Base.astro';
-import { toBibtex } from '../lib/bibtex';
-import { site, doiUrl, links, pubBadge } from '../lib/site';
+import PubList from '../components/PubList.astro';
+import { site, links } from '../lib/site';
+import { byOrder } from '../lib/pubs';
 
-const pubs = (await getCollection('publications')).sort((a, b) => a.data.order - b.data.order);
-const groups = [
-  {
-    title: 'Submitted manuscripts',
-    id: 'submitted',
-    match: (status: string) => status === 'submitted' || status === 'under-review' || status === 'with-editor',
-  },
-  {
-    title: 'Preprints',
-    id: 'preprints',
-    match: (status: string, doi = '') => status === 'preprint' && doi.startsWith('10.5281/zenodo.245'),
-  },
-  {
-    title: 'Peer-reviewed articles',
-    id: 'journal',
-    match: (status: string) => status === 'published',
-  },
-] as const;
+const pubs = byOrder(await getCollection('publications'));
 const projects = await getCollection('projects');
-const projectOf = (id?: string) => projects.find((p) => p.id === id)?.data;
 ---
 
-<Base title="Publications" description="Peer-reviewed journal articles, submitted manuscripts, and archived technical reports and preprints, with DOIs and BibTeX." og="publications">
+<Base title="Publications" description="Peer-reviewed journal articles, submitted manuscripts, preprints, and work in preparation, with DOIs and BibTeX." og="publications">
   <header class="page-head wrap">
     <span class="eyebrow"><span class="cm" aria-hidden="true">#</span>Publications</span>
     <h1>Publications</h1>
-    <p class="lede">DOIs are on each line. ORCID <a href={links.orcid}>{site.orcid}</a>.</p>
+    <p class="lede">Status is the status of the record. A manuscript with an editor is not a published paper. A dataset DOI is labelled as a dataset. ORCID <a href={links.orcid}>{site.orcid}</a>.</p>
   </header>
 
   <div class="wrap mt-5">
-    {
-      groups.map((g) => {
-        const items = pubs.filter((p) => g.match(p.data.status, p.data.doi ?? ''));
-        return items.length ? (
-          <section class="pub-group" aria-labelledby={`g-${g.id}`}>
-            <h2 id={`g-${g.id}`}>{g.title}</h2>
-            <ol class="pubs">
-              {items.map((p) => {
-                const d = p.data;
-                const bibId = `bib-${p.id}`;
-                const project = projectOf(d.project);
-                const code = d.code ?? project?.evidence.repo;
-                const live = project?.evidence.live;
-                const doiName = d.status === 'published' || d.status === 'preprint' ? 'DOI' : 'Dataset';
-                return (
-                  <li class="pub">
-                    <span class="badge">
-                      {(d.when || d.year) && <span class="when">{d.when ?? d.year}</span>}
-                      <span class:list={['st', d.status === 'with-editor' && 'editor']}>{pubBadge(d.status)}</span>
-                    </span>
-                    <div>
-                      <p class="t">{d.title}</p>
-                      <p class="a">
-                        {d.authors.map((a, i) => (
-                          <>
-                            {i > 0 && (i === d.authors.length - 1 ? ', & ' : ', ')}
-                            {i + 1 === d.owner_index ? <span class="me">{a}</span> : a}
-                          </>
-                        ))}
-                        {d.venue && <span class="v">. {d.venue}</span>}
-                        {d.manuscript_id && <span class="note">. {d.manuscript_id}</span>}
-                        {d.note && <span class="note">. {d.note}</span>}
-                      </p>
-                      {d.scope && (
-                        <details class="spec">
-                          <summary>Verification record</summary>
-                          <p>{d.scope}</p>
-                        </details>
-                      )}
-                      <div class="row">
-                        {d.doi && <a class="pill-link" href={doiUrl(d.doi)}>{doiName}</a>}
-                        {code && <a class="pill-link" href={code}>Code</a>}
-                        {live && <a class="pill-link" href={live}>Explorer</a>}
-                        {d.url && <a class="pill-link" href={d.url}>PDF</a>}
-                        <button class="copy-btn no-print" type="button" data-copy={bibId}>BibTeX</button>
-                      </div>
-                      <pre id={bibId} hidden>{toBibtex(d, p.id)}</pre>
-                    </div>
-                  </li>
-                );
-              })}
-            </ol>
-          </section>
-        ) : null;
-      })
-    }
+    <PubList pubs={pubs} projects={projects} bibtex />
   </div>
 </Base>

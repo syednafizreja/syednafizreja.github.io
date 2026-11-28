@@ -1,0 +1,75 @@
+{
+  "sections": [
+    { "id": "hero", "enabled": true },
+    { "id": "map", "enabled": true },
+    { "id": "work", "enabled": true },
+    { "id": "method", "enabled": true },
+    { "id": "outputs", "enabled": true },
+    { "id": "tools", "enabled": true },
+    { "id": "about", "enabled": true }
+  ],
+  "featured": ["diagrid-seismic-opt", "shellform", "stress-line-ribs", "shellbench"],
+  "publicationLimit": 8,
+  "hero": {
+    "kicker": "Computational research studio",
+    "headline": "Structures, tested\nagainst reality.",
+    "focus": "Computational design and mechanics of structures under seismic loading, with embodied carbon as a design variable; current work spans superelastic NiTi systems and thin-shell form-finding and stability.",
+    "primary": { "label": "Explore research", "href": "/research/" },
+    "secondary": { "label": "View CV", "href": "/cv/" },
+    "tertiary": { "label": "Projects", "href": "/work/" }
+  },
+  "map": {
+    "heading": "Two directions",
+    "question": "How do we design structural systems that perform better under real seismic demands without ignoring the material and carbon cost of achieving that performance?",
+    "directions": [
+      {
+        "id": "materials",
+        "index": "A",
+        "title": "Superelastic materials and seismic systems",
+        "summary": "Nickel-titanium constitutive models, self-centring fuses, and frame idealisations. Residual drift, peak drift, and carbon stay in the same comparison.",
+        "points": ["Superelastic NiTi", "Constitutive modelling", "Residual and peak drift", "Identification and optimisation"],
+        "project": "diagrid-seismic-opt",
+        "diagram": "hysteresis"
+      },
+      {
+        "id": "shells",
+        "index": "B",
+        "title": "Thin-shell form, stability, and carbon",
+        "summary": "Form-finding, buckling, and embodied carbon for thin concrete shells. A rib layout, a thickness change, and a whole-building floor are different kinds of result.",
+        "points": ["Force-density form-finding", "Buckling and imperfections", "Seismic-aware geometry", "Whole-building carbon"],
+        "project": "shellform",
+        "diagram": "shell"
+      }
+    ]
+  },
+  "work": {
+    "heading": "Selected work",
+    "lede": "A superelastic NiTi diagrid, a form-found shell, stress-line ribs that lost an equal-volume buckling comparison, and a shell floor read as a whole building."
+  },
+  "method": {
+    "heading": "How a result is earned",
+    "intro": "One loop, used only where a project needs it. A numerical check supports a numerical claim. It is not a full-scale experiment.",
+    "steps": [
+      { "id": "question", "title": "Question", "text": "A claim that can fail: drift, buckling, a constitutive response, or a carbon saving." },
+      { "id": "model", "title": "Model", "text": "A return map, a finite-element model, a form-finding scheme, or a carbon inventory." },
+      { "id": "verify", "title": "Verify", "text": "A benchmark, a tangent check, a mesh study, or a test suite, named next to the number." },
+      { "id": "analyse", "title": "Analyse", "text": "Seismic response, stability, or a Pareto comparison, with the result that went the wrong way kept in view." },
+      { "id": "design", "title": "Design", "text": "A fuse, a shell, or a floor, only as strong as the check underneath it." }
+    ]
+  },
+  "outputs": {
+    "heading": "Research outputs",
+    "lede": "Submitted, with the editor, preprint, and published stay in their own words. A dataset DOI is not a journal article."
+  },
+  "tools": {
+    "heading": "Open a model",
+    "lede": "These are the public tools. ShellLab is the force-density solver in the browser. The diagrid explorer is the canopy model from the NiTi study.",
+    "ids": ["shelllab", "diagrid-seismic-opt"]
+  },
+  "about": {
+    "heading": "About",
+    "lines": [
+      "The open questions are 3D thermomechanical shape-memory models, imperfection-sensitive shells and enriched continua, and lightweight systems where seismic performance and embodied carbon are decided together."
+    ]
+  }
+}

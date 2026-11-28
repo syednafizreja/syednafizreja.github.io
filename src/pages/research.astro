@@ -2,27 +2,30 @@
 import { getCollection, getEntry, render } from 'astro:content';
 import Base from '../layouts/Base.astro';
 import IndexRow from '../components/IndexRow.astro';
-import { site } from '../lib/site';
+import { home } from '../lib/home';
 
 const entry = (await getEntry('pages', 'research'))!;
 const { Content } = await render(entry);
-const projects = (await getCollection('projects', (p) => !p.data.draft)).sort((a, b) => +b.data.sort_date - +a.data.sort_date);
+const projects = await getCollection('projects', (p) => !p.data.draft);
+const featured = home.featured
+  .map((id) => projects.find((p) => p.id === id))
+  .filter((p) => p !== undefined);
 ---
 
 <Base title={entry.data.title} description={entry.data.description} og="research">
-  <header class="page-head wrap">
+  <header class="page-head wide wrap">
     <span class="eyebrow"><span class="cm" aria-hidden="true">#</span>Research statement</span>
-    <h1>{site.identity}</h1>
+    <h1>{home.map.question}</h1>
+    <p class="lede">{home.hero.focus}</p>
   </header>
   <div class="wrap section">
     <div class="prose"><Content /></div>
   </div>
   <section class="wrap section" aria-labelledby="projects">
-    <div class="section-head"><h2 id="projects">Projects</h2><a href="/publications/">Publications</a></div>
-    <ol class="index">{projects.map((p) => <IndexRow project={p} thumb={false} />)}</ol>
+    <div class="section-head">
+      <h2 id="projects">Selected studies</h2>
+      <a href="/work/">All projects</a>
+    </div>
+    <ol class="index">{featured.map((p) => <IndexRow project={p} />)}</ol>
   </section>
 </Base>
-
-<style>
-  .page-head h1 { font-size: var(--step-3); max-width: 32ch; }
-</style>

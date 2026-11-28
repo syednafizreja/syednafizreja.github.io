@@ -1,0 +1,31 @@
+---
+import { home } from '../../lib/home';
+
+interface Props {
+  index?: string;
+}
+const { index = '03' } = Astro.props;
+---
+
+<section class="section" id="method" aria-labelledby="method-h">
+  <div class="wrap studio">
+    <div class="section-head">
+      <div>
+        <span class="idx"><span class="cm" aria-hidden="true">#</span>{index}</span>
+        <h2 id="method-h">{home.method.heading}</h2>
+      </div>
+    </div>
+    <p class="lede">{home.method.intro}</p>
+    <ol class="steps">
+      {
+        home.method.steps.map((step, i) => (
+          <li class="step">
+            <span class="step-n" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
+            <h3>{step.title}</h3>
+            <p>{step.text}</p>
+          </li>
+        ))
+      }
+    </ol>
+  </div>
+</section>
