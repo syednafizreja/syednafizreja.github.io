@@ -8,7 +8,7 @@ doi: "10.5281/zenodo.24194144"
 status: with-editor
 type: manuscript
 manuscript_id: "JBE-D-26-22324"
-note: "Elsevier, Q1. Manuscript ID JBE-D-26-22324. With the editor. Dataset 10.5281/zenodo.24194144."
+note: "Elsevier, Q1. Dataset 10.5281/zenodo.24194144."
 scope: "5,184 designs across 36 seismic RC frames, 287 automated tests. Solver stack: CalculiX shell floors coupled into OpenSeesPy RC frames, Python."
 project: shellbench
 order: 2

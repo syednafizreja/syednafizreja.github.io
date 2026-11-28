@@ -39,7 +39,7 @@ export const PUB_STATUS_LABEL = {
   published: 'Published',
   submitted: 'Submitted',
   'under-review': 'Under review',
-  'with-editor': 'With Editor',
+  'with-editor': 'With the editor',
   'in-preparation': 'In preparation',
   preprint: 'Preprint',
 } as const;

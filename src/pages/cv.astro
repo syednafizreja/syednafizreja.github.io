@@ -7,9 +7,11 @@ import edu from '../data/education.json';
 
 const pubs = (await getCollection('publications')).sort((a, b) => a.data.order - b.data.order);
 const cite = (d: (typeof pubs)[number]['data']) => {
-  const authors = d.authors.length > 1 ? d.authors.slice(0, -1).join(', ') + ', & ' + d.authors.at(-1) : d.authors[0];
-  const year = d.year ? ` (${d.year}).` : '.';
-  return { authors, year };
+  const list = d.authors.length > 1 ? `${d.authors.slice(0, -1).join(', ')}, & ${d.authors.at(-1)}` : d.authors[0];
+  const authors = list.replace(/\s+$/, '');
+  // Authors already end with the period after the final initial. A missing year must not add a second one.
+  const head = d.year ? `${authors} (${d.year}).` : `${authors.replace(/\.$/, '')}.`;
+  return { head };
 };
 ---
 
@@ -18,7 +20,7 @@ const cite = (d: (typeof pubs)[number]['data']) => {
     <span class="eyebrow no-print"><span class="cm" aria-hidden="true">#</span>Resume</span>
     <h1>{site.name}</h1>
     <p class="lede">Civil engineer · computational mechanics of materials and structures · constitutive modelling · seismic design · embodied carbon. {site.location}.</p>
-    <p class="lede"><Email /> · ORCID <a href={links.orcid}>{site.orcid}</a> · <a href={links.github}>github.com/{site.github}</a></p>
+    <p class="lede contact-line"><span><Email /> ·</span> <span>ORCID <a href={links.orcid}>{site.orcid}</a> ·</span> <span><a href={links.github}>github.com/{site.github}</a></span></p>
     <div class="cv-actions">
       <a class="btn primary" href={site.cv_pdf} download>Download PDF</a>
       <button class="btn" type="button" onclick="window.print()">Print</button>
@@ -64,7 +66,7 @@ const cite = (d: (typeof pubs)[number]['data']) => {
           </ul>
         </div>
         <div class="entry">
-          <div class="entry-head"><h3><a href="/work/diagrid-seismic-opt/">Diagrid seismic opt</a>: superelastic NiTi fuses against yielding steel</h3><span class="when">2026</span></div>
+          <div class="entry-head"><h3><a href="/work/diagrid-seismic-opt/">Diagrid seismic optimisation</a>: superelastic NiTi fuses against yielding steel</h3><span class="when">2026</span></div>
           <p class="where">Lead researcher and developer · Python, OpenSeesPy, scikit-learn, PyTorch · MIT licence</p>
           <ul>
             <li>1D Auricchio–Sacco NiTi constitutive driver with exact consistent tangent (&lt; 1e-7) and Clausius–Duhem dissipation monitoring.</li>
@@ -120,10 +122,10 @@ const cite = (d: (typeof pubs)[number]['data']) => {
           {
             pubs.map((p) => {
               const d = p.data;
-              const { authors, year } = cite(d);
+              const { head } = cite(d);
               return (
                 <li value={d.order}>
-                  {authors}{year} {d.title}.{' '}
+                  {head} {d.title}.{' '}
                   {d.type === 'journal' ? (
                     <em>{d.venue}, {d.volume}{d.issue && `(${d.issue})`}{d.pages && `, ${d.pages}`}.</em>
                   ) : (
@@ -204,6 +206,7 @@ const cite = (d: (typeof pubs)[number]['data']) => {
 </Base>
 
 <style>
+  .contact-line > span { display: inline-block; }
   .cv-pubs { padding-left: 2.2em; }
   .cv-pubs li { font-size: 0.95rem; }
   .cv-pubs li + li { margin-top: 0.4rem; }

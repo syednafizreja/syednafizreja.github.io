@@ -22,7 +22,7 @@ export function toBibtex(p: Pub, id: string): string {
     type = 'unpublished';
     const status =
       p.status === 'with-editor'
-        ? `With editor${p.venue ? `, ${p.venue}` : ''}`
+        ? `With the editor${p.venue ? `, ${p.venue}` : ''}`
         : p.status === 'under-review'
           ? `Under review${p.venue ? `, ${p.venue}` : ''}`
           : p.status === 'submitted'
